@@ -1,0 +1,32 @@
+<div class="container mt-4">
+  <h2>Danh sách album</h2>
+  <table class="table table-striped-columns">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">STT</th>
+        <th scope="col">Tên</th>
+        <th scope="col">Ca sĩ</th>
+        <th scope="col">Thể loại</th>
+        <th scope="col">Mô tả</th>
+        <th scope="col">Hình ảnh</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each album}}
+      <tr>
+        <th scope="row">{{sum @index 1}}</th>
+        <td>{{this.name}}</td>
+        <td>{{this.singer}}</td>
+        <td>{{this.type}}</td>
+        <td>{{this.description}}</td>
+        <td>{{this.img}}</td>
+        <td>
+          <a class="btn btn-primary" href="/album/edit/{{this._id}}" role="button">Sửa</a>
+          <a class="btn btn-primary" href="/album/delete" role="button">Xoá</a>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
