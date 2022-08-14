@@ -10,8 +10,6 @@ const Music = new Schema({
   avatar: { type: String },
   source: { type: String },
   views: { type: Number },
-  create_at: { type: Date, default: Date.now },
-  update_at: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model("Music", Music);

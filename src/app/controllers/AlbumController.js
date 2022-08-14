@@ -5,12 +5,13 @@ const slugify = require("slugify");
 
 class AlbumController {
   index(req, res, next) {
-    Album.find({})
-      .then((album) => {
-        res.render("./albums/albums", {
+    Promise.all([Album.find({}), Album.countDocumentsDeleted()])
+      .then(([album, deletedCount]) =>
+        res.render("albums/albums", {
+          deletedCount,
           album: multipleMongooseToObject(album),
-        });
-      })
+        })
+      )
       .catch(next);
   }
 
@@ -30,14 +31,11 @@ class AlbumController {
 
   // [POST] album/store
   store(req, res, next) {
-    const formData = req.body;
-
     const album = new Album(req.body);
     album
       .save()
-      .then(() => res.redirect("/"))
+      .then(() => res.redirect("/album"))
       .catch((error) => {});
-    res.redirect("/");
   }
 
   // album/edit/:id [GET]
@@ -52,10 +50,8 @@ class AlbumController {
   }
 
   // [PUT] album/:slug
-
   update(req, res, next) {
     const formData = req.body;
-    // formData.image = `https://img.youtube.com/vi/${req.body.videoId}/sddefault.jpg`;
     formData.slug = slugify(formData.name, {
       remove: /[*+~.,()'"!:@]/g,
       lower: true,
@@ -67,6 +63,40 @@ class AlbumController {
       .then(() => res.redirect("/album"))
       .catch(next);
   }
+
+  // [DELETE] /album/:id
+  destroy(req, res, next) {
+    Album.delete({ _id: req.params.id })
+      .then(() => res.redirect("back"))
+      .catch(next);
+  }
+
+  // [DELETE] /album/force/:id
+  forceDestroy(req, res, next) {
+    Album.deleteOne({ _id: req.params.id })
+      .then(() => res.redirect("back"))
+      .catch(next);
+  }
+
+  // [GET] /album/bin
+  albumBin(req, res, next) {
+    Album.findDeleted({})
+      .then((album) => {
+        res.render("./albums/bin", {
+          album: multipleMongooseToObject(album),
+        });
+      })
+      .catch(next);
+  }
+
+  // [PATCH] album/restore/:id
+  restore(req, res, next) {
+    Album.restore({ _id: req.params.id })
+      .then(() => res.redirect("back"))
+      .catch(next);
+  }
+
+  // res.json(req.body)
 }
 
 module.exports = new AlbumController();
