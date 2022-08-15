@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 async function connect() {
   try {
     await mongoose.connect(
-      "mongodb+srv://ZoneNop:UJpQKbiXW6aq2fU5@musicweb.vrcp1i7.mongodb.net/?retryWrites=true"
+      "mongodb+srv://ZoneNop:UJpQKbiXW6aq2fU5@musicweb.vrcp1i7.mongodb.net/MusicWeb?retryWrites=true"
     );
 
     console.log("Connect successfully !");
