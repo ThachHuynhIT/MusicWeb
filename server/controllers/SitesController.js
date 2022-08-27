@@ -15,7 +15,7 @@ class SitesController {
 
   //[GET] route /music:slug (mo rong)
   admin(req, res) {
-    res.render("./admin/login");
+    res.render("new");
   }
 }
 

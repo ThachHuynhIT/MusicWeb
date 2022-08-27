@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 async function connect() {
   try {
     await mongoose.connect(
-      "mongodb+srv://ZoneNop:UJpQKbiXW6aq2fU5@musicweb.vrcp1i7.mongodb.net/MusicWeb?retryWrites=true"
+      process.env.MONGODB_URI
     );
     console.log("Connect successfully !");
   } catch (error) {
