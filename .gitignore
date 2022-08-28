@@ -1,6 +1,4 @@
 node_modules/
-public/
-resource/
 debug.log
 .vscode
 .env

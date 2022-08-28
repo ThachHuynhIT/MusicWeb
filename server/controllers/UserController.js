@@ -5,6 +5,7 @@ const loginValidator = require("../validations/login");
 const signupValidator = require("../validations/signup");
 const jwt = require("jsonwebtoken");
 const co = require("co");
+require("dotenv").config();
 
 class UsersController {
   //[GET] route /user/list
@@ -52,10 +53,8 @@ class UsersController {
       .then((user) => {
         const token = jwt.sign(
           { _id: req.params._id },
-          process.env.TOKEN_SECRET,
-          {
-            expiresIn: 60 * 60 * 24,
-          }
+           process.env.TOKEN_SECRET,
+          { expiresIn: 60 * 60 * 24 }
         );
         res
           .header({
@@ -108,8 +107,6 @@ class UsersController {
       })
       .catch(next);
   }
-
-
 }
 
 module.exports = new UsersController();
