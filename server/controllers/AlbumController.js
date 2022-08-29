@@ -20,8 +20,7 @@ class AlbumController {
       .then(([album, deletedCount]) =>
         res.send( {
           // deletedCount,
-          album: multipleMongooseToObject(album),
-          
+          album:album,
         })
       )
       .catch(next);
