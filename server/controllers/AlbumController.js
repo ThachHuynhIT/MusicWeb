@@ -4,12 +4,23 @@ const { mongooseToObject } = require("../util/mongoose");
 const slugify = require("slugify");
 
 class AlbumController {
+  // index(req, res, next) {
+  //   Promise.all([Album.find({}), Album.countDocumentsDeleted()])
+  //     .then(([album, deletedCount]) =>
+  //       res.send( {
+  //         deletedCount,
+  //         album: multipleMongooseToObject(album),
+  //       })
+  //     )
+  //     .catch(next);
+  // }
+
   index(req, res, next) {
     Promise.all([Album.find({}), Album.countDocumentsDeleted()])
       .then(([album, deletedCount]) =>
-        res.render("albums/albums", {
-          deletedCount,
-          album: multipleMongooseToObject(album),
+        res.send( {
+          // deletedCount,
+          album:album,
         })
       )
       .catch(next);

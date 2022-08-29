@@ -4,6 +4,7 @@ const methodOverride = require("method-override");
 const morgan = require("morgan");
 const slugify = require("slugify");
 const handlebars = require("express-handlebars");
+require("dotenv").config();
 
 const route = require("./routes");
 const db = require("./config/db");
@@ -12,7 +13,7 @@ db.connect();
 
 // const { engine } = require ('express-handlebars');
 const app = express();
-const port = 3000;
+const port = process.env.SERVER_PORT;
 
 app.use(
   express.static(path.join(__dirname, "../test/public"))
