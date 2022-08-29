@@ -1,9 +1,9 @@
 import React from "react";
 import Player from "../../Player";
 import { getAlbumSongs } from "../../../actions/album";
-import songs from "d:/WEB/reactjs/music-ui/src/data/songs.json";
-import albums from "d:/WEB/reactjs/music-ui/src/data/albums.json";
-import SongList from "D:/WEB/reactjs/music-ui/src/components/SongList/index";
+import songs from "D:/WorkSpace/NodeWordSpace/MusicWeb/client/src/data/songs.json";
+import albums from "D:/WorkSpace/NodeWordSpace/MusicWeb/client/src/data/albums.json";
+import SongList from "D:/WorkSpace/NodeWordSpace/MusicWeb/client/src/components/SongList/index";
 import { selectAlbum } from "../../../actions/album";
 import SongListHeader from "../../SongListHeader";
 import SongDetail from "../../SongDetail";

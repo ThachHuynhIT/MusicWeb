@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 import styles from "./Home.module.scss";
 import ListItem from "../../ListItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import albums from "d:/WEB/reactjs/music-ui/src/data/albums.json";
+import albums from "dD:/WorkSpace/NodeWordSpace/MusicWeb/client/src/data/albums.json";
 
 const cx = classNames.bind(styles);
 

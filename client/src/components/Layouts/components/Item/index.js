@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { connect, useDispatch } from "react-redux";
 // import { connect, useDispatch } from "react-redux";
-// import { selectSong } from "d:/WEB/reactjs/music-ui/src/actions";
+// import { selectSong } from "D:/WorkSpace/NodeWordSpace/MusicWeb/client/src/actions";
 import { selectSong } from "../../../actions";
 import classNames from "classnames/bind";
 import styles from "./Item.module.scss";

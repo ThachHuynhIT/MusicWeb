@@ -6,7 +6,7 @@ import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { connect, useDispatch } from "react-redux";
-// import { selectAlbum } from "d:/WEB/reactjs/music-ui/src/actions";
+// import { selectAlbum } from "D:/WorkSpace/NodeWordSpace/MusicWeb/client/src/actions";
 import React from "react";
 import ReactDOM from "react-dom";
 const cx = classNames.bind(styles);
@@ -54,7 +54,7 @@ const ItemList = ({
                 selectAlbum(album);
               }}
             >
-              <div className={cx("name", "name-text")}>{album.albumname}</div>
+              <div className={cx("name", "name-text")}>{album.name}</div>
             </Link>
             <div className={cx("card-type")}>
               <span className={cx("type", "type-text")}>Album</span>
