@@ -3,8 +3,8 @@ import { Fragment } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { PublicRoutes } from "./routes";
 import DefaultLayout from "./components/Layouts/DefaultLayout";
-import songs from "D:/WorkSpace/NodeWordSpace/MusicWeb/client/src/data/songs.json";
-import albums from "D:/WorkSpace/NodeWordSpace/MusicWeb/client/src/data/albums.json";
+import songs from "D:/WEB/reactjs/MusicWeb/client/src/data/songs.json";
+import albums from "D:/WEB/reactjs/MusicWeb/client/src/data/albums.json";
 
 function App() {
   return (

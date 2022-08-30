@@ -654,7 +654,7 @@ class LoginLayout extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App zx">
         <form>
           <div className="svgContainer">
             <div>

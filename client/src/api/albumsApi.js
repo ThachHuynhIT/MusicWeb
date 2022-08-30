@@ -1,9 +1,9 @@
 import { httpRequests } from "../utils";
 export const getAllAlbum = async () => {
-    try {
-        const res = await httpRequests.get('album');    
-        return res;
-    } catch (error) {
-        console.log(error)
-    }
-} 
+  try {
+    const res = await httpRequests.get("album");
+    return res.album;
+  } catch (error) {
+    console.log(error);
+  }
+};

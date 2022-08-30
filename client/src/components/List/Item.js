@@ -11,13 +11,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 const cx = classNames.bind(styles);
 
-const ItemList = ({
-  album,
-  index,
-  selectAlbum,
-  selectedAlbumId,
-  playerState,
-}) => {
+const Item = ({ album, index, selectAlbum, selectedAlbumId, playerState }) => {
   const [, setHovered] = useState(false);
   const dispatch = useDispatch();
   return (
@@ -70,4 +64,4 @@ const mapStateToProps = (state) => {
     selectAlbum: state.selectedAlbum,
   };
 };
-export default connect(mapStateToProps, { selectAlbum })(ItemList);
+export default connect(mapStateToProps, { selectAlbum })(Item);

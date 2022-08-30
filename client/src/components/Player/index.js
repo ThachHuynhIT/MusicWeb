@@ -1,4 +1,3 @@
-import "./Player.css";
 import React from "react";
 import ReactDOM from "react-dom";
 import { useEffect, useRef, useState } from "react";
@@ -16,7 +15,9 @@ import {
   coffee,
 } from "@fortawesome/free-solid-svg-icons";
 import { render } from "@testing-library/react";
-
+import styles from "./Player.module.scss";
+import classNames from "classnames/bind";
+const cx = classNames.bind(styles);
 const Player = ({
   selectedSongId,
   defaultSong,
@@ -115,17 +116,17 @@ const Player = ({
   }, [dispatch]);
 
   return (
-    <div id="player">
+    <div id={cx("player")}>
       {/* <SongTime /> */}
       <TimeSlider
         axis="x"
-        className="completed"
+        className={cx("completed")}
         xmax={duration}
         x={currentLocation}
         onChange={handleTimeSliderChange}
       />
       <div
-        className="control"
+        className={cx("control")}
         id={shuffled ? `active` : null}
         onClick={() => {
           setShuffled(shuffled);
@@ -139,7 +140,7 @@ const Player = ({
           ></path>
         </svg>
       </div>
-      <div className="control" onClick={onBackwardClick}>
+      <div className={cx("control")} onClick={onBackwardClick}>
         <svg role="img" height="24" width="24" viewBox="0 0 16 16" className="">
           <path
             d="M13 2.5L5 7.119V3H3v10h2V8.881l8 4.619z"
@@ -147,10 +148,10 @@ const Player = ({
           ></path>
         </svg>
       </div>
-      <div className="main-control control" onClick={onMusicPlay}>
+      <div className={cx("main-control", "control")} onClick={onMusicPlay}>
         {icon()}
       </div>
-      <div className="control" onClick={onForwardClick}>
+      <div className={cx("control")} onClick={onForwardClick}>
         <svg role="img" height="24" width="24" viewBox="0 0 16 16" className="">
           <path
             d="M11 3v4.119L3 2.5v11l8-4.619V13h2V3z"
