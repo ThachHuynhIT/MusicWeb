@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { connect, useDispatch } from "react-redux";
 // import { connect, useDispatch } from "react-redux";
 // import { selectSong } from "D:/WEB/reactjs/MusicWeb/client/src/actions";
-import { selectSong } from "../../../actions";
+import { selectSong } from "../../../../actions";
 import classNames from "classnames/bind";
 import styles from "./Item.module.scss";
 const cx = classNames.bind(styles);

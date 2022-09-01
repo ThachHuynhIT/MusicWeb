@@ -1,6 +1,6 @@
 import { connect, useDispatch } from "react-redux";
 
-import { selectSong, setPlayerState } from "../actions";
+import { selectAlbum, setPlayerState } from "../../actions";
 import { useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./SongDetail.module.scss";
@@ -9,18 +9,18 @@ import ReactDOM from "react-dom";
 const cx = classNames.bind(styles);
 
 const SongDetail = ({
-  selectedSongId = -1,
-  defaultSong,
-  selectSong,
-  songs,
+  selectedAlbumId = -1,
+  defaultAlbum,
+  selectAlbum,
+  albums,
   playerState,
-  song,
+  album,
   index,
 }) => {
   const [, setHovered] = useState(false);
   const dispatch = useDispatch();
   const phaser = () => {
-    if (selectedSongId === song.id && playerState) {
+    if (selectedAlbumId === album.id && playerState) {
       return (
         <div>
           <img alt="" src="/playing.gif" id="focused" />
@@ -35,8 +35,8 @@ const SongDetail = ({
       return (
         <div className={cx("album-img")}>
           <img
-            src={songs[selectedSongId].links.images[1].url}
-            alt={songs[selectedSongId].name}
+            src={albums[selectedAlbumId].links.images[1].url}
+            alt={albums[selectedAlbumId].name}
             className={cx("pause-img")}
           />
         </div>
@@ -45,8 +45,8 @@ const SongDetail = ({
       return (
         <div className={cx("album-img")}>
           <img
-            src={songs[selectedSongId].links.images[1].url}
-            alt={songs[selectedSongId].name}
+            src={albums[selectedAlbumId].links.images[1].url}
+            alt={albums[selectedAlbumId].name}
             className={cx("play-img")}
           />
         </div>
@@ -55,33 +55,22 @@ const SongDetail = ({
   };
 
   const songData = () => {
-    if (selectedSongId >= 0) {
+    if (selectedAlbumId >= 0) {
       return (
         <>
-          {/* <div className={cx("now-playing")}>
-            <div id={cx("now-playing")}>
-             
-            </div>
-            <div className={cx("header")}>{songs[selectedSongId].name}</div>
-          </div> */}
-
           <div className={cx("artist-img")}>
             <div className={cx("header", "pad")}>
-              {songs[selectedSongId].name}
+              {albums[selectedAlbumId].name}
             </div>
-            {/* <img
-              src={songs[selectedSongId].links.images[0].url}
-              alt={songs[selectedSongId].author}
-              className={cx("pad")}
-            /> */}
-            <p className={cx("artist-name", "pad")}>
+
+            {/* <p className={cx("artist-name", "pad")}>
               {songs[selectedSongId].author}
-            </p>
+            </p> */}
           </div>
         </>
       );
     } else {
-      selectSong(defaultSong);
+      selectAlbum(defaultAlbum);
       return null;
     }
   };
@@ -104,14 +93,14 @@ const SongDetail = ({
 
 const mapStateToProps = (state) => {
   return {
-    selectedSongId: state.selectedSongId,
-    defaultSong: state.songs[0],
-    songs: state.songs,
+    selectedAlbumId: state.selectedAlbumId,
+    defaultAlbum: state.albums[0],
+    albums: state.albums,
     playerState: state.playerState,
   };
 };
 
 export default connect(mapStateToProps, {
   setPlayerState,
-  selectSong: selectSong,
+  selectAlbum: selectAlbum,
 })(SongDetail);

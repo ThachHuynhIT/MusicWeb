@@ -8,18 +8,17 @@ import { useState } from "react";
 
 const cx = classNames.bind(styles);
 const ListItem = ({ albums = [], typee }) => {
-  const [songList, setsongsList] = useState([]);
   const albumTags = albums.map((album, index) => {
-    console.log(album);
-    if (album.singer === typee) {
-      return <Item album={album} key={index} index={index} />;
-    }
+    // if (album.type === typee) {
+    return <Item album={album} key={index} index={index} />;
+    // }
   });
   return (
     <div className={cx("content")}>
       <div className={cx("top-list")}>
         <div className={cx("top-list-left")}>
-          <h2 className={cx("titel-list", "titel-type")}>{typee}</h2>
+          <h2 className={cx("titel-list", "titel-type")}>Nhạc hay</h2>
+          {/* <h2 className={cx("titel-list", "titel-type")}>{typee}</h2> */}
         </div>
         <a className={cx("top-list-right")} href={"/"}>
           <span className={cx("more-list")}>Xem tất cả</span>

@@ -53,7 +53,7 @@ class UsersController {
       .then((user) => {
         const token = jwt.sign(
           { _id: req.params._id },
-           process.env.TOKEN_SECRET,
+          process.env.TOKEN_SECRET,
           { expiresIn: 60 * 60 * 24 }
         );
         res
@@ -93,7 +93,14 @@ class UsersController {
       const user = new User(req.body);
       return user.save();
     })
-      .then(() => res.json({ signupStatus: "success" }))
+      .then(() =>
+        res.status(200).json({
+          message: {
+            msgBody: "Tao tai khoan thanh cong",
+            msgError: false,
+          },
+        })
+      )
       .catch((err) => next(err));
   }
 

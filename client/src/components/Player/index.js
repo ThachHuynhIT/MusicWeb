@@ -3,11 +3,11 @@ import ReactDOM from "react-dom";
 import { useEffect, useRef, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import TimeSlider from "react-input-slider";
-import { setPlayerState, selectSongById, setTime } from "../actions";
+import { setPlayerState, selectSongById, setTime } from "../../actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import MiniSong from "./MiniSong";
 import Progress from "../Progress";
-import SongTime from "../SongTime";
+
 import {
   faPause,
   faPauseCircle,
@@ -118,86 +118,115 @@ const Player = ({
   return (
     <div id={cx("player")}>
       {/* <SongTime /> */}
-      <TimeSlider
-        axis="x"
-        className={cx("completed")}
-        xmax={duration}
-        x={currentLocation}
-        onChange={handleTimeSliderChange}
-      />
-      <div
-        className={cx("control")}
-        id={shuffled ? `active` : null}
-        onClick={() => {
-          setShuffled(shuffled);
-          // console.log("shuffle: " + !shuffled);
-        }}
-      >
-        <svg role="img" height="24" width="24" viewBox="0 0 16 16" className="">
-          <path
-            d="M4.5 6.8l.7-.8C4.1 4.7 2.5 4 .9 4v1c1.3 0 2.6.6 3.5 1.6l.1.2zm7.5 4.7c-1.2 0-2.3-.5-3.2-1.3l-.6.8c1 1 2.4 1.5 3.8 1.5V14l3.5-2-3.5-2v1.5zm0-6V7l3.5-2L12 3v1.5c-1.6 0-3.2.7-4.2 2l-3.4 3.9c-.9 1-2.2 1.6-3.5 1.6v1c1.6 0 3.2-.7 4.2-2l3.4-3.9c.9-1 2.2-1.6 3.5-1.6z"
-            fill="currentColor"
-          ></path>
-        </svg>
-      </div>
-      <div className={cx("control")} onClick={onBackwardClick}>
-        <svg role="img" height="24" width="24" viewBox="0 0 16 16" className="">
-          <path
-            d="M13 2.5L5 7.119V3H3v10h2V8.881l8 4.619z"
-            fill="currentColor"
-          ></path>
-        </svg>
-      </div>
-      <div className={cx("main-control", "control")} onClick={onMusicPlay}>
-        {icon()}
-      </div>
-      <div className={cx("control")} onClick={onForwardClick}>
-        <svg role="img" height="24" width="24" viewBox="0 0 16 16" className="">
-          <path
-            d="M11 3v4.119L3 2.5v11l8-4.619V13h2V3z"
-            fill="currentColor"
-          ></path>
-        </svg>
-      </div>
-      <Progress />
 
-      <audio
-        id="main-track"
-        controls
-        src={songs[selectedSongId].url}
-        preload="true"
-        onEnded={() => {
-          selectSongById(
-            shuffled
-              ? Math.round(Math.random() * songs.length)
-              : selectedSongId + 1
-          );
-        }}
-        onLoadedMetadata={() => {
-          dispatch({
-            type: "SET_DURATION",
-            payload: audioRef.current.duration,
-          });
+      <div className={cx("player-left")}>
+        <MiniSong />
+      </div>
+      <div className={cx("player-right")}>
+        <div className={cx("right-top")}>
+          <div
+            className={cx("control")}
+            id={shuffled ? `active` : null}
+            onClick={() => {
+              setShuffled(shuffled);
+              // console.log("shuffle: " + !shuffled);
+            }}
+          >
+            <svg
+              role="img"
+              height="24"
+              width="24"
+              viewBox="0 0 16 16"
+              className=""
+            >
+              <path
+                d="M4.5 6.8l.7-.8C4.1 4.7 2.5 4 .9 4v1c1.3 0 2.6.6 3.5 1.6l.1.2zm7.5 4.7c-1.2 0-2.3-.5-3.2-1.3l-.6.8c1 1 2.4 1.5 3.8 1.5V14l3.5-2-3.5-2v1.5zm0-6V7l3.5-2L12 3v1.5c-1.6 0-3.2.7-4.2 2l-3.4 3.9c-.9 1-2.2 1.6-3.5 1.6v1c1.6 0 3.2-.7 4.2-2l3.4-3.9c.9-1 2.2-1.6 3.5-1.6z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </div>
 
-          setInterval(() => {
-            dispatch({
-              type: "SET_CURRENT_LOCATION",
-              payload: audioRef.current.currentTime,
-            });
-          }, 1000);
-        }}
-        onTimeUpdate={() => {
-          dispatch({
-            type: "SET_TIME",
-            payload: audioRef.current.currentTime,
-          });
-        }}
-        ref={audioRef}
-        hidden
-      >
-        Your browser does not support the
-        <code>audio</code> element.
-      </audio>
+          <div className={cx("control")} onClick={onBackwardClick}>
+            <svg
+              role="img"
+              height="24"
+              width="24"
+              viewBox="0 0 16 16"
+              className=""
+            >
+              <path
+                d="M13 2.5L5 7.119V3H3v10h2V8.881l8 4.619z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </div>
+          <div className={cx("main-control", "control")} onClick={onMusicPlay}>
+            {icon()}
+          </div>
+          <div className={cx("control")} onClick={onForwardClick}>
+            <svg
+              role="img"
+              height="24"
+              width="24"
+              viewBox="0 0 16 16"
+              className=""
+            >
+              <path
+                d="M11 3v4.119L3 2.5v11l8-4.619V13h2V3z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </div>
+          <Progress />
+
+          <audio
+            id="main-track"
+            controls
+            src={songs[selectedSongId].url}
+            preload="true"
+            onEnded={() => {
+              selectSongById(
+                shuffled
+                  ? Math.round(Math.random() * songs.length)
+                  : selectedSongId + 1
+              );
+            }}
+            onLoadedMetadata={() => {
+              dispatch({
+                type: "SET_DURATION",
+                payload: audioRef.current.duration,
+              });
+
+              setInterval(() => {
+                dispatch({
+                  type: "SET_CURRENT_LOCATION",
+                  payload: audioRef.current.currentTime,
+                });
+              }, 1000);
+            }}
+            onTimeUpdate={() => {
+              dispatch({
+                type: "SET_TIME",
+                payload: audioRef.current.currentTime,
+              });
+            }}
+            ref={audioRef}
+            hidden
+          >
+            Your browser does not support the
+            <code>audio</code> element.
+          </audio>
+        </div>
+        <div className={cx("right-bottom")}>
+          <TimeSlider
+            axis="x"
+            className={cx("completed")}
+            xmax={duration}
+            x={currentLocation}
+            onChange={handleTimeSliderChange}
+          />
+        </div>
+      </div>
     </div>
   );
 };

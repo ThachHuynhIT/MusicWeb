@@ -1,4 +1,4 @@
-import { LoginLayout } from "../../components/Layouts/Account";
+import { LoginLayout } from "../../components/Layouts/User";
 import React from "react";
 import ReactDOM from "react-dom";
 function Login() {

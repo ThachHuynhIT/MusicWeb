@@ -1,9 +1,9 @@
 import classNames from "classnames/bind";
 import styles from "./ListItem.module.scss";
-import { selectAlbum } from "../../actions/album";
+import { selectAlbum } from "../../actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { connect, useDispatch } from "react-redux";
 // import { selectAlbum } from "D:/WorkSpace/NodeWordSpace/MusicWeb/client/src/actions";
@@ -11,7 +11,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 const cx = classNames.bind(styles);
 
-const Item = ({ album, index, selectAlbum, selectedAlbumId, playerState }) => {
+const Item = ({ album, selectAlbum }) => {
   const [, setHovered] = useState(false);
   const dispatch = useDispatch();
   return (
@@ -43,7 +43,7 @@ const Item = ({ album, index, selectAlbum, selectedAlbumId, playerState }) => {
           <div className={cx("card-bottom")}>
             <Link
               className={cx("card-name")}
-              to={"/album/${album.id}"}
+              to={`/album/${album._id}`}
               onClick={() => {
                 selectAlbum(album);
               }}

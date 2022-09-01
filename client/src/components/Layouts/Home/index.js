@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import * as albumsApi from "../../../api/albumsApi";
+import * as albumsSrevice from "../../../service/albumsSevrice";
 import ReactDOM from "react-dom";
 import classNames from "classnames/bind";
 import styles from "./Home.module.scss";
 import List from "../../List";
+import ListSinger from "../../ListSinger";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import albums from "D:/WEB/reactjs/MusicWeb/client/src/data/albums.json";
 
@@ -18,12 +19,12 @@ function HomeLayout() {
   const [typeAlbum, setTypeAlbum] = useState([]);
   useEffect(() => {
     const fetchApi = async () => {
-      const response = await albumsApi.getAllAlbum();
+      const response = await albumsSrevice.getAllAlbum();
 
       var type = [];
 
       for (let i = 0; i < response.length; i++) {
-        type[i] = response[i].singer;
+        type[i] = response[i].type;
       }
       const uniqueSet = new Set(type);
       const backToArray = [...uniqueSet];
@@ -37,11 +38,12 @@ function HomeLayout() {
   }, []);
 
   return (
-    <div className={cx("main-view-container")}>
+    <div className={cx("main-view-container", "scroll")}>
       <div className={cx("top-padding")}></div>
       <div className={cx("content")}>
         <section className={cx("list-item")}>
-          <List albums={albumsList} type={typeAlbum} />
+          <List albums={albums} type={typeAlbum} />
+          <ListSinger singers={albumsList} />
         </section>
       </div>
     </div>

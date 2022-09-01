@@ -1,10 +1,10 @@
 import React from "react";
 import Player from "../../Player";
-import { getAlbumSongs } from "../../../actions/album";
+
 import songs from "D:/WEB/reactjs/MusicWeb/client/src/data/songs.json";
 import albums from "D:/WEB/reactjs/MusicWeb/client/src/data/albums.json";
 import SongList from "D:/WEB/reactjs/MusicWeb/client/src/components/SongList/index";
-import { selectAlbum } from "../../../actions/album";
+
 import SongListHeader from "../../SongListHeader";
 import SongDetail from "../../SongDetail";
 // import ListItem from "../../List";
@@ -44,7 +44,7 @@ function AlbumLayout() {
           </div>
           <div className={cx("view-right", "scroll")}>
             <SongListHeader />
-            {/* <SongList songs={productList.songs} /> */}
+            <SongList songs={songs} />
           </div>
         </div>
         <div className={cx("main-view-bottom")}>

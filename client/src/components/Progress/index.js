@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setVolume } from "../actions";
+import { setVolume } from "../../actions";
 
 import ReactDOM from "react-dom";
 import styles from "./ProgressBar.module.scss";
