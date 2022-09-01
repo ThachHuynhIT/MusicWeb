@@ -1,24 +1,19 @@
-const musicRouter = require("./music");
-const sitesRouter = require("./site");
-const albumRouter = require("./album");
-const userRouter = require("./user");
-const verifyToken = require("../middlewares/verifyToken")
+const admin = require("./admin");
+const media = require("./api/media");
+const playlist = require("./api/playlist");
+const user = require("./api/user");
+const verifyToken = require("../../middlewares/verifyToken")
 
 function route(app) {
-  // app.use("/playlist",verifyToken,playList)
-  app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
-   
-  app.use("/user", userRouter);
 
-  app.use("/album", albumRouter);
+    app.use("/media", media);
 
-  app.use("/music", musicRouter);
+    app.use("/user", user);
 
-  app.use("/", sitesRouter);
-}
+    app.use("/playlits", playlist);
 
-module.exports = route;
+    app.use("/admin", admin);
+  
+  }
+  
+  module.exports = route;

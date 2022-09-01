@@ -1,9 +1,9 @@
 const express = require("express");
 const User = require('./../models/User');
-const verifyToken = require('./../middlewares/verifyToken');
+const verifyToken = require('../../middlewares/verifyToken');
 const router = express.Router();
 
-const userController = require("../controllers/UserController");
+const userController = require("../../controllers/UserController");
 
 router.get("/", verifyToken,(req, res) => {
   User.find({}).exec(function (err, users) {
