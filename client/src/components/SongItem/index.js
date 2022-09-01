@@ -3,7 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { connect, useDispatch } from "react-redux";
 
-import { selectSong } from "../actions";
+import { selectSong } from "../../actions";
 import classNames from "classnames/bind";
 import styles from "./SongItem.module.scss";
 const cx = classNames.bind(styles);

@@ -1,17 +1,18 @@
 import React from "react";
 import Player from "../../Player";
-import { getAlbumSongs } from "../../../actions/album";
-import songs from "D:/WorkSpace/NodeWordSpace/MusicWeb/client/src/data/songs.json";
-import albums from "D:/WorkSpace/NodeWordSpace/MusicWeb/client/src/data/albums.json";
-import SongList from "D:/WorkSpace/NodeWordSpace/MusicWeb/client/src/components/SongList/index";
-import { selectAlbum } from "../../../actions/album";
+
+import songs from "D:/WEB/reactjs/MusicWeb/client/src/data/songs.json";
+import albums from "D:/WEB/reactjs/MusicWeb/client/src/data/albums.json";
+import SongList from "D:/WEB/reactjs/MusicWeb/client/src/components/SongList/index";
+
 import SongListHeader from "../../SongListHeader";
 import SongDetail from "../../SongDetail";
-import ListItem from "../../ListItem";
+// import ListItem from "../../List";
 import classNames from "classnames/bind";
 import styles from "./Album.module.scss";
-import songsApi from "../../../api/songsApi";
+// import * as songsApi from "../../../api/songsApi";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 const cx = classNames.bind(styles);
 // for (let index = 0; index < albums.length; index++) {
 //   const song = songs[index];
@@ -19,19 +20,20 @@ const cx = classNames.bind(styles);
 // }
 
 function AlbumLayout() {
-  const [productList, setProductList] = useState([]);
-  useEffect(() => {
-    const fetchProductList = async () => {
-      try {
-        const response = await songsApi.getAll();
-        console.log("Fetch products successfully: ", response);
-        setProductList(response.data);
-      } catch (error) {
-        console.log("Failed to fetch product list: ", error);
-      }
-    };
-    fetchProductList();
-  }, []);
+  // const [productList, setProductList] = useState([]);
+  // const { id } = useParams();
+  // useEffect(() => {
+  //   const fetchApi = async () => {
+  //     const response = await songsApi.getSongsFromAlbum(id);
+
+  //     console.log(response);
+  //     setProductList(response);
+  //   };
+  //   fetchApi();
+  // }, []);
+
+  // console.log(id);
+
   return (
     <React.Fragment>
       <div className={cx("main-view-container", "scroll")}>
@@ -42,12 +44,12 @@ function AlbumLayout() {
           </div>
           <div className={cx("view-right", "scroll")}>
             <SongListHeader />
-            <SongList songs={productList} />
+            <SongList songs={songs} />
           </div>
         </div>
         <div className={cx("main-view-bottom")}>
           <section className={cx("list-item")}>
-            <ListItem albums={albums} />
+            {/* <ListItem albums={albums} /> */}
           </section>
         </div>
       </div>

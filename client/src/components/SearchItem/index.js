@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 import styles from "./SearchItem.module.scss";
 const cx = classNames.bind(styles);
 
-function SearchItem() {
+function SearchItem({ data }) {
   return (
     <div className={cx("wrapper")}>
       <img
@@ -16,7 +16,7 @@ function SearchItem() {
         <h4 className={cx("name")}>
           <span>Nguyen Van A</span>
         </h4>
-        <span className={cx("username")}>nguyenvana</span>
+        <span className={cx("username")}>{data.name}</span>
       </div>
     </div>
   );

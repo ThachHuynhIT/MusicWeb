@@ -18,9 +18,9 @@ root.render(
     )}
   >
     {/* <React.StrictMode> */}
-      <GlobalStyles>
-        <App />
-      </GlobalStyles>
+    <GlobalStyles>
+      <App />
+    </GlobalStyles>
     {/* </React.StrictMode> */}
   </Provider>
 );

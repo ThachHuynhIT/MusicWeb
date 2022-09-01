@@ -1,10 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setVolume } from "../actions";
-import "./ProgressBar.css";
+import { setVolume } from "../../actions";
 
 import ReactDOM from "react-dom";
-
+import styles from "./ProgressBar.module.scss";
+import classNames from "classnames/bind";
+const cx = classNames.bind(styles);
 class ProgressBar extends React.Component {
   constructor(props) {
     super(props);
@@ -12,19 +13,18 @@ class ProgressBar extends React.Component {
   }
   render() {
     return (
-      <div className="progress">
+      <div className={cx("progress")}>
         <input
           type="range"
           min="0"
           max="100"
-          className="slider"
           value={this.props.volume}
           onChange={(e) => this.props.setVolume(e.target.value)}
           onMouseEnter={() => this.setState({ showTooltip: true })}
           onMouseLeave={() => this.setState({ showTooltip: false })}
         />
         {this.state.showTooltip ? (
-          <span className="tooltip">{this.props.volume}</span>
+          <span className={cx("tooltip")}>{this.props.volume}</span>
         ) : null}
       </div>
     );

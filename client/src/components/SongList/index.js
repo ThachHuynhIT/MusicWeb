@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import React from "react";
 import ReactDOM from "react-dom";
 import styles from "./SongList.module.scss";
-import { selectAlbum } from "../../actions/album";
+import { selectAlbum } from "../../actions";
 import { connect, useDispatch } from "react-redux";
 const cx = classNames.bind(styles);
 

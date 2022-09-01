@@ -1,2 +1,2 @@
-export { default as LoginLayout } from "./Login";
-export { default as RegisterLayout } from "./Register";
+export { default as InforLayout } from "./Infor";
+export { default as EditLayout } from "./Edit";
