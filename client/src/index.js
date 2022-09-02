@@ -17,19 +17,11 @@ root.render(
         window.__REDUX_DEVTOOLS_EXTENSION__()
     )}
   >
-<<<<<<< Updated upstream
     {/* <React.StrictMode> */}
     <GlobalStyles>
       <App />
     </GlobalStyles>
     {/* </React.StrictMode> */}
-=======
-    <React.StrictMode>
-      <GlobalStyles>
-        <App />
-      </GlobalStyles>
-    </React.StrictMode>
->>>>>>> Stashed changes
   </Provider>
 );
 

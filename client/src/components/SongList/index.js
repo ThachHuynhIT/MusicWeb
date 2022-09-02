@@ -3,11 +3,9 @@ import classNames from "classnames/bind";
 import React from "react";
 import ReactDOM from "react-dom";
 import styles from "./SongList.module.scss";
-<<<<<<< Updated upstream
+
 import { selectAlbum } from "../../actions";
-=======
-import { selectAlbum } from "../../actions/album";
->>>>>>> Stashed changes
+
 import { connect, useDispatch } from "react-redux";
 const cx = classNames.bind(styles);
 
