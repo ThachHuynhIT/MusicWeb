@@ -1,16 +1,12 @@
 const express = require("express");
-const verifyToken = require('./../middlewares/verifyToken');
-const { mongooseToObject } = require("../util/mongoose");
-const { multipleMongooseToObject } = require("../util/mongoose");
-const loginValidator = require("../validations/login");
-const signupValidator = require("../validations/signup");
+const verifyToken = require('../../../middlewares/verifyToken');
+const loginValidator = require("../../../validations/login");
+const signupValidator = require("../../../validations/signup");
 const jwt = require("jsonwebtoken");
 const co = require("co");
 require("dotenv").config();
 
-
 const router = express.Router();
-
 // Đăng nhập
 router.get("/login",verifyToken,(req, res, next)=> {
   const { username, password } = req.body;
@@ -43,11 +39,11 @@ router.get("/login",verifyToken,(req, res, next)=> {
         { expiresIn: 60 * 60 * 24 }
       );
       res
-        .header({
+        .json({
           "auth-token": token,
           username: user.username,
         })
-        .send(token);
+        // .send(token);
     })
     .catch((err) => next(err));
 });
@@ -74,7 +70,6 @@ router.get("/signup", (req, res, next) => {
 }
 
 );
-
-router.get("/logout", userController.logout);
+// router.get("/logout", userController.logout);
 
 module.exports = router;

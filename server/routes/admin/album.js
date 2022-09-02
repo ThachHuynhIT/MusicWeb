@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const albumsController = require("../controllers/AlbumController");
+const albumsController = require("../../controllers/AlbumController");
 
 router.get("/edit/:id", albumsController.edit);
 router.post("/store", albumsController.store);

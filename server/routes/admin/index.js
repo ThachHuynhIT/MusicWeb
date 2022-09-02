@@ -1,18 +1,18 @@
+const express = require('express');
+
 const musicRouter = require("./music");
 const sitesRouter = require("./site");
 const albumRouter = require("./album");
 const userRouter = require("./user");
-const verifyToken = require("../../middlewares/verifyToken")
 
-function route(app) {
+const router = express.Router();
 
-  app.get("/user", userRouter);
+  router.get("/user", userRouter);
 
-  app.get("/album", albumRouter);
+  router.get("/album", albumRouter);
 
-  app.get("/music", musicRouter);
+  router.get("/music", musicRouter);
 
-  app.get("/", sitesRouter);
-}
+  router.get("/", sitesRouter);
 
-module.exports = route;
+module.exports = router;

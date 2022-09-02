@@ -93,7 +93,7 @@ class UsersController {
       const user = new User(req.body);
       return user.save();
     })
-      .then(() => res.json({ signupStatus: "success" }))
+      .then(() => res.data({ signupStatus: "success" }))
       .catch((err) => next(err));
   }
 

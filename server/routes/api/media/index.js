@@ -1,14 +1,12 @@
 const express = require("express");
+const getSongLegion = require("./getSongLegion");
+const getSongType = require("./getSongType")
+const getAlbum = require("./getAlbum")
 
+const router = express.Router();
 
-function route(app) {
-  app.get("/user", userRouter);
+router.get("/get-album", getAlbum);
+router.get("/song-type/:type/:page", getSongType);
+router.get("/song-legion/:legion/:page", getSongLegion);
 
-  app.get("/album", albumRouter);
-
-  app.get("/music", musicRouter);
-
-  app.get("/", sitesRouter);
-}
-
-module.exports = route;
+module.exports = router;
