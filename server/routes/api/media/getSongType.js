@@ -10,7 +10,9 @@ module.exports = (req, res, next) => {
     .exec((err, song) => {
       Song.countDocuments((err, count) => {
         if (err) return next(err);
+
         res.send(song);
+
       });
     });
 };
