@@ -1,17 +1,12 @@
 const admin = require("./admin");
-const media = require("./api/media");
-const playlist = require("./api/playlist");
-const user = require("./api/user");
-const verifyToken = require("../../middlewares/verifyToken")
+const api = require("./api");
+const verifyToken = require("../middlewares/verifyToken")
 
 function route(app) {
 
-    app.use("/media", media);
+    app.use("/api", api);
 
-    app.use("/user", user);
-
-    app.use("/playlits", playlist);
-
+    // app.use("/admin", verifyToken,admin);
     app.use("/admin", admin);
   
   }
