@@ -1,5 +1,6 @@
 const express = require("express");
-const verifyToken = require('../../../middlewares/verifyToken');
+const User = require("../../../models/User");
+const verifyToken = require("../../../middlewares/verifyToken");
 const loginValidator = require("../../../validations/login");
 const signupValidator = require("../../../validations/signup");
 const jwt = require("jsonwebtoken");
@@ -8,7 +9,7 @@ require("dotenv").config();
 
 const router = express.Router();
 // Đăng nhập
-router.get("/login",verifyToken,(req, res, next)=> {
+router.post("/login", verifyToken, (req, res, next) => {
   const { username, password } = req.body;
   const { isValid, errors } = loginValidator(req.body);
 
@@ -35,21 +36,20 @@ router.get("/login",verifyToken,(req, res, next)=> {
     .then((user) => {
       const token = jwt.sign(
         { _id: req.params._id },
-         process.env.TOKEN_SECRET,
+        process.env.TOKEN_SECRET,
         { expiresIn: 60 * 60 * 24 }
       );
-      res
-        .json({
-          "auth-token": token,
-          username: user.username,
-        })
-        // .send(token);
+      res.json({
+        "auth-token": token,
+        username: user.username,
+      });
+      // .send(token);
     })
     .catch((err) => next(err));
 });
 
 // Đăng ký
-router.get("/signup", (req, res, next) => {
+router.post("/signup", (req, res, next) => {
   const { username, password } = req.body;
   const { isValid, errors } = signupValidator(req.body);
 
@@ -65,11 +65,16 @@ router.get("/signup", (req, res, next) => {
     const user = new User(req.body);
     return user.save();
   })
-    .then(() => res.json({ signupStatus: "success" }))
+    .then(() =>
+      res.status(200).json({
+        message: {
+          msgBody: "Tao tai khoan thanh cong",
+          msgError: false,
+        },
+      })
+    )
     .catch((err) => next(err));
-}
-
-);
+});
 // router.get("/logout", userController.logout);
 
 module.exports = router;

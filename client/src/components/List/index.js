@@ -9,13 +9,12 @@ import classNames from "classnames/bind";
 const cx = classNames.bind(styles);
 
 const List = ({ albums = [], type = [] }) => {
-  // const typeTags = type.map((type) => {
-  // return <ListItem albums={albums} typee={type} />;
-  // });
+  const typeTags = type.map((type) => {
+    // console.log(type);
+    return <ListItem albums={albums} typee={type} />;
+  });
 
-  // return
-  // <div>{typeTags}</div>;
-  return <ListItem albums={albums} />;
+  return <div>{typeTags}</div>;
 };
 
 export default List;

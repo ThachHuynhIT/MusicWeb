@@ -6,11 +6,8 @@ import Sidebar from "../components/Sidebar";
 import Listbar from "../components/Listbar";
 import Player from "../../Player/index.js";
 
-<<<<<<< Updated upstream
 import songs from "D:/WEB/reactjs/MusicWeb/client/src/data/songs";
-=======
-import songs from "d:/WEB/reactjs/music-ui/src/data/songs";
->>>>>>> Stashed changes
+
 // import Playing from "../../Playing/index.js";
 // import DataSongs from "D:/WEB/reactjs/music/src/data/songs.json";
 //

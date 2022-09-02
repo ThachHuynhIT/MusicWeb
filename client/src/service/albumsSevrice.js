@@ -1,9 +1,9 @@
 import { httpRequests } from "../utils";
 export const getAllAlbum = async () => {
   try {
-    const res = await httpRequests.get("album");
+    const res = await httpRequests.get("api/media/get-album");
 
-    return res.album;
+    return res;
   } catch (error) {
     console.log(error);
   }

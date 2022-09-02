@@ -93,9 +93,6 @@ class UsersController {
       const user = new User(req.body);
       return user.save();
     })
-
-
-
       .then(() =>
         res.status(200).json({
           message: {

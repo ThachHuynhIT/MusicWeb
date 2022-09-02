@@ -1,8 +1,8 @@
 import { httpRequests } from "../utils";
-export const getSongsFromAlbum = async (id) => {
+export const getSongsFromAlbum = async () => {
   try {
-    const res = await httpRequests.get(`album/{id}}`);
-    return res.songs;
+    const res = await httpRequests.get(`api/media/song-type/Pop/1`);
+    return res;
   } catch (error) {
     console.log(error);
   }
