@@ -1,7 +1,13 @@
 import { combineReducers } from "redux";
 
 import songs from "../data/songs.json";
+<<<<<<< Updated upstream
+import albums from "../data/albums.json";
 
+//songsReducer
+=======
+
+>>>>>>> Stashed changes
 const songsReducer = () => {
   return songs;
 };
@@ -51,8 +57,37 @@ const timeReducer = (time = 0, action) => {
   }
   return time;
 };
+<<<<<<< Updated upstream
+
+//albumReducer
+const albumsReducer = () => {
+  return albums;
+};
+const selectedAlbumIdReducer = (selectedAlbumId = 0, action) => {
+  if (action.type === "ALBUM_SELECTED") {
+    return action.payload.id;
+  }
+  if (action.type === "ALBUM_SELECTED_BY_ID") {
+    return action.payload;
+  }
+  return selectedAlbumId;
+};
+const getAlbumSongsReducer = (songs = [], action) => {
+  if (action.type === "GET_ALBUM_SONGS") {
+    return action.payload.songs;
+  }
+  return songs;
+};
+
 export default combineReducers({
   songs: songsReducer,
+  albums: albumsReducer,
+  selectedAlbumId: selectedAlbumIdReducer,
+  getAlbumSongs: getAlbumSongsReducer,
+=======
+export default combineReducers({
+  songs: songsReducer,
+>>>>>>> Stashed changes
 
   selectedSongId: selectedSongIdReducer,
   playerState: playerStateReducer,
