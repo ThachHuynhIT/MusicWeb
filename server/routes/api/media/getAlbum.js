@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 module.exports = (req, res, next) => {
   Album.find({})
     .then((album) => 
-      res.json(album)
+      res.send(album)
     )
     .catch(next);
 };
