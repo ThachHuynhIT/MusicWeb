@@ -1,13 +1,6 @@
 import { combineReducers } from "redux";
-
 import songs from "../data/songs.json";
-<<<<<<< Updated upstream
-import albums from "../data/albums.json";
-
-//songsReducer
-=======
-
->>>>>>> Stashed changes
+//song
 const songsReducer = () => {
   return songs;
 };
@@ -51,48 +44,19 @@ const currentLocationReducer = (loc = 0, action) => {
   }
   return loc;
 };
-const timeReducer = (time = 0, action) => {
-  if (action.type === "SET_TIME") {
+const currentTimeReducer = (currentTime = 0, action) => {
+  if (action.type === "SET_CURRENT_TIME") {
     return action.payload;
   }
-  return time;
-};
-<<<<<<< Updated upstream
-
-//albumReducer
-const albumsReducer = () => {
-  return albums;
-};
-const selectedAlbumIdReducer = (selectedAlbumId = 0, action) => {
-  if (action.type === "ALBUM_SELECTED") {
-    return action.payload.id;
-  }
-  if (action.type === "ALBUM_SELECTED_BY_ID") {
-    return action.payload;
-  }
-  return selectedAlbumId;
-};
-const getAlbumSongsReducer = (songs = [], action) => {
-  if (action.type === "GET_ALBUM_SONGS") {
-    return action.payload.songs;
-  }
-  return songs;
+  return currentTime;
 };
 
 export default combineReducers({
   songs: songsReducer,
-  albums: albumsReducer,
-  selectedAlbumId: selectedAlbumIdReducer,
-  getAlbumSongs: getAlbumSongsReducer,
-=======
-export default combineReducers({
-  songs: songsReducer,
->>>>>>> Stashed changes
-
   selectedSongId: selectedSongIdReducer,
   playerState: playerStateReducer,
   volume: volumeReducer,
-  time: timeReducer,
   duration: durationReducer,
   currentLocation: currentLocationReducer,
+  currentTime: currentTimeReducer,
 });

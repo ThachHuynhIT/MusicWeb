@@ -1,4 +1,5 @@
 import classNames from "classnames/bind";
+<<<<<<< Updated upstream
 import styles from "./DefaultAccountLayout.module.scss";
 import UserSlider from "./Slider";
 import UserFooter from "./Footer";
@@ -20,6 +21,17 @@ function DefaultAccountLayout({ children }) {
       <div className={cx("footer")}>
         <UserFooter />
       </div>
+=======
+import { Wrapper } from "../../Popper";
+import styles from "./DefaultAccountLayout.module.scss";
+const cx = classNames.bind(styles);
+
+function DefaultAccountLayout({ children }) {
+  return (
+    <div className={cx("wrapper")}>
+      <div className={cx("content")}></div>
+      <div className={cx("main-view")}>{children}</div>
+>>>>>>> Stashed changes
     </div>
   );
 }

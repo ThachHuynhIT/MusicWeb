@@ -41,6 +41,7 @@ export const setCurrentTime = (val) => {
     payload: val,
   };
 };
+<<<<<<< Updated upstream
 export const setTime = (val) => {
   return {
     type: "SET_CURRENT_TIME",
@@ -80,3 +81,5 @@ export const toLinkAlbum = (link) => {
     payload: link,
   };
 };
+=======
+>>>>>>> Stashed changes
