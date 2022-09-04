@@ -3,10 +3,14 @@ import Item from "../Item";
 import styles from "./Listbar.module.scss";
 import React from "react";
 import ReactDOM from "react-dom";
+import { connect } from "react-redux";
+
+import { selectSongByAlbum } from "../../../../actions";
+
 const cx = classNames.bind(styles);
 
-const Listbar = ({ songs = [] }) => {
-  const songTags = songs.map((song, index) => {
+const Listbar = ({ selectedSongList }) => {
+  const songTags = selectedSongList.map((song, index) => {
     return <Item song={song} key={index} index={index} />;
   });
   return (
@@ -19,4 +23,12 @@ const Listbar = ({ songs = [] }) => {
   );
 };
 
-export default Listbar;
+const mapStateToProps = (state) => {
+  return {
+    selectedSongList: state.selectedSongList,
+  };
+};
+
+export default connect(mapStateToProps, {
+  selectSongByAlbum,
+})(Listbar);

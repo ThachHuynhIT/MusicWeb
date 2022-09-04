@@ -1,29 +1,38 @@
 import classNames from "classnames/bind";
 import styles from "./ListItem.module.scss";
-import { selectAlbum } from "../../actions";
+import { selectAlbum, selectSongByAlbum } from "../../actions";
+import * as songsService from "../../service/songsService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { Link, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 // import { selectAlbum } from "D:/WorkSpace/NodeWordSpace/MusicWeb/client/src/actions";
 import React from "react";
 import ReactDOM from "react-dom";
 const cx = classNames.bind(styles);
 
-const Item = ({ album, selectAlbum }) => {
+const Item = ({ album, selectAlbum, selectSongByAlbum }) => {
   const [, setHovered] = useState(false);
   const dispatch = useDispatch();
+  const [song, setSongList] = useState([]);
+  const { id } = useParams();
+  useEffect(() => {
+    const fetchApi = async () => {
+      const response = await songsService.getSongsFromAlbum(album.type);
+
+      setSongList(response);
+    };
+    fetchApi();
+  }, []);
+
   return (
     <div className={cx("item")}>
       <div className={cx("warrper")} onClick={() => {}}>
         <div className={cx("card")}>
           <div className={cx("card-top")}>
             <div className={cx("img-card")}>
-              <img
-                className={cx("img", "img-type-1")}
-                src="https://seed-mix-image.spotifycdn.com/v6/img/artist/57g2v7gJZepcwsuwssIfZs/vi/default"
-              ></img>
+              <img className={cx("img", "img-type-1")} src={album.img}></img>
               <form class={cx("hover-player")}>
                 <div class={cx("hover-player-a")}>
                   <button class={cx("player-btn")}>
@@ -45,7 +54,9 @@ const Item = ({ album, selectAlbum }) => {
               className={cx("card-name")}
               to={`/album/${album.type}`}
               onClick={() => {
+                // selectAlbum(album);
                 selectAlbum(album);
+                selectSongByAlbum(song);
               }}
             >
               <div className={cx("name", "name-text")}>{album.name}</div>
@@ -61,7 +72,10 @@ const Item = ({ album, selectAlbum }) => {
 };
 const mapStateToProps = (state) => {
   return {
-    selectAlbum: state.selectedAlbum,
+    // selectAlbum: state.selectedAlbum,
+    // songs: state.songs,
   };
 };
-export default connect(mapStateToProps, { selectAlbum })(Item);
+export default connect(mapStateToProps, { selectAlbum, selectSongByAlbum })(
+  Item
+);

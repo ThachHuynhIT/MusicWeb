@@ -1,7 +1,7 @@
 import React from "react";
 import Player from "../../Player";
 
-import songs from "D:/WEB/reactjs/MusicWeb/client/src/data/songs.json";
+// import songs from "D:/WEB/reactjs/MusicWeb/client/src/data/songs.json";
 import albums from "D:/WEB/reactjs/MusicWeb/client/src/data/albums.json";
 import SongList from "D:/WEB/reactjs/MusicWeb/client/src/components/SongList/index";
 
@@ -24,9 +24,8 @@ function AlbumLayout() {
   const { id } = useParams();
   useEffect(() => {
     const fetchApi = async () => {
-      const response = await songsService.getSongsFromAlbum();
+      const response = await songsService.getSongsFromAlbum(id);
 
-      console.log(response);
       setProductList(response);
     };
     fetchApi();

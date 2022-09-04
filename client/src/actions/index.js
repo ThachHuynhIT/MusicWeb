@@ -6,11 +6,17 @@ export const selectSong = (song) => {
     payload: song,
   };
 };
+export const selectSongPlay = (song) => {
+  return {
+    type: "SONG_SELECTED_PLAY",
+    payload: song,
+  };
+};
 
-export const selectSongById = (id) => {
+export const selectSongById = (_id) => {
   return {
     type: "SONG_SELECTED_BY_ID",
-    payload: id,
+    payload: _id,
   };
 };
 
@@ -48,6 +54,27 @@ export const setTime = (val) => {
     payload: val,
   };
 };
+export const setCurrentLocation = (val) => {
+  return {
+    type: "SET_CURRENT_LOCATION",
+    payload: val,
+  };
+};
+
+//song for Album
+export const selectSongByAlbum = (song) => {
+  return {
+    type: "SONG_SELECTED_BY_ALBUM",
+    payload: song,
+  };
+};
+export const chooseAlbum = (val) => {
+  return {
+    type: "CHOOSE_ALBUM",
+    payload: val,
+  };
+};
+
 //albums
 export const selectAlbum = (album) => {
   return {
@@ -55,10 +82,10 @@ export const selectAlbum = (album) => {
     payload: album,
   };
 };
-export const selectAlbumById = (id) => {
+export const selectAlbumById = (_id) => {
   return {
     type: "ALBUM_SELECTED_BY_ID",
-    payload: id,
+    payload: _id,
   };
 };
 
@@ -72,12 +99,5 @@ export const getAlbumSongs = (songs) => {
   return {
     type: "GET_ALBUM_SONGS",
     payload: songs,
-  };
-};
-
-export const toLinkAlbum = (link) => {
-  return {
-    type: "ALBUM_SELECTED",
-    payload: link,
   };
 };

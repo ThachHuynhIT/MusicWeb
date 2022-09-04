@@ -1,7 +1,7 @@
 const express = require("express");
 const getSongLegion = require("./getSongLegion");
-const getSongType = require("./getSongType")
-const getAlbum = require("./getAlbum")
+const getSongType = require("./getSongType");
+const getAlbum = require("./getAlbum");
 
 const router = express.Router();
 
