@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./ListItem.module.scss";
-import { selectAlbum, selectSongByAlbum } from "../../actions";
+import { selectAlbum, selectSongByAlbum, chooseAlbum } from "../../actions";
 import * as songsService from "../../service/songsService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
@@ -12,7 +12,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 const cx = classNames.bind(styles);
 
-const Item = ({ album, selectAlbum, selectSongByAlbum }) => {
+const Item = ({ album, selectAlbum, selectSongByAlbum, chooseAlbum }) => {
   const [, setHovered] = useState(false);
   const dispatch = useDispatch();
   const [song, setSongList] = useState([]);
@@ -57,6 +57,7 @@ const Item = ({ album, selectAlbum, selectSongByAlbum }) => {
                 // selectAlbum(album);
                 selectAlbum(album);
                 selectSongByAlbum(song);
+                dispatch({ type: "CHOOSE_ALBUM", payload: 0 });
               }}
             >
               <div className={cx("name", "name-text")}>{album.name}</div>
@@ -76,6 +77,8 @@ const mapStateToProps = (state) => {
     // songs: state.songs,
   };
 };
-export default connect(mapStateToProps, { selectAlbum, selectSongByAlbum })(
-  Item
-);
+export default connect(mapStateToProps, {
+  selectAlbum,
+  chooseAlbum,
+  selectSongByAlbum,
+})(Item);

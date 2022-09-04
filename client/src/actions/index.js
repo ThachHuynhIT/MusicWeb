@@ -74,7 +74,12 @@ export const chooseAlbum = (val) => {
     payload: val,
   };
 };
-
+export const selectListPlayer = (list) => {
+  return {
+    type: "LIST_SELECTED_PLAYER",
+    payload: list,
+  };
+};
 //albums
 export const selectAlbum = (album) => {
   return {

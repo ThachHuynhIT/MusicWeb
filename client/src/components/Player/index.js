@@ -27,6 +27,7 @@ import { render } from "@testing-library/react";
 
 import styles from "./Player.module.scss";
 import classNames from "classnames/bind";
+import slugGenerator from "mongoose-slug-generator/lib/slug-generator";
 const cx = classNames.bind(styles);
 
 const Player = ({
@@ -142,7 +143,7 @@ const Player = ({
       }
     }
   };
-
+  console.log(shuffled);
   return (
     <div id={cx("player")}>
       <div className={cx("player-left")}>
@@ -150,11 +151,12 @@ const Player = ({
       </div>
       <div className={cx("player-right")}>
         <div className={cx("right-top")}>
-          {/* <div
+          <div
             className={cx("control")}
             id={shuffled ? `active` : null}
             onClick={() => {
               setShuffled(!shuffled);
+              console.log(shuffled);
             }}
           >
             <svg
@@ -169,7 +171,7 @@ const Player = ({
                 fill="currentColor"
               ></path>
             </svg>
-          </div> */}
+          </div>
 
           <div className={cx("control")} onClick={onBackwardClick}>
             <svg
@@ -206,17 +208,12 @@ const Player = ({
 
           <audio
             id="main-track"
-            autoPlay
-            controls
             src={songUrl()}
             preload="true"
             onEnded={() => {
-              selectSongById(selectedSongList[songplay + 1]);
-              // selectSongById(
-              //   shuffled
-              //     ? Math.round(Math.random() * selectedSongList.length)
-              //     :
-              //   selectedSongList[songplay + 1]
+              shuffled
+                ? Math.round(Math.random() * selectedSongList.length)
+                : selectSongById(selectedSongList[songplay + 1]);
             }}
             onLoadedMetadata={() => {
               dispatch({
@@ -225,7 +222,6 @@ const Player = ({
               });
 
               setInterval(() => {
-                console.log(audioRef.current.currentTime);
                 dispatch({
                   type: "SET_CURRENT_LOCATION",
                   payload: audioRef.current.currentTime,

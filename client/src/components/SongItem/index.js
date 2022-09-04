@@ -3,7 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { connect, useDispatch } from "react-redux";
 
-import { selectSong } from "../../actions";
+import { chooseAlbum, selectSong } from "../../actions";
 
 import classNames from "classnames/bind";
 import styles from "./SongItem.module.scss";
@@ -16,6 +16,7 @@ const SongItem = ({
   selectedSongPlay,
   playerState,
   selectedAlbumId,
+  chooseAlbum,
 }) => {
   const [, setHovered] = useState(false);
   const dispatch = useDispatch();
@@ -77,4 +78,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { selectSong })(SongItem);
+export default connect(mapStateToProps, { selectSong, chooseAlbum })(SongItem);

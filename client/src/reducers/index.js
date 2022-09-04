@@ -68,6 +68,20 @@ const selectedSongListReducer = (selectedSongList = [], action) => {
   return selectedSongList;
 };
 
+const chooseAlbumReducer = (chooseAlbum = 0, action) => {
+  if (action.type === "CHOOSE_ALBUM") {
+    return action.payload;
+  }
+
+  return chooseAlbum;
+};
+const selectListPlayerReducer = (selectList = [], action) => {
+  if (action.type === "LIST_SELECTED_PLAYER") {
+    return action.payload;
+  }
+
+  return selectList;
+};
 //albumReducer
 
 const selectedAlbumIdReducer = (selectedAlbumId = [], action) => {
@@ -85,6 +99,8 @@ export default combineReducers({
   playerState: playerStateReducer,
   volume: volumeReducer,
   time: timeReducer,
+  chooseAlbum: chooseAlbumReducer,
   duration: durationReducer,
   currentLocation: currentLocationReducer,
+  selectList: selectListPlayerReducer,
 });
