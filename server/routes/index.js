@@ -16,5 +16,4 @@ function route(app) {
   // app.use("/admin", verifyToken,admin);
   app.use("/admin", admin);
 }
-
 module.exports = route;
