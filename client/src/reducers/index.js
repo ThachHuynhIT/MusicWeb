@@ -1,13 +1,11 @@
 import { combineReducers } from "redux";
 
 import songs from "../data/songs.json";
-<<<<<<< Updated upstream
+
 import albums from "../data/albums.json";
 
 //songsReducer
-=======
 
->>>>>>> Stashed changes
 const songsReducer = () => {
   return songs;
 };
@@ -57,7 +55,6 @@ const timeReducer = (time = 0, action) => {
   }
   return time;
 };
-<<<<<<< Updated upstream
 
 //albumReducer
 const albumsReducer = () => {
@@ -84,10 +81,6 @@ export default combineReducers({
   albums: albumsReducer,
   selectedAlbumId: selectedAlbumIdReducer,
   getAlbumSongs: getAlbumSongsReducer,
-=======
-export default combineReducers({
-  songs: songsReducer,
->>>>>>> Stashed changes
 
   selectedSongId: selectedSongIdReducer,
   playerState: playerStateReducer,

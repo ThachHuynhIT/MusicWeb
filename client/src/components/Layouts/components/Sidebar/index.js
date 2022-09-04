@@ -40,17 +40,10 @@ function Sidebar() {
           </a>
         </li>
         <li className={cx("content")}>
-<<<<<<< Updated upstream
           <Link className={cx("content-link")} to="/album">
             <FontAwesomeIcon className={cx("icon-li")} icon={faBook} />
             <span className={cx("titel")}>Thư viện</span>
           </Link>
-=======
-          <a className={cx("content-link")} href={"/"}>
-            <FontAwesomeIcon className={cx("icon-li")} icon={faBook} />
-            <span className={cx("titel")}>Thư viện</span>
-          </a>
->>>>>>> Stashed changes
         </li>
       </div>
 

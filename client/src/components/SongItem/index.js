@@ -3,11 +3,8 @@ import React from "react";
 import { useState } from "react";
 import { connect, useDispatch } from "react-redux";
 
-<<<<<<< Updated upstream
 import { selectSong } from "../../actions";
-=======
-import { selectSong } from "../actions";
->>>>>>> Stashed changes
+
 import classNames from "classnames/bind";
 import styles from "./SongItem.module.scss";
 const cx = classNames.bind(styles);
