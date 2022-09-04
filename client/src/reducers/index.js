@@ -6,18 +6,22 @@ import albums from "../data/albums.json";
 
 //songsReducer
 
-const songsReducer = () => {
-  return songs;
+const songsReducer = (songss = songs, action) => {
+  if (action.type === "SONGS_SELECTED") {
+    return action.payload;
+  }
+
+  return songss;
 };
 
-const selectedSongIdReducer = (selectedSongId = 0, action) => {
+const selectedSongPlayReducer = (selectedSongPlay = 0, action) => {
   if (action.type === "SONG_SELECTED") {
-    return action.payload.id;
+    return action.payload;
   }
   if (action.type === "SONG_SELECTED_BY_ID") {
     return action.payload;
   }
-  return selectedSongId;
+  return selectedSongPlay;
 };
 
 const playerStateReducer = (playerState = 0, action) => {
@@ -55,37 +59,48 @@ const timeReducer = (time = 0, action) => {
   }
   return time;
 };
-
-//albumReducer
-const albumsReducer = () => {
-  return albums;
-};
-const selectedAlbumIdReducer = (selectedAlbumId = 0, action) => {
-  if (action.type === "ALBUM_SELECTED") {
-    return action.payload.id;
+//songlistReducer
+const selectedSongListReducer = (selectedSongList = [], action) => {
+  if (action.type === "SONG_SELECTED_BY_ALBUM") {
+    return action.payload;
   }
-  if (action.type === "ALBUM_SELECTED_BY_ID") {
+
+  return selectedSongList;
+};
+
+const chooseAlbumReducer = (chooseAlbum = 0, action) => {
+  if (action.type === "CHOOSE_ALBUM") {
+    return action.payload;
+  }
+
+  return chooseAlbum;
+};
+const selectListPlayerReducer = (selectList = [], action) => {
+  if (action.type === "LIST_SELECTED_PLAYER") {
+    return action.payload;
+  }
+
+  return selectList;
+};
+//albumReducer
+
+const selectedAlbumIdReducer = (selectedAlbumId = [], action) => {
+  if (action.type === "ALBUM_SELECTED") {
     return action.payload;
   }
   return selectedAlbumId;
 };
-const getAlbumSongsReducer = (songs = [], action) => {
-  if (action.type === "GET_ALBUM_SONGS") {
-    return action.payload.songs;
-  }
-  return songs;
-};
 
 export default combineReducers({
   songs: songsReducer,
-  albums: albumsReducer,
+  selectedSongList: selectedSongListReducer,
   selectedAlbumId: selectedAlbumIdReducer,
-  getAlbumSongs: getAlbumSongsReducer,
-
-  selectedSongId: selectedSongIdReducer,
+  selectedSongPlay: selectedSongPlayReducer,
   playerState: playerStateReducer,
   volume: volumeReducer,
   time: timeReducer,
+  chooseAlbum: chooseAlbumReducer,
   duration: durationReducer,
   currentLocation: currentLocationReducer,
+  selectList: selectListPlayerReducer,
 });

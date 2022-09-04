@@ -3,13 +3,21 @@ import React from "react";
 import { useState } from "react";
 import { connect, useDispatch } from "react-redux";
 
-import { selectSong } from "../../actions";
+import { chooseAlbum, selectSong } from "../../actions";
 
 import classNames from "classnames/bind";
 import styles from "./SongItem.module.scss";
 const cx = classNames.bind(styles);
 
-const SongItem = ({ song, index, selectSong, selectedSongId, playerState }) => {
+const SongItem = ({
+  song,
+  index,
+  selectSong,
+  selectedSongPlay,
+  playerState,
+  selectedAlbumId,
+  chooseAlbum,
+}) => {
   const [, setHovered] = useState(false);
   const dispatch = useDispatch();
 
@@ -27,20 +35,21 @@ const SongItem = ({ song, index, selectSong, selectedSongId, playerState }) => {
   };
 
   // Set song as active
-  const now_selected = selectedSongId === song.id ? "actie" : "";
+  const now_selected = selectedSongPlay._id === song._id ? "actie" : "";
 
   // set the gif
   const phaser = () => {
-    if (selectedSongId === song.id && playerState) {
+    if (selectedSongPlay._id === song._id && playerState) {
       return (
         <div>
-          <img alt="" src="/playing.gif" id="focused" />
+          <img alt="" src="/playing.gif" />
         </div>
       );
     } else {
       return <div>{index + 1}</div>;
     }
   };
+  // console.log(selectSong(song));
   return (
     <div
       id={cx(now_selected)}
@@ -49,12 +58,14 @@ const SongItem = ({ song, index, selectSong, selectedSongId, playerState }) => {
       // onMouseLeave={() => setHovered(false)}
       onClick={() => {
         selectSong(song);
+
         dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
+        dispatch({ type: "CHOOSE_ALBUM", payload: 1 });
       }}
     >
       {phaser()}
       <div className={cx("name")}>{song.name}</div>
-      <div className={cx("author")}>{song.author}</div>
+      <div className={cx("author")}>{song.singer}</div>
       <div className={cx("selector")}>{selector()}</div>
     </div>
   );
@@ -62,9 +73,9 @@ const SongItem = ({ song, index, selectSong, selectedSongId, playerState }) => {
 
 const mapStateToProps = (state) => {
   return {
-    selectedSongId: state.selectedSongId,
+    selectedSongPlay: state.selectedSongPlay,
     playerState: state.playerState,
   };
 };
 
-export default connect(mapStateToProps, { selectSong })(SongItem);
+export default connect(mapStateToProps, { selectSong, chooseAlbum })(SongItem);

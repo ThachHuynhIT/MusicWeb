@@ -4,11 +4,19 @@ import { useEffect, useRef, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import TimeSlider from "react-input-slider";
 
-import { setPlayerState, selectSongById, setTime } from "../../actions";
+import {
+  setPlayerState,
+  selectSongById,
+  setTime,
+  selectSongByAlbum,
+} from "../../actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MiniSong from "./MiniSong";
 import Progress from "../Progress";
-
+///
+import * as songsService from "../../service/songsService";
+import { useParams } from "react-router-dom";
+////
 import {
   faPause,
   faPauseCircle,
@@ -19,23 +27,28 @@ import { render } from "@testing-library/react";
 
 import styles from "./Player.module.scss";
 import classNames from "classnames/bind";
+import slugGenerator from "mongoose-slug-generator/lib/slug-generator";
 const cx = classNames.bind(styles);
 
 const Player = ({
-  selectedSongId,
-  defaultSong,
+  selectedSongPlay,
   playerState,
-  songs,
   selectSongById,
+  selectedSongList = [],
   volume,
   duration,
   currentLocation,
 }) => {
   const dispatch = useDispatch();
   const [shuffled, setShuffled] = useState(false);
-
+  // const [songplay, setSongPlay] = useState(0);
   const audioRef = useRef();
   let clicked = false;
+  const songplay = selectedSongList.findIndex(
+    (e) => e._id === selectedSongPlay._id
+  );
+  // console.log(songplayer);
+  // setSongPlay(songplayer);
 
   const spaceDownFunc = (event) => {
     if (event.keyCode === 32 && !clicked) {
@@ -54,8 +67,8 @@ const Player = ({
     document.addEventListener("keyup", spaceUpFunc);
   }, []);
 
-  if (selectedSongId < 0 || selectedSongId > songs.length - 1) {
-    selectSongById(0);
+  if (songplay < 0 || songplay > selectedSongList.length - 1) {
+    // selectSongById(selectedSongList[0]);
   }
 
   useEffect(() => {
@@ -90,13 +103,14 @@ const Player = ({
 
   //
   const onBackwardClick = () => {
-    if (selectedSongId > 0) {
-      selectSongById(selectedSongId - 1);
+    if (songplay > 0) {
+      selectSongById(selectedSongList[songplay - 1]);
+      // console.log(selectSongById(selectedSongList[songplay - 1]));
     }
   };
   const onForwardClick = () => {
-    if (selectedSongId < songs.length - 1) {
-      selectSongById(selectedSongId + 1);
+    if (songplay < selectedSongList.length - 1) {
+      selectSongById(selectedSongList[songplay + 1]);
     }
   };
   const icon = () => {
@@ -109,19 +123,29 @@ const Player = ({
   useEffect(() => {
     dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
     audioRef.current.play();
-    // console.log(audioRef.current.duration);
+
     document.getElementById("focus-link").click();
     window.history.pushState({}, "", "");
-  }, [selectedSongId, dispatch]);
+  }, [songplay, dispatch]);
   useEffect(() => {
     dispatch({ type: "PLAYER_STATE_SELECTED", payload: 0 });
     audioRef.current.pause();
   }, [dispatch]);
 
+  const songUrl = () => {
+    if (selectedSongList.length <= 0) {
+      return null;
+    } else {
+      if (songplay < 0) {
+        return selectedSongList[0].url;
+      } else {
+        return selectedSongList[songplay].url;
+      }
+    }
+  };
+  console.log(shuffled);
   return (
     <div id={cx("player")}>
-      {/* <SongTime /> */}
-
       <div className={cx("player-left")}>
         <MiniSong />
       </div>
@@ -131,8 +155,8 @@ const Player = ({
             className={cx("control")}
             id={shuffled ? `active` : null}
             onClick={() => {
-              setShuffled(shuffled);
-              // console.log("shuffle: " + !shuffled);
+              setShuffled(!shuffled);
+              console.log(shuffled);
             }}
           >
             <svg
@@ -184,15 +208,12 @@ const Player = ({
 
           <audio
             id="main-track"
-            controls
-            src={songs[selectedSongId].url}
+            src={songUrl()}
             preload="true"
             onEnded={() => {
-              selectSongById(
-                shuffled
-                  ? Math.round(Math.random() * songs.length)
-                  : selectedSongId + 1
-              );
+              shuffled
+                ? Math.round(Math.random() * selectedSongList.length)
+                : selectSongById(selectedSongList[songplay + 1]);
             }}
             onLoadedMetadata={() => {
               dispatch({
@@ -236,8 +257,9 @@ const Player = ({
 
 const mapStateToProps = (state) => {
   return {
-    selectedSongId: state.selectedSongId,
-    defaultSong: state.songs[0],
+    selectedSongPlay: state.selectedSongPlay,
+    selectedSongList: state.selectedSongList,
+    defaultSong: state.selectedSongList[0],
     playerState: state.playerState,
     songs: state.songs,
     volume: state.volume,

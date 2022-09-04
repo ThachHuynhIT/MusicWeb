@@ -9,7 +9,7 @@ import ReactDOM from "react-dom";
 const cx = classNames.bind(styles);
 
 const MiniSong = ({
-  selectedSongId = -1,
+  selectedSongPlay,
   defaultSong,
   selectSong,
   songs,
@@ -18,45 +18,29 @@ const MiniSong = ({
   index,
 }) => {
   const dispatch = useDispatch();
-  const songData = () => {
-    if (selectedSongId >= 0) {
-      return (
-        <>
-          <div className={cx("artist-img")}>
-            <div className={cx("header", "pad")}>
-              {songs[selectedSongId].name}
-            </div>
-            <p className={cx("artist-name", "pad")}>
-              {songs[selectedSongId].author}
-            </p>
-          </div>
-        </>
-      );
-    } else {
-      selectSong(defaultSong);
-      return null;
-    }
+  const img = () => {
+    return selectedSongPlay.links.images[1].url;
   };
-
   return (
     <div className={cx("song-detail")}>
       <div className={cx("player-img")}>
         <img
-          src={songs[selectedSongId].links.images[1].url}
-          alt={songs[selectedSongId].name}
+          src={img()}
+          alt={selectedSongPlay.name}
           className={cx("pause-img")}
         />
       </div>
-      {songData()}
+      <div className={cx("artist-img")}>
+        <div className={cx("header", "pad")}>{selectedSongPlay.name}</div>
+        <p className={cx("artist-name", "pad")}>{selectedSongPlay.singer}</p>
+      </div>
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    selectedSongId: state.selectedSongId,
-    defaultSong: state.songs[0],
-    songs: state.songs,
+    selectedSongPlay: state.selectedSongPlay,
     playerState: state.playerState,
   };
 };

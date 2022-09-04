@@ -10,7 +10,7 @@ import ReactDOM from "react-dom";
 const cx = classNames.bind(styles);
 
 const SongDetail = ({
-  selectedAlbumId = -1,
+  selectedAlbumId,
   defaultAlbum,
   selectAlbum,
   albums,
@@ -37,8 +37,8 @@ const SongDetail = ({
       return (
         <div className={cx("album-img")}>
           <img
-            src={albums[selectedAlbumId].links.images[1].url}
-            alt={albums[selectedAlbumId].name}
+            src={selectedAlbumId.img}
+            alt={selectedAlbumId.name}
             className={cx("pause-img")}
           />
         </div>
@@ -47,8 +47,8 @@ const SongDetail = ({
       return (
         <div className={cx("album-img")}>
           <img
-            src={albums[selectedAlbumId].links.images[1].url}
-            alt={albums[selectedAlbumId].name}
+            src={selectedAlbumId.img}
+            alt={selectedAlbumId.name}
             className={cx("play-img")}
           />
         </div>
@@ -56,40 +56,17 @@ const SongDetail = ({
     }
   };
 
-  const songData = () => {
-    if (selectedAlbumId >= 0) {
-      return (
-        <>
-          <div className={cx("artist-img")}>
-            <div className={cx("header", "pad")}>
-              {albums[selectedAlbumId].name}
-            </div>
-
-            {/* <p className={cx("artist-name", "pad")}>
-              {songs[selectedSongId].author}
-            </p> */}
-          </div>
-        </>
-      );
-    } else {
-      selectAlbum(defaultAlbum);
-
-      return null;
-    }
-  };
-
   return (
-    <div
-      className={cx("song-detail")}
-      // style={{
-      //   backgroundImage: `url(
-      //     ${songs[selectedSongId].links.images[1].url}
-      //   )`,
-      // }}
-    >
+    <div className={cx("song-detail")}>
       {/* {phaser()} */}
       {playImg()}
-      {songData()}
+      <div className={cx("artist-img")}>
+        <div className={cx("header", "pad")}>{selectedAlbumId.name}</div>
+
+        {/* <p className={cx("artist-name", "pad")}>
+              {songs[selectedSongId].author}
+            </p> */}
+      </div>
     </div>
   );
 };
@@ -97,15 +74,11 @@ const SongDetail = ({
 const mapStateToProps = (state) => {
   return {
     selectedAlbumId: state.selectedAlbumId,
-    defaultAlbum: state.albums[0],
-    albums: state.albums,
-
     playerState: state.playerState,
   };
 };
 
 export default connect(mapStateToProps, {
   setPlayerState,
-
   selectAlbum: selectAlbum,
 })(SongDetail);

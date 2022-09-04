@@ -11,7 +11,7 @@ import classNames from "classnames/bind";
 import styles from "./Item.module.scss";
 const cx = classNames.bind(styles);
 
-const Item = ({ song, index, selectSong, selectedSongId, playerState }) => {
+const Item = ({ song, index, selectSong, selectedSongPlay, playerState }) => {
   const [, setHovered] = useState(false);
   const dispatch = useDispatch();
 
@@ -29,11 +29,11 @@ const Item = ({ song, index, selectSong, selectedSongId, playerState }) => {
   };
 
   // Set song as active
-  const now_selected = selectedSongId === song.id ? "active" : "";
+  const now_selected = selectedSongPlay._id === song.id ? "active" : "";
 
   // set the gif
   const phaser = () => {
-    if (selectedSongId === song.id && playerState) {
+    if (selectedSongPlay._id === song._id && playerState) {
       return (
         <div>
           <img alt="" src="/playing.gif" id={cx("focused")} />
@@ -64,15 +64,13 @@ const Item = ({ song, index, selectSong, selectedSongId, playerState }) => {
     >
       {phaser()}
       <div className={cx("name")}>{song.name}</div>
-      {/* <div className={cx("author")}>{song.author}</div> */}
-      {/* <div className={cx("selector")}>{selector()}</div> */}
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    selectedSongId: state.selectedSongId,
+    selectedSongPlay: state.selectedSongPlay,
     playerState: state.playerState,
   };
 };
