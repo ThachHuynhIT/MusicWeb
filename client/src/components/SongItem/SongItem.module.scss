@@ -65,3 +65,9 @@ a > svg:hover {
 #actie {
   background-color: var(--background-active);
 }
+.icon-img {
+  width: 40px;
+  height: 40px;
+  position: inherit;
+  cursor: pointer;
+}

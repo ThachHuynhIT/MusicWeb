@@ -1,5 +1,5 @@
 import context from "react-bootstrap/esm/AccordionContext";
-
+import { Link } from "react-router-dom";
 import HeadlessTippy from "@tippyjs/react/headless";
 import "tippy.js/dist/tippy.css"; // optional
 import classNames from "classnames/bind";
@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as searchApi from "../../../../service/searchSrevice";
 import { useDebounce } from "../../../../hooks";
 
-import SearchItem from "../../../SearchItem";
+import { SearchSong, SearchAlbum } from "../../../SearchItem";
 import { Wrapper as PopperWrapper } from "../../../Popper";
 import styles from "./Header.module.scss";
 import {
@@ -21,7 +21,6 @@ const cx = classNames.bind(styles);
 
 function Search() {
   const [searchResult, setSearchResult] = useState([]);
-
   const [searchValue, setSearchValue] = useState("");
   const [showResult, setShowResult] = useState(true);
   const debouncedValue = useDebounce(searchValue, 500);
@@ -59,10 +58,15 @@ function Search() {
       render={(attrs) => (
         <div className={cx("search-result")} {...attrs}>
           <PopperWrapper>
+            <h4 className={cx("search-titel")}> Từ khóa liên quan </h4>
+
+            {searchResult.map((result) => (
+              <SearchSong songs={result} />
+            ))}
             <h4 className={cx("search-titel")}> Gợi ý kết quả </h4>
 
             {searchResult.map((result) => (
-              <SearchItem data={result} />
+              <SearchAlbum albums={result} />
             ))}
           </PopperWrapper>
         </div>
@@ -87,7 +91,9 @@ function Search() {
         )}
 
         <button className={cx("search-btn")}>
-          <FontAwesomeIcon icon={faMagnifyingGlass} />
+          <Link to={`/search/${searchValue}/all`}>
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          </Link>
         </button>
       </div>
     </HeadlessTippy>
