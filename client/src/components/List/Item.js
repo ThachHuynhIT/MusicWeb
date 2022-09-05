@@ -1,27 +1,31 @@
 import classNames from "classnames/bind";
 import styles from "./ListItem.module.scss";
-import { selectAlbum, selectSongByAlbum, chooseAlbum } from "../../actions";
+import { selectAlbum, selectSong, selectSongByAlbum } from "../../actions";
 import * as songsService from "../../service/songsService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
-// import { selectAlbum } from "D:/WorkSpace/NodeWordSpace/MusicWeb/client/src/actions";
+
 import React from "react";
 import ReactDOM from "react-dom";
 const cx = classNames.bind(styles);
 
-const Item = ({ album, selectAlbum, selectSongByAlbum, chooseAlbum }) => {
-  const [, setHovered] = useState(false);
+const Item = ({
+  album,
+  selectAlbum,
+  selectSong,
+  playerState,
+  selectSongByAlbum,
+}) => {
+  const [songsList, setSongsList] = useState([]);
   const dispatch = useDispatch();
-  const [song, setSongList] = useState([]);
-  const { id } = useParams();
   useEffect(() => {
     const fetchApi = async () => {
       const response = await songsService.getSongsFromAlbum(album.type);
 
-      setSongList(response);
+      setSongsList(response);
     };
     fetchApi();
   }, []);
@@ -35,7 +39,16 @@ const Item = ({ album, selectAlbum, selectSongByAlbum, chooseAlbum }) => {
               <img className={cx("img", "img-type-1")} src={album.img}></img>
               <form class={cx("hover-player")}>
                 <div class={cx("hover-player-a")}>
-                  <button class={cx("player-btn")}>
+                  <div
+                    class={cx("player-btn")}
+                    onClick={() => {
+                      selectSong(songsList[0]);
+
+                      selectSongByAlbum(songsList);
+
+                      dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
+                    }}
+                  >
                     <span class={cx("player-btn-span")}>
                       <span class={cx("player-btn-span-a")}>
                         <FontAwesomeIcon
@@ -44,7 +57,7 @@ const Item = ({ album, selectAlbum, selectSongByAlbum, chooseAlbum }) => {
                         />
                       </span>
                     </span>
-                  </button>
+                  </div>
                 </div>
               </form>
             </div>
@@ -54,10 +67,7 @@ const Item = ({ album, selectAlbum, selectSongByAlbum, chooseAlbum }) => {
               className={cx("card-name")}
               to={`/album/${album.type}`}
               onClick={() => {
-                // selectAlbum(album);
                 selectAlbum(album);
-                selectSongByAlbum(song);
-                dispatch({ type: "CHOOSE_ALBUM", payload: 0 });
               }}
             >
               <div className={cx("name", "name-text")}>{album.name}</div>
@@ -73,12 +83,12 @@ const Item = ({ album, selectAlbum, selectSongByAlbum, chooseAlbum }) => {
 };
 const mapStateToProps = (state) => {
   return {
-    // selectAlbum: state.selectedAlbum,
-    // songs: state.songs,
+    selectedSongPlay: state.selectedSongPlay,
+    playerState: state.playerState,
   };
 };
 export default connect(mapStateToProps, {
   selectAlbum,
-  chooseAlbum,
+  selectSong,
   selectSongByAlbum,
 })(Item);

@@ -81,6 +81,13 @@ export const selectListPlayer = (list) => {
   };
 };
 //albums
+export const selectType = (type) => {
+  return {
+    type: "TYPE_SELECTED",
+    payload: type,
+  };
+};
+
 export const selectAlbum = (album) => {
   return {
     type: "ALBUM_SELECTED",

@@ -9,37 +9,20 @@ import React from "react";
 import ReactDOM from "react-dom";
 const cx = classNames.bind(styles);
 
-const SongDetail = ({
-  selectedAlbumId,
-  defaultAlbum,
-  selectAlbum,
-  albums,
-  playerState,
-  album,
-
-  index,
-}) => {
+const SongDetail = ({ selectedAlbumId, playerState, selectedSongPlay }) => {
   const [, setHovered] = useState(false);
   const dispatch = useDispatch();
-  const phaser = () => {
-    if (selectedAlbumId === album.id && playerState) {
-      return (
-        <div>
-          <img alt="" src="/playing.gif" id="focused" />
-        </div>
-      );
-    } else {
-      return <div>{index + 1}</div>;
-    }
-  };
+
   const playImg = () => {
-    if (!playerState) {
+    console.log(playerState);
+
+    if (playerState === 1 && selectedAlbumId.type === selectedSongPlay.type) {
       return (
         <div className={cx("album-img")}>
           <img
             src={selectedAlbumId.img}
             alt={selectedAlbumId.name}
-            className={cx("pause-img")}
+            className={cx("play-img")}
           />
         </div>
       );
@@ -49,7 +32,7 @@ const SongDetail = ({
           <img
             src={selectedAlbumId.img}
             alt={selectedAlbumId.name}
-            className={cx("play-img")}
+            className={cx("pause-img")}
           />
         </div>
       );
@@ -62,10 +45,6 @@ const SongDetail = ({
       {playImg()}
       <div className={cx("artist-img")}>
         <div className={cx("header", "pad")}>{selectedAlbumId.name}</div>
-
-        {/* <p className={cx("artist-name", "pad")}>
-              {songs[selectedSongId].author}
-            </p> */}
       </div>
     </div>
   );
@@ -75,6 +54,7 @@ const mapStateToProps = (state) => {
   return {
     selectedAlbumId: state.selectedAlbumId,
     playerState: state.playerState,
+    selectedSongPlay: state.selectedSongPlay,
   };
 };
 

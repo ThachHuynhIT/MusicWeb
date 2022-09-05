@@ -20,13 +20,13 @@ const cx = classNames.bind(styles);
 // }
 
 function AlbumLayout() {
-  const [productList, setProductList] = useState([]);
+  const [songsList, setSongsList] = useState([]);
   const { id } = useParams();
   useEffect(() => {
     const fetchApi = async () => {
       const response = await songsService.getSongsFromAlbum(id);
 
-      setProductList(response);
+      setSongsList(response);
     };
     fetchApi();
   }, []);
@@ -43,7 +43,7 @@ function AlbumLayout() {
           </div>
           <div className={cx("view-right", "scroll")}>
             <SongListHeader />
-            <SongList songs={productList} />
+            <SongList songs={songsList} />
           </div>
         </div>
         <div className={cx("main-view-bottom")}>

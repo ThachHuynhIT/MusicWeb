@@ -34,21 +34,18 @@ const Player = ({
   selectedSongPlay,
   playerState,
   selectSongById,
-  selectedSongList = [],
+
   volume,
   duration,
   currentLocation,
+  selectList = [],
 }) => {
   const dispatch = useDispatch();
   const [shuffled, setShuffled] = useState(false);
-  // const [songplay, setSongPlay] = useState(0);
+
   const audioRef = useRef();
   let clicked = false;
-  const songplay = selectedSongList.findIndex(
-    (e) => e._id === selectedSongPlay._id
-  );
-  // console.log(songplayer);
-  // setSongPlay(songplayer);
+  const songplay = selectList.findIndex((e) => e._id === selectedSongPlay._id);
 
   const spaceDownFunc = (event) => {
     if (event.keyCode === 32 && !clicked) {
@@ -66,10 +63,6 @@ const Player = ({
     document.addEventListener("keydown", spaceDownFunc);
     document.addEventListener("keyup", spaceUpFunc);
   }, []);
-
-  if (songplay < 0 || songplay > selectedSongList.length - 1) {
-    // selectSongById(selectedSongList[0]);
-  }
 
   useEffect(() => {
     if (audioRef.current) {
@@ -104,13 +97,13 @@ const Player = ({
   //
   const onBackwardClick = () => {
     if (songplay > 0) {
-      selectSongById(selectedSongList[songplay - 1]);
-      // console.log(selectSongById(selectedSongList[songplay - 1]));
+      selectSongById(selectList[songplay - 1]);
+      // console.log(selectSongById( selectList[songplay - 1]));
     }
   };
   const onForwardClick = () => {
-    if (songplay < selectedSongList.length - 1) {
-      selectSongById(selectedSongList[songplay + 1]);
+    if (songplay < selectList.length - 1) {
+      selectSongById(selectList[songplay + 1]);
     }
   };
   const icon = () => {
@@ -133,21 +126,21 @@ const Player = ({
   }, [dispatch]);
 
   const songUrl = () => {
-    if (selectedSongList.length <= 0) {
+    if (selectList.length <= 0) {
       return null;
     } else {
       if (songplay < 0) {
-        return selectedSongList[0].url;
+        return selectList[0].url;
       } else {
-        return selectedSongList[songplay].url;
+        return selectList[songplay].url;
       }
     }
   };
-  console.log(shuffled);
+
   return (
     <div id={cx("player")}>
       <div className={cx("player-left")}>
-        <MiniSong />
+        <MiniSong selectedSongPlay={selectList[songplay]} />
       </div>
       <div className={cx("player-right")}>
         <div className={cx("right-top")}>
@@ -212,8 +205,8 @@ const Player = ({
             preload="true"
             onEnded={() => {
               shuffled
-                ? Math.round(Math.random() * selectedSongList.length)
-                : selectSongById(selectedSongList[songplay + 1]);
+                ? Math.round(Math.random() * selectList.length)
+                : selectSongById(selectList[songplay + 1]);
             }}
             onLoadedMetadata={() => {
               dispatch({
@@ -258,7 +251,7 @@ const Player = ({
 const mapStateToProps = (state) => {
   return {
     selectedSongPlay: state.selectedSongPlay,
-    selectedSongList: state.selectedSongList,
+    selectList: state.selectedSongList,
     defaultSong: state.selectedSongList[0],
     playerState: state.playerState,
     songs: state.songs,

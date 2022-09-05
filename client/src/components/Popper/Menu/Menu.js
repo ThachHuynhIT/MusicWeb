@@ -21,9 +21,6 @@ function Menu({
       <Wrapper className={cx("menu-popper")}>
         <ul className={cx("menu-body")}>
           <li className={cx("menu-item")}>
-            <a>Tài khoản</a>
-          </li>
-          <li className={cx("menu-item")}>
             <Link to="/account/infor">Hồ sơ</Link>
           </li>
           <li className={cx("menu-item")}>

@@ -2,31 +2,33 @@ import React, { useEffect, useState } from "react";
 import * as albumsSrevice from "../../../service/albumsSevrice";
 import ReactDOM from "react-dom";
 import classNames from "classnames/bind";
-import styles from "./Home.module.scss";
+import styles from "./AllAlbum.module.scss";
 import List from "../../List";
 import ListSinger from "../../ListSinger";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import albums from "D:/WEB/reactjs/MusicWeb/client/src/data/albums.json";
+import { useParams } from "react-router-dom";
+import ListItem from "../../List/ListItem";
 
 const cx = classNames.bind(styles);
 
-function HomeLayout() {
+function AllAlbumLayout() {
+  const { type } = useParams();
+
   const [albumsList, setAlbumsList] = useState([]);
-  const [typeAlbum, setTypeAlbum] = useState([]);
+
   useEffect(() => {
     const fetchApi = async () => {
       const response = await albumsSrevice.getAllAlbum();
 
-      var type = [];
+      var albums = [];
 
       for (let i = 0; i < response.length; i++) {
-        type[i] = response[i].type;
+        if (response[i].type === type) {
+          albums[i] = response[i];
+        }
       }
-      const uniqueSet = new Set(type);
-      const backToArray = [...uniqueSet];
 
       setAlbumsList(response);
-      setTypeAlbum(backToArray);
     };
 
     fetchApi();
@@ -37,12 +39,11 @@ function HomeLayout() {
       <div className={cx("top-padding")}></div>
       <div className={cx("content")}>
         <section className={cx("list-item")}>
-          <List albums={albumsList} type={typeAlbum} />
-          <ListSinger singers={albumsList} />
+          <ListItem albums={albumsList} typee={type} />
         </section>
       </div>
     </div>
   );
 }
 
-export default HomeLayout;
+export default AllAlbumLayout;

@@ -1,32 +1,65 @@
 import classNames from "classnames/bind";
 import styles from "./ListItem.module.scss";
 import Item from "./Item";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import React from "react";
 import ReactDOM from "react-dom";
 import { useState } from "react";
+import { selectType } from "../../actions";
+import { connect } from "react-redux";
 
 const cx = classNames.bind(styles);
-const ListItem = ({ albums = [], typee }) => {
+
+const ListItem = ({ albums = [], typee, selectType }) => {
+  const { type } = useParams();
+  console.log(type);
   const albumTags = albums.map((album, index) => {
     if (album.type === typee) {
+      return <Item album={album} key={index} index={index} />;
+    }
+    if (typee === "Album") {
       return <Item album={album} key={index} index={index} />;
     }
   });
   return (
     <div className={cx("content")}>
-      <div className={cx("top-list")}>
-        <div className={cx("top-list-left")}>
-          <h2 className={cx("titel-list", "titel-type")}>{typee}</h2>
-        </div>
-        <a className={cx("top-list-right")} href={"/"}>
-          <span className={cx("more-list")}>Xem tất cả</span>
-        </a>
-      </div>
+      {type === undefined ? (
+        <>
+          <div className={cx("top-list")}>
+            <div className={cx("top-list-left")}>
+              <h2 className={cx("titel-list", "titel-type")}>{typee}</h2>
+            </div>
+            <Link className={cx("top-list-right")} to={`/album/${typee}/all`}>
+              <span
+                className={cx("more-list")}
+                onClick={() => {
+                  selectType(typee);
+                  console.log(selectType(typee));
+                }}
+              >
+                Xem tất cả
+              </span>
+            </Link>
+          </div>
+        </>
+      ) : (
+        <>
+          {" "}
+          <div className={cx("top-list")}>
+            <div className={cx("top-list-left")}>
+              <h2 className={cx("titel-list", "titel-type")}>{typee}</h2>
+            </div>
+          </div>
+        </>
+      )}
 
       <div className={cx("list", "sort")}>{albumTags}</div>
     </div>
   );
 };
-
-export default ListItem;
+const mapStateToProps = (state) => {
+  return {};
+};
+export default connect(mapStateToProps, {
+  selectType,
+})(ListItem);
