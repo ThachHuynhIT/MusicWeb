@@ -4,6 +4,7 @@ module.exports = (req, res, next) => {
   let perPage = 5;
   let page = req.params.page || 1;
 
+  
   if (page < 1) {
     Song.find({ type: req.params.type }).then((song) => {
       res.send(song);
