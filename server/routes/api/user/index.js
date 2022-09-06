@@ -45,14 +45,14 @@ router.post("/login", (req, res, next) => {
         .header({
           username: user.username,
         })
-        .send({ username });
+        .send({ username, isAuthenticated: true });
     })
     .catch((err) => next(err));
 });
 
 // Đăng ký
 router.post("/signup", (req, res, next) => {
-  const username = req.body;
+  const { username, password } = req.body;
   const { isValid, errors } = signupValidator(req.body);
 
   if (!isValid) {
@@ -75,6 +75,7 @@ router.post("/signup", (req, res, next) => {
         },
       })
     )
+
     .catch((err) => next(err));
 });
 
@@ -86,16 +87,15 @@ router.post("/logout", (req, res) => {
 });
 
 // Kiểm tra đáng nhập
-router.post("/authen", (req, res, err) => {
+router.post("/authen", (req, res) => {
   const token = req.cookies.access_token;
 
-  if (!token) return res.status(401).send('Access Denied');
+  if (!token) return res.status(401).send("Access Denied");
 
   try {
-  const verified = jwt.verify(token, process.env.TOKEN_SECRET);
-  const userId = verified._id;
-  User.findById({ _id: userId })
-    .then((user) => {
+    const verified = jwt.verify(token, process.env.TOKEN_SECRET);
+    const userId = verified._id;
+    User.findById({ _id: userId }).then((user) => {
       res.status(200).json({
         isAuthenticated: true,
         user: {
@@ -104,9 +104,9 @@ router.post("/authen", (req, res, err) => {
           email: user.email,
         },
       });
-    })}
-  catch(err) {
-      return res.status(400).send('Invalid Token');
+    });
+  } catch (err) {
+    return res.status(400).send("Invalid Token");
   }
 });
 
