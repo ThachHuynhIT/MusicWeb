@@ -43,7 +43,7 @@ const Item = ({
                     class={cx("player-btn")}
                     onClick={() => {
                       selectSong(songsList[0]);
-
+                      console.log(selectSong(songsList[0]));
                       selectSongByAlbum(songsList);
 
                       dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });

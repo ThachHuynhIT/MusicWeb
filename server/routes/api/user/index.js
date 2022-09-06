@@ -106,7 +106,10 @@ router.get("/authen", (req, res) => {
       });
     });
   } catch (err) {
-    return res.status(400).json({isAuthenticated: false});
+
+    return res.status(400).send("Invalid Token");
+
+
   }
 });
 
