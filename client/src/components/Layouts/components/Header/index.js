@@ -16,7 +16,7 @@ import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css"; // optional
 import classNames from "classnames/bind";
 import styles from "./Header.module.scss";
-import { isAuthen } from "../../../../service/userService";
+
 import * as UserService from "../../../../service/userService";
 const cx = classNames.bind(styles);
 
@@ -34,12 +34,6 @@ function Header() {
       setIsLoaded(true);
     });
   }, []);
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setSearchResult([]);
-  //   }, 0);
-  // }, []);
 
   return (
     <header className={cx("menu", "menu-type")}>

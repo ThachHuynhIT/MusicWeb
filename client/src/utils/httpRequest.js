@@ -15,5 +15,9 @@ export const post = async (path, options = {}) => {
   const response = await httpRequest.post(path, options);
   return response;
 };
+export const fetch = async (path, options = {}) => {
+  const response = await httpRequest.fetch(path, options);
+  return response;
+};
 
 export default httpRequest;

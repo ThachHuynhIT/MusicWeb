@@ -52,7 +52,7 @@ router.post("/login", (req, res, next) => {
 
 // Đăng ký
 router.post("/signup", (req, res, next) => {
-  const { username, password } = req.body;
+  const { username } = req.body;
   const { isValid, errors } = signupValidator(req.body);
 
   if (!isValid) {
@@ -75,7 +75,6 @@ router.post("/signup", (req, res, next) => {
         },
       })
     )
-
     .catch((err) => next(err));
 });
 
@@ -107,7 +106,9 @@ router.get("/authen", (req, res) => {
     });
   } catch (err) {
 
+
     return res.status(400).send("Invalid Token");
+
 
 
   }

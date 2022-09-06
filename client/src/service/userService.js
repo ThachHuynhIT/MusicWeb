@@ -41,7 +41,7 @@ export const login = (user) => {
 };
 
 export const isAuthen = () => {
-  return httpRequests.post("api/user/authen").then((res) => {
+  return httpRequests.get("api/user/authen").then((res) => {
     console.log(res);
     if (res.status !== 401) {
       return res.json().then((data) => data);
