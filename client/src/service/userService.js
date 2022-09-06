@@ -19,6 +19,7 @@ export const login = (user) => {
   return httpRequests
     .post("api/user/login", user)
     .then((response) => {
+      console.log(response);
       if (response.status !== 401) {
         return response.data;
       } else {
@@ -31,10 +32,21 @@ export const login = (user) => {
     .catch((err) => {
       return {
         message: {
-          msgBody: "Sai tai khoan hoac",
+          msgBody: "Sai tai khoan hoac mat khau",
           msgError: true,
         },
         err,
       };
     });
+};
+
+export const isAuthen = () => {
+  return httpRequests.post("api/user/authen").then((res) => {
+    console.log(res);
+    if (res.status !== 401) {
+      return res.json().then((data) => data);
+    } else {
+      return { user: { username: "" } };
+    }
+  });
 };

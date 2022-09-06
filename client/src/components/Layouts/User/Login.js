@@ -1,15 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import React from "react";
 import { login, register } from "../../../service/userService";
-
+import { AuthContext } from "../../../context/AuthContext";
 import classNames from "classnames/bind";
 import styles from "./User.module.scss";
 import Message from "./Message";
 const cx = classNames.bind(styles);
 
-function LoginLayout(props) {
+function LoginLayout({ props }) {
   const navigate = useNavigate();
+  // const authContext = useContext(AuthContext);
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -23,7 +24,13 @@ function LoginLayout(props) {
   const onSubmit = (e) => {
     e.preventDefault();
     login(user).then((data) => {
-      navigate("/");
+      console.log(data);
+      console.log(data.isAuthenticated);
+      if (data.isAuthenticated) {
+        navigate("/");
+      } else {
+        setMessage(message);
+      }
     });
   };
 
