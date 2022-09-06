@@ -12,7 +12,7 @@ const userSchema = new Schema(
     email: {
       type: String,
     },
-    password:{
+    password: {
       type: String,
       required: true,
     },
@@ -21,9 +21,9 @@ const userSchema = new Schema(
       type: String,
     },
     avatar: { type: String },
-    rank: { type: String },
     status: { type: String },
-    role: { type: String },
+    lastAlbum: { type: String },
+    lastSong:{ type: String },
   },
   { timestamps: true }
 );

@@ -11,6 +11,7 @@ const Song = new Schema(
     img: { type: String },
     url: { type: String },
     singer: { type: String },
+    album: { type: String },
     legion: { type: String },
     slug: { type: String, slug: "name", unique: true },
   },

@@ -1,9 +1,9 @@
 [{
-    "name": "Sing me to sleep",
+    "name": "VN  me to sleep",
     "singer": "Alan Walker",
     "type":"Pop",
     "album":"Hello Word",
-    "legion":"US-UK",
+    "legion":"VN",
     "url": "https://cdn.discordapp.com/attachments/775740994595323954/775741533789224960/Alan_Walker_-_Sing_Me_To_SleepMP3_160K.mp3",
     "links": {
       "images": [
@@ -17,11 +17,11 @@
     }
   },
   {
-    "name": "Fade-NCS Release",
+    "name": "VN -NCS Release",
     "singer": "Alan Walker",
     "type":"Pop",
     "album":"Hello Word",
-    "legion":"US-UK",
+    "legion":"VN",
     "url": "https://cdn.discordapp.com/attachments/775740994595323954/775741536591806484/Alan_Walker_-_Fade_NCS_ReleaseMP3_160K.mp3",
     "links": {
       "images": [
@@ -35,11 +35,11 @@
     }
   },
   {
-    "name": "She-NCS Release",
+    "name": "VN -NCS Release",
     "singer": "Andromedik",
     "type":"Pop",
     "album":"Hello Word",
-    "legion":"US-UK",
+    "legion":"VN",
     "url": "https://cdn.discordapp.com/attachments/775740994595323954/775741544149549096/Andromedik_-_SHE_NCS_ReleaseMP3_160K.mp3",
     "links": {
       "images": [
@@ -53,11 +53,11 @@
     }
   },
   {
-    "name": "About you-NCS Release",
+    "name": "VN  you-NCS Release",
     "singer": "Ascence",
     "type":"Pop",
     "album":"Hello Word",
-    "legion":"US-UK",
+    "legion":"VN",
     "url": "https://cdn.discordapp.com/attachments/775740994595323954/775741547203002389/Ascence_-_About_You_NCS_ReleaseMP3_160K.mp3",
     "links": {
       "images": [
@@ -71,11 +71,11 @@
     }
   },
   {
-    "name": "On & On (feat. Daniel Levi) [NCS Release]",
+    "name": "VN  & On (feat. Daniel Levi) [NCS Release]",
     "singer": "Cartoon",
     "type":"Pop",
     "album":"Hello Word",
-    "legion":"US-UK",
+    "legion":"VN",
     "url": "https://cdn.discordapp.com/attachments/775740994595323954/775741549177995264/Cartoon_-_On___On_feat._Daniel_Levi_NCS_ReleaseMP3_160K.mp3",
     "links": {
       "images": [
@@ -89,11 +89,11 @@
     }
   },
   {
-    "name": "Castle [NCS Release]",
+    "name": "VN  [NCS Release]",
     "singer": "Clarx & Harddope",
     "type":"Pop",
     "album":"Hello Word",
-    "legion":"US-UK",
+    "legion":"VN",
     "url": "https://cdn.discordapp.com/attachments/775740994595323954/775741580619284540/Clarx___Harddope_-_Castle_NCS_ReleaseMP3_160K.mp3",
     "links": {
       "images": [
@@ -107,11 +107,11 @@
     }
   },
   {
-    "name": "Invincible [NCS Release]",
+    "name": "VN  [NCS Release]",
     "singer": "DEAF KEV ",
     "type":"Pop",
     "album":"Hello Word",
-    "legion":"US-UK",
+    "legion":"VN",
     "url": "https://cdn.discordapp.com/attachments/775740994595323954/775741667210035220/DEAF_KEV_-_Invincible_NCS_ReleaseMP3_160K.mp3",
     "links": {
       "images": [
@@ -125,11 +125,11 @@
     }
   },
   {
-    "name": " Blank [NCS Release]",
+    "name": "VN  [NCS Release]",
     "singer": "Disfigure",
     "type":"Pop",
     "album":"NCS",
-    "legion":"US-UK",
+    "legion":"VN",
     "url": "https://cdn.discordapp.com/attachments/775740994595323954/775741669588205598/Disfigure_-_Blank_NCS_ReleaseMP3_160K.mp3",
     "links": {
       "images": [
@@ -143,11 +143,11 @@
     }
   },
   {
-    "name": "Nekozilla [NCS Release]",
+    "name": "VN  [NCS Release]",
     "singer": "Different Heaven",
     "type":"Pop",
     "album":"NCS",
-    "legion":"US-UK",
+    "legion":"VN",
     "url": "https://cdn.discordapp.com/attachments/775740994595323954/775741669626085426/Different_Heaven_-_Nekozilla_NCS_ReleaseMP3_160K.mp3",
     "links": {
       "images": [
@@ -161,11 +161,11 @@
     }
   },
   {
-    "name": "Savannah (feat. Philly K) [NCS Release]",
+    "name": "VN  (feat. Philly K) [NCS Release]",
     "singer": "Diviners",
     "type":"Pop",
     "album":"NCS",
-    "legion":"US-UK",
+    "legion":"VN",
     "url": "https://cdn.discordapp.com/attachments/775740994595323954/775741669626085426/Different_Heaven_-_Nekozilla_NCS_ReleaseMP3_160K.mp3",
     "links": {
       "images": [
@@ -179,11 +179,11 @@
     }
   },
   {
-    "name": "Cloud 9 [NCS Release]",
+    "name": "VN  9 [NCS Release]",
     "singer": "Itro & Tobu",
     "type":"Pop",
     "album":"NCS",
-    "legion":"US-UK",
+    "legion":"VN",
     "url": "https://cdn.discordapp.com/attachments/775740994595323954/775741836018974740/Itro___Tobu_-_Cloud_9_NCS_ReleaseMP3_160K.mp3",
     "links": {
       "images": [
@@ -197,11 +197,11 @@
     }
   },
   {
-    "name": "Sky High [NCS Release]",
+    "name": "VN  High [NCS Release]",
     "singer": "Elektronomia",
     "type":"Pop",
     "album":"NCS",
-    "legion":"US-UK",
+    "legion":"VN",
     "url": "https://cdn.discordapp.com/attachments/775740994595323954/775741836152668201/Elektronomia_-_Sky_High_NCS_ReleaseMP3_160K.mp3",
     "links": {
       "images": [
@@ -215,11 +215,11 @@
     }
   },
   {
-    "name": "Where'd You Go (feat. Luna Lark) [NCS Release]",
+    "name": "VN 'd You Go (feat. Luna Lark) [NCS Release]",
     "singer": "Julius Dreisig",
     "type":"Pop",
     "album":"NCS",
-    "legion":"US-UK",
+    "legion":"VN",
     "url": "https://cdn.discordapp.com/attachments/775740994595323954/775741837642170382/Julius_Dreisig_-_Where_d_You_Go_feat._Luna_LarkMP3_160K.mp3",
     "links": {
       "images": [
