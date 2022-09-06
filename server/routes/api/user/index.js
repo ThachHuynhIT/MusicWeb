@@ -52,7 +52,7 @@ router.post("/login", (req, res, next) => {
 
 // Đăng ký
 router.post("/signup", (req, res, next) => {
-  const { username, password } = req.body;
+  const { username } = req.body;
   const { isValid, errors } = signupValidator(req.body);
 
   if (!isValid) {
@@ -75,7 +75,6 @@ router.post("/signup", (req, res, next) => {
         },
       })
     )
-
     .catch((err) => next(err));
 });
 
@@ -87,7 +86,7 @@ router.post("/logout", (req, res) => {
 });
 
 // Kiểm tra đáng nhập
-router.post("/authen", (req, res) => {
+router.get("/authen", (req, res) => {
   const token = req.cookies.access_token;
 
   if (!token) return res.status(401).send("Access Denied");
@@ -106,9 +105,7 @@ router.post("/authen", (req, res) => {
       });
     });
   } catch (err) {
-
-    return res.status(400).send("Invalid Token");
-
+    return res.status(401).send("Not");
   }
 });
 
