@@ -86,22 +86,28 @@ router.post("/logout", (req, res) => {
 });
 
 // Kiểm tra đáng nhập
-router.post("/authen", (req, res) => {
+router.post("/authen", (req, res, err) => {
   const token = req.cookies.access_token;
 
+  if (!token) return res.status(401).send('Access Denied');
+
+  try {
   const verified = jwt.verify(token, process.env.TOKEN_SECRET);
   const userId = verified._id;
-  User.findById({ _id: userId }).then((user) => {
-    res.status(200).json({
-      isAuthenticated: true,
-      user: {
-        _id:userId,
-        username: user.username,
-        email: user.email,
-
-      },
-    });
-  });
+  User.findById({ _id: userId })
+    .then((user) => {
+      res.status(200).json({
+        isAuthenticated: true,
+        user: {
+          _id: userId,
+          username: user.username,
+          email: user.email,
+        },
+      });
+    })}
+  catch(err) {
+      return res.status(400).send('Invalid Token');
+  }
 });
 
 module.exports = router;

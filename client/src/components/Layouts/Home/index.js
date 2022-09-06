@@ -6,7 +6,7 @@ import styles from "./Home.module.scss";
 import List from "../../List";
 import ListSinger from "../../ListSinger";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import albums from "D:/WEB/reactjs/MusicWeb/client/src/data/albums.json";
+// import albums from "D:/WEB/reactjs/MusicWeb/client/src/data/albums.json";
 
 const cx = classNames.bind(styles);
 

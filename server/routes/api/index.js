@@ -2,7 +2,6 @@ const express = require("express");
 const media = require("./media");
 const playlist = require("./playlist");
 const user = require("./user");
-const verifyToken = require("../../middlewares/verifyToken")
 
 const router = express.Router();
 
