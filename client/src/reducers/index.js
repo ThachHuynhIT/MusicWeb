@@ -91,7 +91,13 @@ const selectedAlbumIdReducer = (selectedAlbumId = [], action) => {
   }
   return selectedAlbumId;
 };
-
+//logOutReducer
+const logOutReducer = (val = 0, action) => {
+  if (action.type === "ALBUM_SELECTED") {
+    return action.payload;
+  }
+  return val;
+};
 export default combineReducers({
   songs: songsReducer,
   selectedSongList: selectedSongListReducer,
@@ -103,4 +109,5 @@ export default combineReducers({
   type: typeAlbumReducer,
   duration: durationReducer,
   currentLocation: currentLocationReducer,
+  val: logOutReducer,
 });

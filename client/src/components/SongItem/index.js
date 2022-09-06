@@ -12,9 +12,9 @@ const cx = classNames.bind(styles);
 const SongItem = ({
   song,
   index,
-  selectSong,
   selectedSongPlay,
   playerState,
+  selectSong,
   selectSongByAlbum,
 }) => {
   const [songsList, setSongsList] = useState([]);

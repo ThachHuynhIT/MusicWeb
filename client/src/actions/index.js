@@ -113,3 +113,10 @@ export const getAlbumSongs = (songs) => {
     payload: songs,
   };
 };
+//logout
+export const logOut = (val) => {
+  return {
+    type: "LOG_OUT",
+    payload: val,
+  };
+};
