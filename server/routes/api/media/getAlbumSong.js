@@ -5,11 +5,11 @@ module.exports = (req, res, next) => {
   let page = req.params.page || 1;
 
   if (page < 1) {
-    Song.find({ legion: req.params.legion }).then((song) => {
+    Song.find({ album: req.params.album }).then((song) => {
       res.send(song);
     });
   } else {
-    Song.find({ legion: req.params.legion })
+    Song.find({ album: req.params.album })
       .skip(perPage * page - perPage)
       .limit(perPage)
       .exec((err, song) => {

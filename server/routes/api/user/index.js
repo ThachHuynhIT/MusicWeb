@@ -75,6 +75,7 @@ router.post("/signup", (req, res, next) => {
         },
       })
     )
+
     .catch((err) => next(err));
 });
 
@@ -105,7 +106,9 @@ router.post("/authen", (req, res) => {
       });
     });
   } catch (err) {
-    return res.status(401).send("Not");
+
+    return res.status(400).send("Invalid Token");
+
   }
 });
 
