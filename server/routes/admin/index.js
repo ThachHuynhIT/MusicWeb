@@ -7,12 +7,12 @@ const userRouter = require("./user");
 
 const router = express.Router();
 
-  router.get("/user", userRouter);
+  router.use("/user", userRouter);
 
-  router.get("/album", albumRouter);
+  router.use("/album", albumRouter);
 
-  router.get("/music", musicRouter);
+  router.use("/music", musicRouter);
 
-  router.get("/", sitesRouter);
+  router.use("/", sitesRouter);
 
 module.exports = router;

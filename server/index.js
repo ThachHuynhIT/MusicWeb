@@ -2,7 +2,7 @@ const path = require("path");
 const express = require("express");
 const methodOverride = require("method-override");
 const morgan = require("morgan");
-const slugify = require("slugify");
+const cookieParser = require("cookie-parser")
 const handlebars = require("express-handlebars");
 require("dotenv").config();
 
@@ -13,6 +13,7 @@ db.connect();
 
 // const { engine } = require ('express-handlebars');
 const app = express();
+app.use(cookieParser());
 const port = process.env.SERVER_PORT;
 
 app.use(

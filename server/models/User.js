@@ -43,7 +43,6 @@ userSchema.pre("save", function (next) {
       if (err) return next(err);
 
       user.password = hash;
-      // user.access_token = getToken(user);
       next();
     });
   });

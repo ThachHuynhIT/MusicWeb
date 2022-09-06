@@ -58,7 +58,7 @@ class UsersController {
         );
         res
           .header({
-            "auth-token": token,
+            "access_token": token,
             username: user.username,
           })
           .send(token);
