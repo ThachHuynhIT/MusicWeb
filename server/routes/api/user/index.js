@@ -82,14 +82,14 @@ router.post("/signup", (req, res, next) => {
 router.post("/logout", (req, res) => {
   res
     .clearCookie("access_token")
-    .json({ user: { username: "" }, success: true });
+    .json({ user: { username: "" }, isAuthenticated: false });
 });
 
 // Kiểm tra đáng nhập
 router.get("/authen", (req, res) => {
   const token = req.cookies.access_token;
 
-  if (!token) return res.status(401).send("Access Denied");
+  if (!token) return res.status(401).json({isAuthenticated: false});
 
   try {
     const verified = jwt.verify(token, process.env.TOKEN_SECRET);
@@ -105,7 +105,12 @@ router.get("/authen", (req, res) => {
       });
     });
   } catch (err) {
-    return res.status(401).send("Not");
+
+
+    return res.status(400).send("Invalid Token");
+
+
+
   }
 });
 
