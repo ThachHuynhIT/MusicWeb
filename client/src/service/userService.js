@@ -1,7 +1,7 @@
 import { httpRequests } from "../utils";
 export const register = (user) => {
   return httpRequests
-    .post("/user/signupStore", user)
+    .post("api/user/signup", user)
     .then((response) => {
       return response.data;
     })
@@ -17,7 +17,7 @@ export const register = (user) => {
 };
 export const login = (user) => {
   return httpRequests
-    .post("/user/author", user)
+    .post("api/user/login", user)
     .then((response) => {
       if (response.status !== 401) {
         return response.data;

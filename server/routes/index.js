@@ -11,11 +11,9 @@ function route(app) {
     );
     next();
   });
-
   app.use("/api", api);
 
   // app.use("/admin", verifyToken,admin);
   app.use("/admin", admin);
 }
-
 module.exports = route;

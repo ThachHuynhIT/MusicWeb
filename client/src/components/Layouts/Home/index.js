@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 import React, { useEffect, useState } from "react";
 import * as albumsSrevice from "../../../service/albumsSevrice";
 import ReactDOM from "react-dom";
@@ -8,15 +7,6 @@ import List from "../../List";
 import ListSinger from "../../ListSinger";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import albums from "D:/WEB/reactjs/MusicWeb/client/src/data/albums.json";
-=======
-import React from "react";
-import ReactDOM from "react-dom";
-import classNames from "classnames/bind";
-import styles from "./Home.module.scss";
-import ListItem from "../../ListItem";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import albums from "d:/WEB/reactjs/music-ui/src/data/albums.json";
->>>>>>> Stashed changes
 
 const cx = classNames.bind(styles);
 
@@ -25,7 +15,6 @@ for (let index = 0; index < albums.length; index++) {
   album.id = index;
 }
 function HomeLayout() {
-<<<<<<< Updated upstream
   const [albumsList, setAlbumsList] = useState([]);
   const [typeAlbum, setTypeAlbum] = useState([]);
   useEffect(() => {
@@ -40,7 +29,6 @@ function HomeLayout() {
       const uniqueSet = new Set(type);
       const backToArray = [...uniqueSet];
 
-      // console.log(arr);
       setAlbumsList(response);
       setTypeAlbum(backToArray);
     };
@@ -53,16 +41,8 @@ function HomeLayout() {
       <div className={cx("top-padding")}></div>
       <div className={cx("content")}>
         <section className={cx("list-item")}>
-          <List albums={albums} type={typeAlbum} />
+          <List albums={albumsList} type={typeAlbum} />
           <ListSinger singers={albumsList} />
-=======
-  return (
-    <div className={cx("main-view-container")}>
-      <div className={cx("top-padding")}></div>
-      <div className={cx("content")}>
-        <section className={cx("list-item")}>
-          <ListItem albums={albums} />
->>>>>>> Stashed changes
         </section>
       </div>
     </div>

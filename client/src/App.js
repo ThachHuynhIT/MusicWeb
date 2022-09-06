@@ -3,13 +3,9 @@ import { Fragment } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { PublicRoutes } from "./routes";
 import DefaultLayout from "./components/Layouts/DefaultLayout";
-<<<<<<< Updated upstream
+
 import songs from "D:/WEB/reactjs/MusicWeb/client/src/data/songs.json";
 import albums from "D:/WEB/reactjs/MusicWeb/client/src/data/albums.json";
-=======
-import songs from "d:/WEB/reactjs/music-ui/src/data/songs.json";
-import albums from "d:/WEB/reactjs/music-ui/src/data/albums.json";
->>>>>>> Stashed changes
 
 function App() {
   return (

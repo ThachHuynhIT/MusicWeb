@@ -1,5 +1,4 @@
 .wrapper {
-<<<<<<< Updated upstream
   background-image: linear-gradient(
     rgb(33, 44, 57),
     rgb(18, 30, 61) 50%,
@@ -33,28 +32,4 @@
 .footer {
   background-color: black;
   height: 120px;
-=======
-  display: grid;
-  grid-template-areas:
-    "top-bar  "
-    " main-view  ";
-
-  grid-template-rows: auto 1fr;
-  height: 100%;
-  min-height: 100%;
-  position: relative;
-  width: 100%;
-  background-image: url(https://tophinhanhdep.com/wp-content/uploads/2021/09/Aesthetic-Desktop-Wallpapers.png);
-
-  background-size: 100%;
-}
-.content {
-  grid-area: top-bar;
-  height: 15vh;
-}
-.main-view {
-  grid-area: main-view;
-
-  height: 85vh;
->>>>>>> Stashed changes
 }

@@ -4,11 +4,7 @@ import classNames from "classnames/bind";
 import styles from "./SearchItem.module.scss";
 const cx = classNames.bind(styles);
 
-<<<<<<< Updated upstream
 function SearchItem({ data }) {
-=======
-function SearchItem() {
->>>>>>> Stashed changes
   return (
     <div className={cx("wrapper")}>
       <img
@@ -20,11 +16,8 @@ function SearchItem() {
         <h4 className={cx("name")}>
           <span>Nguyen Van A</span>
         </h4>
-<<<<<<< Updated upstream
+
         <span className={cx("username")}>{data.name}</span>
-=======
-        <span className={cx("username")}>nguyenvana</span>
->>>>>>> Stashed changes
       </div>
     </div>
   );
