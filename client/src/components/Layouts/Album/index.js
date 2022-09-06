@@ -2,8 +2,9 @@ import React from "react";
 import Player from "../../Player";
 
 // import songs from "D:/WEB/reactjs/MusicWeb/client/src/data/songs.json";
-import albums from "D:/WEB/reactjs/MusicWeb/client/src/data/albums.json";
-import SongList from "D:/WEB/reactjs/MusicWeb/client/src/components/SongList/index";
+// import albums from "D:/WEB/reactjs/MusicWeb/client/src/data/albums.json";
+// import SongList from "D:/WEB/reactjs/MusicWeb/client/src/components/SongList/index";
+import SongList from "../../SongList";
 
 import SongListHeader from "../../SongListHeader";
 import SongDetail from "../../SongDetail";

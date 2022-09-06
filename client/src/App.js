@@ -5,7 +5,7 @@ import { PublicRoutes } from "./routes";
 import DefaultLayout from "./components/Layouts/DefaultLayout";
 
 // import songs from "D:/WEB/reactjs/MusicWeb/client/src/data/songs.json";
-import albums from "D:/WEB/reactjs/MusicWeb/client/src/data/albums.json";
+// import albums from "D:/WEB/reactjs/MusicWeb/client/src/data/albums.json";
 
 function App() {
   return (
