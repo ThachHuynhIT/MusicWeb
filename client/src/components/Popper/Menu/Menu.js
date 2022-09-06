@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import Tippy from "@tippyjs/react/headless";
-
+import { connect, useDispatch } from "react-redux";
+import { selectSong, selectSongByAlbum } from "../../../actions";
 import Wrapper from "../Wrapper";
 import styles from "./Menu.module.scss";
 import { Link } from "react-router-dom";
@@ -12,7 +13,8 @@ const defaultFn = () => {};
 
 function Menu({
   children,
-
+  selectSong,
+  selectSongByAlbum,
   hideOnClick = false,
   onChange = defaultFn,
 }) {
@@ -21,13 +23,18 @@ function Menu({
       <Wrapper className={cx("menu-popper")}>
         <ul className={cx("menu-body")}>
           <li className={cx("menu-item")}>
-            <a>Tài khoản</a>
-          </li>
-          <li className={cx("menu-item")}>
             <Link to="/account/infor">Hồ sơ</Link>
           </li>
           <li className={cx("menu-item")}>
-            <a href="/user/login">Đăng xuất</a>
+            <a
+              href="/user/login"
+              onClick={() => {
+                selectSong(0);
+                selectSongByAlbum(0);
+              }}
+            >
+              Đăng xuất
+            </a>
           </li>
         </ul>
       </Wrapper>
@@ -54,5 +61,13 @@ Menu.propTypes = {
   hideOnClick: PropTypes.bool,
   onChange: PropTypes.func,
 };
+const mapStateToProps = (state) => {
+  return {
+    selectedSongPlay: state.selectedSongPlay,
+    playerState: state.playerState,
+  };
+};
 
-export default Menu;
+export default connect(mapStateToProps, { selectSong, selectSongByAlbum })(
+  Menu
+);

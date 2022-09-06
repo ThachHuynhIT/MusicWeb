@@ -1,7 +1,7 @@
 import React from "react";
 import Player from "../../Player";
 
-import songs from "D:/WEB/reactjs/MusicWeb/client/src/data/songs.json";
+// import songs from "D:/WEB/reactjs/MusicWeb/client/src/data/songs.json";
 import albums from "D:/WEB/reactjs/MusicWeb/client/src/data/albums.json";
 import SongList from "D:/WEB/reactjs/MusicWeb/client/src/components/SongList/index";
 
@@ -20,14 +20,13 @@ const cx = classNames.bind(styles);
 // }
 
 function AlbumLayout() {
-  const [productList, setProductList] = useState([]);
+  const [songsList, setSongsList] = useState([]);
   const { id } = useParams();
   useEffect(() => {
     const fetchApi = async () => {
-      const response = await songsService.getSongsFromAlbum();
+      const response = await songsService.getSongsFromAlbum(id);
 
-      console.log(response);
-      setProductList(response);
+      setSongsList(response);
     };
     fetchApi();
   }, []);
@@ -44,7 +43,7 @@ function AlbumLayout() {
           </div>
           <div className={cx("view-right", "scroll")}>
             <SongListHeader />
-            <SongList songs={productList} />
+            <SongList songs={songsList} />
           </div>
         </div>
         <div className={cx("main-view-bottom")}>

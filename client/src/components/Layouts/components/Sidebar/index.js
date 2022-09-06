@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import ReactDOM from "react-dom";
 import classNames from "classnames/bind";
@@ -15,39 +15,42 @@ import {
 import { Link } from "react-router-dom";
 const cx = classNames.bind(styles);
 function Sidebar() {
+  const [nowSelected, setNowSelected] = useState(true);
+  if (nowSelected) {
+  }
   return (
     <nav className={cx("warrper")}>
       <div className={cx("logo")}>
-        <Link to="/">
+        <Link to="/" id={cx()}>
           <img className={cx("muzic-logo")} src={images.logo} alt="miuzzic" />
         </Link>
       </div>
 
       <div className={cx("content-list")}>
-        <li className={cx("content")}>
-          <a className={cx("content-link")} href={"/"}>
+        <li className={cx("content")} id={cx("active")}>
+          <Link className={cx("content-link", "active")} to={"/"}>
             <FontAwesomeIcon className={cx("icon-li")} icon={faHouse} />
             <span className={cx("titel")}>Trang chủ</span>
-          </a>
+          </Link>
         </li>
         <li className={cx("content")}>
-          <a className={cx("content-link")} href={"/"}>
+          <Link className={cx("content-link")} to={"/"}>
             <FontAwesomeIcon
               className={cx("icon-li")}
               icon={faMagnifyingGlass}
             />
             <span className={cx("titel")}>Tìm kiếm</span>
-          </a>
+          </Link>
         </li>
-        <li className={cx("content")}>
+        {/* <li className={cx("content")}>
           <Link className={cx("content-link")} to="/album">
             <FontAwesomeIcon className={cx("icon-li")} icon={faBook} />
             <span className={cx("titel")}>Thư viện</span>
           </Link>
-        </li>
+        </li> */}
       </div>
 
-      <div className={cx("album")}>
+      {/* <div className={cx("album")}>
         <div className={cx("album-list-content")}>
           <div className={cx("album-content")}>
             <button className={cx("album-btn")}>
@@ -63,7 +66,7 @@ function Sidebar() {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
     </nav>
   );
 }

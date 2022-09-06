@@ -1,18 +1,32 @@
 import React from "react";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
-
-import { selectSong } from "../../actions";
+import * as songsService from "../../service/songsService";
+import { selectSong, selectSongByAlbum } from "../../actions";
 
 import classNames from "classnames/bind";
 import styles from "./SongItem.module.scss";
 const cx = classNames.bind(styles);
 
-const SongItem = ({ song, index, selectSong, selectedSongId, playerState }) => {
-  const [, setHovered] = useState(false);
-  const dispatch = useDispatch();
+const SongItem = ({
+  song,
+  index,
+  selectedSongPlay,
+  playerState,
+  selectSong,
+  selectSongByAlbum,
+}) => {
+  const [songsList, setSongsList] = useState([]);
+  useEffect(() => {
+    const fetchApi = async () => {
+      const response = await songsService.getSongsFromAlbum(song.type);
 
+      setSongsList(response);
+    };
+    fetchApi();
+  }, []);
+  const dispatch = useDispatch();
   const selector = () => {
     return (
       <a draggable="false" href={song.url}>
@@ -26,35 +40,43 @@ const SongItem = ({ song, index, selectSong, selectedSongId, playerState }) => {
     );
   };
 
-  // Set song as active
-  const now_selected = selectedSongId === song.id ? "actie" : "";
+  const now_selected = selectedSongPlay._id === song._id ? "actie" : "";
 
-  // set the gif
   const phaser = () => {
-    if (selectedSongId === song.id && playerState) {
+    if (selectedSongPlay._id === song._id && playerState) {
       return (
         <div>
-          <img alt="" src="/playing.gif" id="focused" />
+          <img alt="" src="/playing.gif" id={cx("focused")} />
         </div>
       );
     } else {
-      return <div>{index + 1}</div>;
+      return (
+        <div>
+          <img
+            src={song.links.images[1].url}
+            alt={song.name}
+            className={cx("icon-img")}
+          />
+        </div>
+      );
     }
   };
+
   return (
     <div
       id={cx(now_selected)}
       className={cx("song-item")}
-      // onMouseOver={() => setHovered(true)}
-      // onMouseLeave={() => setHovered(false)}
       onClick={() => {
         selectSong(song);
+        selectSongByAlbum(songsList);
+        console.log(selectSong(song));
         dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
       }}
     >
       {phaser()}
+
       <div className={cx("name")}>{song.name}</div>
-      <div className={cx("author")}>{song.author}</div>
+      <div className={cx("author")}>{song.singer}</div>
       <div className={cx("selector")}>{selector()}</div>
     </div>
   );
@@ -62,9 +84,11 @@ const SongItem = ({ song, index, selectSong, selectedSongId, playerState }) => {
 
 const mapStateToProps = (state) => {
   return {
-    selectedSongId: state.selectedSongId,
+    selectedSongPlay: state.selectedSongPlay,
     playerState: state.playerState,
   };
 };
 
-export default connect(mapStateToProps, { selectSong })(SongItem);
+export default connect(mapStateToProps, { selectSong, selectSongByAlbum })(
+  SongItem
+);

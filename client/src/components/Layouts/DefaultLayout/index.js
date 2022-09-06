@@ -1,23 +1,20 @@
 import React from "react";
-
+import { selectSong, selectSongByAlbum } from "../../../actions";
 import Header from "../components/Header";
+import { connect } from "react-redux";
 import styles from "./DefaultLayout.module.scss";
 import Sidebar from "../components/Sidebar";
 import Listbar from "../components/Listbar";
 import Player from "../../Player/index.js";
-
-import songs from "D:/WEB/reactjs/MusicWeb/client/src/data/songs";
-
-// import Playing from "../../Playing/index.js";
-// import DataSongs from "D:/WEB/reactjs/music/src/data/songs.json";
-//
-// import { Songs } from "D:/WEB/reactjs/music/src/Context";import ListSongs from "../..//ListSong";
-// import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import * as songsService from "../../../service/songsService";
 
 import classNames from "classnames/bind";
 const cx = classNames.bind(styles);
 
-const DefaultLayout = ({ children }) => {
+const DefaultLayout = ({ children, selectedSongList, selectedSongPlay }) => {
+  console.log(selectedSongList);
   return (
     <React.Fragment>
       <div className={cx("warrper")}>
@@ -28,13 +25,26 @@ const DefaultLayout = ({ children }) => {
           <Sidebar />
         </nav>
         <nav className={cx("nav-list")}>
-          <Listbar songs={songs} />
+          {selectedSongPlay === 0 || selectedSongList === 0 ? (
+            <></>
+          ) : (
+            <>
+              <Listbar />
+            </>
+          )}
         </nav>
         <div className={cx("main-view")}>{children}</div>
 
         <div className={cx("playing-bar")}>
           <div className={cx("playlist")}>
-            <Player />
+            {selectedSongPlay === 0 || selectedSongList === 0 ? (
+              <></>
+            ) : (
+              <>
+                <Player />
+              </>
+            )}
+
             <a href="#focused" id="focus-link" hidden>
               Go to playing element
             </a>
@@ -44,5 +54,13 @@ const DefaultLayout = ({ children }) => {
     </React.Fragment>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    selectedSongList: state.selectedSongList,
+    selectedSongPlay: state.selectedSongPlay,
+  };
+};
 
-export default DefaultLayout;
+export default connect(mapStateToProps, {
+  selectSongByAlbum,
+})(DefaultLayout);

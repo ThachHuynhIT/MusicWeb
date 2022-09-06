@@ -10,10 +10,6 @@ import albums from "D:/WEB/reactjs/MusicWeb/client/src/data/albums.json";
 
 const cx = classNames.bind(styles);
 
-for (let index = 0; index < albums.length; index++) {
-  const album = albums[index];
-  album.id = index;
-}
 function HomeLayout() {
   const [albumsList, setAlbumsList] = useState([]);
   const [typeAlbum, setTypeAlbum] = useState([]);

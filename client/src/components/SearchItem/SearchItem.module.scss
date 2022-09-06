@@ -5,7 +5,7 @@
   cursor: pointer;
 
   &:hover {
-    background: rgba(22, 24, 35, 0.03);
+    background: rgba(24, 18, 21, 0.19);
   }
 }
 
@@ -34,4 +34,21 @@
 .username {
   font-size: 1rem;
   color: rgba(22, 24, 35, 0.5);
+}
+.name-search {
+  display: flex;
+  align-items: center;
+  padding-left: 6px;
+  svg {
+    font-size: 16px;
+  }
+  span {
+    font-size: 16px;
+    padding-left: 12px;
+  }
+}
+.text-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

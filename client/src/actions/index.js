@@ -6,11 +6,17 @@ export const selectSong = (song) => {
     payload: song,
   };
 };
+export const selectSongPlay = (song) => {
+  return {
+    type: "SONG_SELECTED_PLAY",
+    payload: song,
+  };
+};
 
-export const selectSongById = (id) => {
+export const selectSongById = (_id) => {
   return {
     type: "SONG_SELECTED_BY_ID",
-    payload: id,
+    payload: _id,
   };
 };
 
@@ -48,17 +54,50 @@ export const setTime = (val) => {
     payload: val,
   };
 };
+export const setCurrentLocation = (val) => {
+  return {
+    type: "SET_CURRENT_LOCATION",
+    payload: val,
+  };
+};
+
+//song for Album
+export const selectSongByAlbum = (song) => {
+  return {
+    type: "SONG_SELECTED_BY_ALBUM",
+    payload: song,
+  };
+};
+export const chooseAlbum = (val) => {
+  return {
+    type: "CHOOSE_ALBUM",
+    payload: val,
+  };
+};
+export const selectListPlayer = (list) => {
+  return {
+    type: "LIST_SELECTED_PLAYER",
+    payload: list,
+  };
+};
 //albums
+export const selectType = (type) => {
+  return {
+    type: "TYPE_SELECTED",
+    payload: type,
+  };
+};
+
 export const selectAlbum = (album) => {
   return {
     type: "ALBUM_SELECTED",
     payload: album,
   };
 };
-export const selectAlbumById = (id) => {
+export const selectAlbumById = (_id) => {
   return {
     type: "ALBUM_SELECTED_BY_ID",
-    payload: id,
+    payload: _id,
   };
 };
 
@@ -74,10 +113,10 @@ export const getAlbumSongs = (songs) => {
     payload: songs,
   };
 };
-
-export const toLinkAlbum = (link) => {
+//logout
+export const logOut = (val) => {
   return {
-    type: "ALBUM_SELECTED",
-    payload: link,
+    type: "LOG_OUT",
+    payload: val,
   };
 };
