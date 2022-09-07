@@ -1,16 +1,15 @@
 const express = require("express");
 const User = require('../../models/User');
-const verifyToken = require('../../middlewares/verifyToken');
+
 
 const router = express.Router();
 
 const userController = require("../../controllers/UserController");
 
-router.get("/", verifyToken,(req, res) => {
+router.get("/",(req, res) => {
   User.find({}).exec(function (err, users) {
     res.send(users);
   });
-  //Access Denied
 });
 router.get("/list", userController.home);
 router.get("/login", userController.login);

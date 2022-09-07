@@ -1,8 +1,8 @@
-<form class="container mt-4" name="container-action" method="post" action="/user/handle-form-action">
+<form class="container mt-4" name="container-action" method="post" action="/admin/user/handle-form-action">
   <div class="mt-4">
     <h2>Danh sách user</h2>
     {{#if deletedCount}}
-    <a href="/user/bin">Danh sách user đã xoá ({{deletedCount}})</a>
+    <a href="/admin/user/bin">Danh sách user đã xoá ({{deletedCount}})</a>
     {{/if}}
   </div>
   <div class="mb-2 d-flex">
@@ -46,15 +46,15 @@
         <td>{{this.createdAt}}</td>
         <td>{{this.updatedAt}}</td>
         <td>
-          <a class="btn btn-link" href="/user/edit/{{this._id}}">Sửa</a>
-          <a class="btn btn-link" href="/user/delete" data-id="{{this._id}}" data-bs-toggle="modal"
+          <a class="btn btn-link" href="/admin/user/edit/{{this._id}}">Sửa</a>
+          <a class="btn btn-link" href="/admin/user/delete" data-id="{{this._id}}" data-bs-toggle="modal"
             data-bs-target="#delete-user-modal">Xoá</a>
         </td>
       </tr>
       {{else}}
       <tr>
         <td class="text-center" colspan="8">Không có user nào.
-          <a href="/user/create"> Tạo user mới </a>
+          <a href="/admin/user/create"> Tạo user mới </a>
         </td>
       </tr>
       {{/each}}
@@ -103,7 +103,7 @@
 
     // submit form delete
     btnDeleteUser.onclick = function () {
-      deleteForm.action = '/user/' + userID + "?_method=DELETE";
+      deleteForm.action = '/admin/user/' + userID + "?_method=DELETE";
       deleteForm.submit();
     };
 

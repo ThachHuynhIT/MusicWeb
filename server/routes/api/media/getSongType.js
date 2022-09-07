@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
   
   if (page < 1) {
     Song.find({ type: req.params.type }).then((song) => {
-      res.send(song);
+      res.send({song});
     });
   } else {
     Song.find({ type: req.params.type })

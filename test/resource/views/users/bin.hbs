@@ -1,7 +1,7 @@
 <div class="container mt-4">
     <div>
         <h2 class="text-danger">Danh sách user đã xoá</h2>
-        <a href="/user/list">Danh sách user</a>
+        <a href="/admin/user/list">Danh sách user</a>
     </div>
     <table class="table table-striped-columns">
         <thead class="table-dark">
@@ -30,7 +30,7 @@
                 <td>{{this.deletedAt}}</td>
                 <td>
                     <a class="btn btn-link btn-restore" data-id="{{this._id}}" href="">Khôi phục</a>
-                    <a class="btn btn-link" href="/user/delete" data-id="{{this._id}}" data-bs-toggle="modal"
+                    <a class="btn btn-link" href="/admin/user/delete" data-id="{{this._id}}" data-bs-toggle="modal"
                         data-bs-target="#delete-user-modal">Xoá vĩnh viễn</a>
                 </td>
             </tr>
@@ -83,7 +83,7 @@
     });
 
     btnDeleteAlbum.onclick = function () {
-        deleteForm.action = '/user/force/' + userID + "?_method=DELETE";
+        deleteForm.action = '/admin/user/force/' + userID + "?_method=DELETE";
         deleteForm.submit();
     };
 
@@ -92,7 +92,7 @@
             e.preventDefault();
 
             userID2 = restoreBtn.getAttribute('data-id');
-            restoreForm.action = '/user/restore/' + userID2 + '?_method=PATCH';
+            restoreForm.action = '/admin/user/restore/' + userID2 + '?_method=PATCH';
             restoreForm.submit();
         });
     });
