@@ -6,12 +6,15 @@ module.exports = (req, res, next) => {
   let page = req.params.page || 1;
   albumType = req.params.type;
 
+
   if (page < 1) {
-    Album.find({}).then((album) => {
+
+    Album.find({type : albumType}).then((album) => {
+
       res.send({ album });
     });
   } else {
-    Album.find({})
+    Album.find({type : albumType})
       .skip(perPage * page - perPage)
       .limit(perPage)
       .exec((err, album) => {
