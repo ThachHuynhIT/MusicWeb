@@ -1,6 +1,11 @@
 import classNames from "classnames/bind";
 import styles from "./ListItem.module.scss";
-import { selectAlbum, selectSong, selectSongByAlbum } from "../../actions";
+import {
+  selectAlbum,
+  selectSong,
+  selectSongByAlbum,
+  setStatus,
+} from "../../actions";
 import * as songsService from "../../service/songsService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
@@ -18,6 +23,7 @@ const Item = ({
   selectSong,
   playerState,
   selectSongByAlbum,
+  setStatus,
 }) => {
   const [songsList, setSongsList] = useState([]);
   const dispatch = useDispatch();
@@ -29,10 +35,19 @@ const Item = ({
     };
     fetchApi();
   }, []);
+  const blockClick = () => {
+    if (true) {
+    }
+  };
 
   return (
     <div className={cx("item")}>
-      <div className={cx("warrper")} onClick={() => {}}>
+      <div
+        className={cx("warrper")}
+        onClick={() => {
+          setStatus(true);
+        }}
+      >
         <div className={cx("card")}>
           <div className={cx("card-top")}>
             <div className={cx("img-card")}>
@@ -42,9 +57,8 @@ const Item = ({
                   <div
                     class={cx("player-btn")}
                     onClick={() => {
-                      selectSong(songsList[0]);
-                      console.log(selectSong(songsList[0]));
                       selectSongByAlbum(songsList);
+                      selectSong(songsList[0]);
 
                       dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
                     }}
@@ -91,4 +105,5 @@ export default connect(mapStateToProps, {
   selectAlbum,
   selectSong,
   selectSongByAlbum,
+  setStatus,
 })(Item);

@@ -16,7 +16,7 @@ const SongDetail = ({ selectedAlbumId, playerState, selectedSongPlay }) => {
   const playImg = () => {
     console.log(playerState);
 
-    if (playerState === 1 && selectedAlbumId.type === selectedSongPlay.type) {
+    if (playerState === 1 && selectedAlbumId.name === selectedSongPlay.album) {
       return (
         <div className={cx("album-img")}>
           <img

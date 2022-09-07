@@ -11,7 +11,7 @@ const cx = classNames.bind(styles);
 
 const SongItem = ({
   song,
-  index,
+
   selectedSongPlay,
   playerState,
   selectSong,
@@ -20,7 +20,7 @@ const SongItem = ({
   const [songsList, setSongsList] = useState([]);
   useEffect(() => {
     const fetchApi = async () => {
-      const response = await songsService.getSongsFromAlbum(song.type);
+      const response = await songsService.getSongsFromAlbum(song.album);
 
       setSongsList(response);
     };
@@ -61,7 +61,7 @@ const SongItem = ({
       );
     }
   };
-
+  console.log(songsList);
   return (
     <div
       id={cx(now_selected)}
@@ -69,8 +69,9 @@ const SongItem = ({
       onClick={() => {
         selectSong(song);
         selectSongByAlbum(songsList);
-        console.log(selectSong(song));
+
         dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
+        console.log(playerState);
       }}
     >
       {phaser()}

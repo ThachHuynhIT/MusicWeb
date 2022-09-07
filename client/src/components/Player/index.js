@@ -149,7 +149,6 @@ const Player = ({
             id={shuffled ? `active` : null}
             onClick={() => {
               setShuffled(!shuffled);
-              console.log(shuffled);
             }}
           >
             <svg
@@ -202,7 +201,7 @@ const Player = ({
           <audio
             id="main-track"
             src={songUrl()}
-            preload="true"
+            // preload="true"
             onEnded={() => {
               shuffled
                 ? Math.round(Math.random() * selectList.length)
@@ -213,8 +212,8 @@ const Player = ({
                 type: "SET_DURATION",
                 payload: audioRef.current.duration,
               });
-
               setInterval(() => {
+                console.log(songUrl());
                 dispatch({
                   type: "SET_CURRENT_LOCATION",
                   payload: audioRef.current.currentTime,
@@ -252,7 +251,7 @@ const mapStateToProps = (state) => {
   return {
     selectedSongPlay: state.selectedSongPlay,
     selectList: state.selectedSongList,
-    defaultSong: state.selectedSongList[0],
+    // defaultSong: state.selectedSongList[0],
     playerState: state.playerState,
     songs: state.songs,
     volume: state.volume,

@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
 
   if (page < 1) {
     Album.find({}).then((album) => {
-      res.send(album);
+      res.send({ album });
     });
   } else {
     Album.find({})

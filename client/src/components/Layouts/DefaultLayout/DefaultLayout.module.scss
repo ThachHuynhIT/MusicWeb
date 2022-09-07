@@ -26,7 +26,7 @@
 }
 .nav-list {
   background-color: rgb(0, 0, 0);
-
+  // background-image: url(https://images.viblo.asia/9c2a1fb7-5b2b-4fa5-870d-c32262ab77ab.gif);
   display: flex;
   flex-direction: column;
   grid-area: nav-list;
@@ -91,4 +91,94 @@
   background: transparent;
   color: #b3b3b3;
   white-space: nowrap;
+}
+
+.block {
+  display: none;
+}
+#block-actie {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 104;
+
+  display: flex !important;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+.block-container {
+  background-color: rgb(169, 104, 22);
+  display: flex;
+
+  width: 810px;
+  height: 400px;
+}
+.content {
+  justify-content: center;
+  padding: 64px;
+
+  display: flex;
+}
+.img-content {
+  align-items: center;
+
+  display: flex;
+  margin-left: 0;
+  margin-right: 64px;
+  img {
+    max-width: 300px;
+  }
+}
+.text-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  h2 {
+    font-size: 32px;
+    margin: 8px 0 24px;
+    color: #fff;
+
+    font-weight: 700;
+    letter-spacing: -0.4px;
+    line-height: normal;
+  }
+}
+.btn-signup {
+  position: relative;
+  background-color: #1ed760;
+  color: #000000;
+  border-radius: 500px;
+  font-size: inherit;
+  padding-block: 14px;
+  padding-inline: 32px;
+  border: #000 0.5px solid;
+  font-weight: 700;
+}
+
+.title {
+  font-weight: 600;
+  color: #fff;
+  display: flex;
+}
+.btn-login {
+  background-color: inherit;
+  font-weight: 700;
+  color: rgb(168, 160, 160);
+  padding-left: 8px;
+}
+.btn-remove {
+  background-color: white;
+  font-weight: 700;
+  color: rgb(168, 160, 160);
+  padding-left: 8px;
+  height: 18px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
