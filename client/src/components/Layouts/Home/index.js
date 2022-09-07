@@ -15,7 +15,7 @@ function HomeLayout() {
   const [typeAlbum, setTypeAlbum] = useState([]);
   useEffect(() => {
     const fetchApi = async () => {
-      const response = await albumsSrevice.getAllAlbum(1);
+      const response = await albumsSrevice.getAllAlbum(0);
 
       var type = [];
 
@@ -31,7 +31,7 @@ function HomeLayout() {
 
     fetchApi();
   }, []);
-  console.log(albumsList);
+
   return (
     <div className={cx("main-view-container", "scroll")}>
       <div className={cx("top-padding")}></div>
