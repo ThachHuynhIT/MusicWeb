@@ -1,8 +1,8 @@
-<form class="container mt-4" name="container-action" method="post" action="/album/handle-form-action">
+<form class="container mt-4" name="container-action" method="post" action="/admin/album/handle-form-action">
   <div class="mt-4">
     <h2>Danh sách album</h2>
     {{#if deletedCount}}
-    <a href="/album/bin">Danh sách album đã xoá ({{deletedCount}})</a>
+    <a href="/admin/album/bin">Danh sách album đã xoá ({{deletedCount}})</a>
     {{/if}}
   </div>
   <div class="mb-2 d-flex">
@@ -29,6 +29,7 @@
         <th scope="col">Thể loại</th>
         <th scope="col">Mô tả</th>
         <th scope="col">Hình ảnh</th>
+        <th scope="col">Rút gọn</th>
         <th scope="col">Thời gian khởi tạo</th>
         <th scope="col"></th>
       </tr>
@@ -47,18 +48,20 @@
         <td>{{this.singer}}</td>
         <td>{{this.type}}</td>
         <td>{{this.description}}</td>
-        <td>{{this.img}}</td>
+        <td><img class="img-thumbnail" src="{{this.img}}" style="
+    max-height: 150px;"></td>
+        <td>{{this.slug}}</td>
         <td>{{this.createdAt}}</td>
         <td>
-          <a class="btn btn-link" href="/album/edit/{{this._id}}">Sửa</a>
-          <a class="btn btn-link" href="/album/delete" data-id="{{this._id}}" data-bs-toggle="modal"
+          <a class="btn btn-link" href="/admin/album/edit/{{this._id}}">Sửa</a>
+          <a class="btn btn-link" href="/admin/album/delete" data-id="{{this._id}}" data-bs-toggle="modal"
             data-bs-target="#delete-album-modal">Xoá</a>
         </td>
       </tr>
       {{else}}
       <tr>
         <td class="text-center" colspan="8">Không có album nào.
-          <a href="/album/create"> Tạo album mới </a>
+          <a href="/admin/album/create"> Tạo album mới </a>
         </td>
       </tr>
       {{/each}}
@@ -107,7 +110,7 @@
 
     // submit form delete
     btnDeleteAlbum.onclick = function () {
-      deleteForm.action = '/album/' + albumID + "?_method=DELETE";
+      deleteForm.action = '/admin/album/' + albumID + "?_method=DELETE";
       deleteForm.submit();
     };
 

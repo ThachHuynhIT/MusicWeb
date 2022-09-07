@@ -1,36 +1,24 @@
 <div class="container px-4 text-center">
-  <div class="row mt-4">
-    <div class="card mx-auto" style="width: 18rem;">
-      <img src="/img/1(6).jpg" class="card-img-top" alt="..." />
-      <div class="card-body">
-        <p class="card-text">This is ...</p>
-      </div>
-    </div>
-  </div>
   <div class="row gx-5">
-    <div class="col">
-      <div class="mt-4 p-3 border bg-light">Album</div>
-
-      <a class="btn btn-primary" href="/album/create" role="button">Create album</a>
-      <a class="btn btn-primary" href="/album" role="button">Show album</a>
+    <div class="col mb-3">
+      <div class="mt-4 mb-3 p-3 border bg-light">Album</div>
+      <a class="btn btn-primary" href="/admin/album/create" role="button">Create album</a>
+      <a class="btn btn-primary" href="/admin/album" role="button">Show album</a>
     </div>
     <div class="row">
       {{#each album}}
-        <div class="col-sm-4 col-lg-3 mx-auto">
-          <div class="card" style="width: 18rem;">
-            <a href="/album/{{this.slug}}">
-              <img src="img/{{this.img}}" class="card-img-top" alt="..." />
-            </a>
-            <div class="card-body">
-              <h5 class="card-title">{{this.name}}</h5>
-              <p class="card-text">Singer: {{this.singer}}</p>
-              <a
-                href="/album/{{this.slug}}"
-                class="btn btn-primary"
-              >Discover</a>
-            </div>
+      <div class="col-sm-4 col-lg-3 mx-auto mb-2">
+        <div class="card" style="width: 18rem;">
+          <a href="/admin/album/{{this.slug}}">
+            <img src="{{this.img}}" class="card-img-top" />
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">{{this.name}}</h5>
+            <p class="card-text">Singer: {{this.singer}}</p>
+            <a href="/admin/album/{{this.slug}}" class="btn btn-primary">Discover</a>
           </div>
         </div>
+      </div>
       {{/each}}
     </div>
   </div>

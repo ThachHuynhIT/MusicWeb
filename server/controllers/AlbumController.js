@@ -18,9 +18,9 @@ class AlbumController {
   index(req, res, next) {
     Promise.all([Album.find({}), Album.countDocumentsDeleted()])
       .then(([album, deletedCount]) =>
-        res.send( {
-          // deletedCount,
-          album:album,
+        res.render("./albums/albums", {
+          deletedCount,
+          album:multipleMongooseToObject(album),
         })
       )
       .catch(next);
@@ -45,7 +45,7 @@ class AlbumController {
     const album = new Album(req.body);
     album
       .save()
-      .then(() => res.redirect("/album"))
+      .then(() => res.redirect("/admin/album"))
       .catch((error) => {});
   }
 
