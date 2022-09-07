@@ -18,7 +18,7 @@ function AllAlbumLayout() {
 
   useEffect(() => {
     const fetchApi = async () => {
-      const response = await albumsSrevice.getAllAlbum();
+      const response = await albumsSrevice.getAllAlbum(0);
 
       var albums = [];
 

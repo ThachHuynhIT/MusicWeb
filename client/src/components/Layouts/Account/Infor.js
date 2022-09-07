@@ -23,6 +23,14 @@ function InforLayout() {
               <td className={cx("td")}>Ngày sinh</td>
               <td className={cx("td-1")}>17 Tháng 7,2001</td>
             </tr>
+            <tr>
+              <td className={cx("td")}>Giới tính</td>
+              <td className={cx("td-1")}>Nam</td>
+            </tr>
+            <tr>
+              <td className={cx("td")}>Email</td>
+              <td className={cx("td-1")}>Huy@gmail.com</td>
+            </tr>
 
             <tr>
               <td className={cx("td")}>Quốc gia</td>
@@ -31,7 +39,7 @@ function InforLayout() {
           </tbody>
         </table>
         <div className={cx("move")}>
-          <Link className={cx("btn-move")} to="/">
+          <Link className={cx("btn-move")} to="/account/edit">
             Chỉnh sửa hồ sơ
           </Link>
         </div>

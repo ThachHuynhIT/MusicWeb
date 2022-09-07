@@ -1,18 +1,8 @@
 import { combineReducers } from "redux";
 
-import songs from "../data/songs.json";
-
 import albums from "../data/albums.json";
 
 //songsReducer
-
-const songsReducer = (songss = songs, action) => {
-  if (action.type === "SONGS_SELECTED") {
-    return action.payload;
-  }
-
-  return songss;
-};
 
 const selectedSongPlayReducer = (selectedSongPlay = 0, action) => {
   if (action.type === "SONG_SELECTED") {
@@ -98,16 +88,29 @@ const logOutReducer = (val = 0, action) => {
   }
   return val;
 };
+//getStatus
+const getStatusReducer = (status = 0, action) => {
+  if (action.type === "SET_STATUS") {
+    return action.payload;
+  }
+  return status;
+};
+
 export default combineReducers({
-  songs: songsReducer,
   selectedSongList: selectedSongListReducer,
   selectedAlbumId: selectedAlbumIdReducer,
+
   selectedSongPlay: selectedSongPlayReducer,
   playerState: playerStateReducer,
+
   volume: volumeReducer,
   time: timeReducer,
+
   type: typeAlbumReducer,
   duration: durationReducer,
+
   currentLocation: currentLocationReducer,
   val: logOutReducer,
+
+  status: getStatusReducer,
 });

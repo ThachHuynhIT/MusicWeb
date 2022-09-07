@@ -15,7 +15,7 @@ function HomeLayout() {
   const [typeAlbum, setTypeAlbum] = useState([]);
   useEffect(() => {
     const fetchApi = async () => {
-      const response = await albumsSrevice.getAllAlbum();
+      const response = await albumsSrevice.getAllAlbum(1);
 
       var type = [];
 
@@ -31,14 +31,14 @@ function HomeLayout() {
 
     fetchApi();
   }, []);
-
+  console.log(albumsList);
   return (
     <div className={cx("main-view-container", "scroll")}>
       <div className={cx("top-padding")}></div>
       <div className={cx("content")}>
         <section className={cx("list-item")}>
           <List albums={albumsList} type={typeAlbum} />
-          <ListSinger singers={albumsList} />
+          {/* <ListSinger singers={albumsList} /> */}
         </section>
       </div>
     </div>

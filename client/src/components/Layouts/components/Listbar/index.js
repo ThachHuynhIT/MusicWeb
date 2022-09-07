@@ -11,7 +11,6 @@ const cx = classNames.bind(styles);
 
 const Listbar = ({ selectedSongList }) => {
   const songTags = selectedSongList.map((song, index) => {
-    console.log(selectedSongList);
     if (selectedSongList === 0) {
       <></>;
     } else {
