@@ -42,7 +42,14 @@ function Menu({
             <Link to="/account/infor">Hồ sơ</Link>
           </li>
           <li className={cx("menu-item")}>
-            <span onClick={onLogout()}>Đăng xuất</span>
+            <span
+              onClick={() => {
+                userService.logOut();
+                navigate("/user/login");
+              }}
+            >
+              Đăng xuất
+            </span>
           </li>
         </ul>
       </Wrapper>

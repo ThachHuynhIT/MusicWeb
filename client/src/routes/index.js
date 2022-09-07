@@ -26,18 +26,5 @@ const PublicRoutes = [
   { path: "/account/infor", component: Infor, layout: DefaultAccountLayout },
   { path: "/account/edit", component: Edit, layout: DefaultAccountLayout },
 ];
-const Private = [
-  { path: "/", component: Home },
-  { path: "/album", component: Album },
-  { path: "/album/:type/all", component: AllAlbum },
-  { path: "/search/:name/all", component: SearchAll },
-  { path: "/search/:name/all", component: SearchAll },
-  { path: "/search/:name/song", component: SearchSong },
-  { path: "/album/:id", component: Album },
-  { path: "/user/login", component: Login, layout: DefaultUserLayout },
-  { path: "/user/register", component: Register, layout: DefaultUserLayout },
-  { path: "/account/infor", component: Infor, layout: DefaultAccountLayout },
-  { path: "/account/edit", component: Edit, layout: DefaultAccountLayout },
-];
 
-export { PublicRoutes, Private };
+export { PublicRoutes };
