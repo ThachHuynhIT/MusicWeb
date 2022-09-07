@@ -51,17 +51,21 @@ class UsersController {
     })
       // res.header("auth-token", token).send(token)
       .then((user) => {
-        const token = jwt.sign(
-          { _id: req.params._id },
-          process.env.TOKEN_SECRET,
-          { expiresIn: 60 * 60 * 24 }
-        );
+        const id = user._id;
+  
+        const token = jwt.sign({ _id: id }, process.env.TOKEN_SECRET, {
+          expiresIn: "1d",
+        });
         res
+          .cookie("access_token", token, { httpOnly: true, sameSite: true })
           .header({
-            "access_token": token,
             username: user.username,
           })
-          .send(token);
+          .redirect("/admin")
+          .send(
+          {
+            user: mongooseToObject(user)
+          })
       })
       .catch((err) => next(err));
   }

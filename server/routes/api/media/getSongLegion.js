@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
 
   if (page < 1) {
     Song.find({ legion: req.params.legion }).then((song) => {
-      res.send(song);
+      res.send({song});
     });
   } else {
     Song.find({ legion: req.params.legion })
@@ -21,6 +21,8 @@ module.exports = (req, res, next) => {
             pages: Math.ceil(count / perPage),
           });
         });
-      });
+      })
+      .catch(err=>next(err))
+      ;
   }
 };
