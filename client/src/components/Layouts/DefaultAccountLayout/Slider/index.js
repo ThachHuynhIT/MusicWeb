@@ -31,7 +31,7 @@ function UserSlider() {
 
         <ul class={cx("admin-user-menu")}>
           <li class={cx("active")}>
-            <Link to="./" className={cx("herf-slider")}>
+            <Link to="/account/infor" className={cx("herf-slider")}>
               <FontAwesomeIcon className={cx("icon")} icon={faHome} />
               <span> Hồ sơ</span>
             </Link>

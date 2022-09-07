@@ -5,19 +5,35 @@ import { connect, useDispatch } from "react-redux";
 import { selectSong, selectSongByAlbum } from "../../../actions";
 import Wrapper from "../Wrapper";
 import styles from "./Menu.module.scss";
-import { Link } from "react-router-dom";
+import * as userService from "../../../service/userService";
 
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 const cx = classNames.bind(styles);
-
-const defaultFn = () => {};
 
 function Menu({
   children,
   selectSong,
   selectSongByAlbum,
   hideOnClick = false,
-  onChange = defaultFn,
 }) {
+  const [user, setUser] = useState();
+  const [isAuthenticated, setAuthenticated] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  useEffect(() => {
+    userService.isAuthen().then((data) => {
+      console.log(data);
+      setUser(data.user);
+      setAuthenticated(data.isAuthenticated);
+      setIsLoaded(true);
+    });
+  }, []);
+
+  const navigate = useNavigate();
+  const onLogout = () => {
+    userService.logOut();
+  };
+
   const renderResult = (attrs) => (
     <div className={cx("menu-list")} tabIndex="-1" {...attrs}>
       <Wrapper className={cx("menu-popper")}>
@@ -26,15 +42,7 @@ function Menu({
             <Link to="/account/infor">Hồ sơ</Link>
           </li>
           <li className={cx("menu-item")}>
-            <a
-              href="/user/login"
-              onClick={() => {
-                selectSong(0);
-                selectSongByAlbum(0);
-              }}
-            >
-              Đăng xuất
-            </a>
+            <span onClick={onLogout()}>Đăng xuất</span>
           </li>
         </ul>
       </Wrapper>

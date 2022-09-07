@@ -45,6 +45,8 @@
   padding-top: 60px;
   :hover {
     transform: scale(1.04);
+    background-color: var(--green);
+    color: #ffffff;
   }
 }
 .btn-move {

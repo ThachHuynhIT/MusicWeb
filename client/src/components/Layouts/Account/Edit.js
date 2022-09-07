@@ -122,6 +122,20 @@ function EditLayout() {
               </div>
               <input className={cx("input-value")} type="text"></input>
             </div>
+            <div className={cx("group-main")}>
+              <div className={cx("title-group")}>
+                <label for="" className={cx("label-title")}>
+                  <span>Đổi ảnh đại diện</span>
+                </label>
+              </div>
+              <input
+                className={cx("input-value")}
+                accept="image/*"
+                type="file"
+                name="image"
+                required
+              ></input>
+            </div>
           </div>
           <div className={cx("btn-form")}>
             <Link to="/account/infor" class={cx("btn-remove")}>

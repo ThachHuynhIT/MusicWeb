@@ -120,3 +120,10 @@ export const logOut = (val) => {
     payload: val,
   };
 };
+//setStatus
+export const setStatus = (val) => {
+  return {
+    type: "SET_STATUS",
+    payload: val,
+  };
+};

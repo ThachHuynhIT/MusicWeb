@@ -39,6 +39,11 @@ export const login = (user) => {
       };
     });
 };
+export const logOut = () => {
+  return httpRequests.get("/logout").then((res) => {
+    return res.data;
+  });
+};
 
 export const isAuthen = () => {
   return httpRequests.get("api/user/authen").then((res) => {

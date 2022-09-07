@@ -45,7 +45,7 @@ router.post("/login", (req, res, next) => {
         .header({
           username: user.username,
         })
-        .send({ username, isAuthenticated: true });
+        .send({ username, isAuthenticated: true, token: token });
     })
     .catch((err) => next(err));
 });
@@ -79,7 +79,7 @@ router.post("/signup", (req, res, next) => {
 });
 
 // Đăng xuất
-router.post("/logout", (req, res) => {
+router.get("/logout", (req, res) => {
   res
     .clearCookie("access_token")
     .json({ user: { username: "" }, isAuthenticated: false });
@@ -89,7 +89,10 @@ router.post("/logout", (req, res) => {
 router.get("/authen", (req, res) => {
   const token = req.cookies.access_token;
 
-  if (!token) return res.status(401).json({isAuthenticated: false});
+  if (!token)
+    return res
+      .status(401)
+      .json({ isAuthenticated: false, token: req.cookies.access_token });
 
   try {
     const verified = jwt.verify(token, process.env.TOKEN_SECRET);
@@ -101,16 +104,12 @@ router.get("/authen", (req, res) => {
           _id: userId,
           username: user.username,
           email: user.email,
+          token: token,
         },
       });
     });
   } catch (err) {
-
-
     return res.status(400).send("Invalid Token");
-
-
-
   }
 });
 
