@@ -23,7 +23,7 @@ const Item = ({
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchApi = async () => {
-      const response = await songsService.getSongsFromAlbum(album.type);
+      const response = await songsService.getSongsFromAlbum(album.name);
 
       setSongsList(response);
     };
@@ -65,7 +65,7 @@ const Item = ({
           <div className={cx("card-bottom")}>
             <Link
               className={cx("card-name")}
-              to={`/album/${album.type}`}
+              to={`/album/${album.name}`}
               onClick={() => {
                 selectAlbum(album);
               }}

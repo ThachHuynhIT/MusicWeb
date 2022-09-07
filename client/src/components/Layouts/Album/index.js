@@ -1,39 +1,29 @@
 import React from "react";
-import Player from "../../Player";
 
-// import songs from "D:/WEB/reactjs/MusicWeb/client/src/data/songs.json";
-// import albums from "D:/WEB/reactjs/MusicWeb/client/src/data/albums.json";
-// import SongList from "D:/WEB/reactjs/MusicWeb/client/src/components/SongList/index";
 import SongList from "../../SongList";
-
 import SongListHeader from "../../SongListHeader";
 import SongDetail from "../../SongDetail";
-// import ListItem from "../../List";
+
 import * as songsService from "../../../service/songsService";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import classNames from "classnames/bind";
 import styles from "./Album.module.scss";
 const cx = classNames.bind(styles);
-// for (let index = 0; index < albums.length; index++) {
-//   const song = songs[index];
-//   song.id = index;
-// }
 
 function AlbumLayout() {
   const [songsList, setSongsList] = useState([]);
   const { id } = useParams();
   useEffect(() => {
     const fetchApi = async () => {
+      console.log(id);
       const response = await songsService.getSongsFromAlbum(id);
-
+      console.log(response);
       setSongsList(response);
     };
     fetchApi();
   }, []);
-
-  // console.log(id);
-
+  console.log(songsList);
   return (
     <React.Fragment>
       <div className={cx("main-view-container", "scroll")}>

@@ -9,6 +9,7 @@ const getLastMusic = require("./getLastMusic")
 const getAlbum = require("./getAlbum")
 
 
+
 const router = express.Router();
 
 router.get("/get-album/:type/:page", getAlbum);
