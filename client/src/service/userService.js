@@ -19,6 +19,7 @@ export const login = (user) => {
   return httpRequests
     .post("api/user/login", user)
     .then((response) => {
+      
       console.log(response);
       if (response.status !== 401) {
         return response.data;

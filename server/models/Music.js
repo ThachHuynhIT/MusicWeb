@@ -6,10 +6,10 @@ const Music = new Schema({
   name: { type: String },
   type: { type: String },
   singer: { type: String },
-  author: { type: String },
+  album: { type: String },
   avatar: { type: String },
-  source: { type: String },
-  views: { type: Number },
+  usl: { type: String },
+
 });
 
 module.exports = mongoose.model("Music", Music);

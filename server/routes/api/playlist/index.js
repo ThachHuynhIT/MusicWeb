@@ -1,9 +1,15 @@
 const express = require("express");
 
+const getPlayList = require("./getPlayList")
+const addSongToPlayList = require("./addSongToPlayList");
+const createPlayList = require("./createPlayList");
 
-function route(app) {
+const router = express.Router();
 
-//   app.get("/", sitesRouter);
-}
 
-module.exports = route;
+router.get("/get-playlist", getPlayList);
+router.put("/add-song-playlist/:playlistId/:songId", addSongToPlayList);
+router.post("/create-playlist/:userId/:name", createPlayList);
+
+
+module.exports = router;

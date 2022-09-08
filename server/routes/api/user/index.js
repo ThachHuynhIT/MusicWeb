@@ -2,9 +2,10 @@ const express = require("express");
 const User = require("../../../models/User");
 const loginValidator = require("../../../validations/login");
 const signupValidator = require("../../../validations/signup");
-
 const jwt = require("jsonwebtoken");
 const co = require("co");
+const updateInfo = require("./updateInfo");
+const verifyToken = require("../../../middlewares/verifyToken");
 require("dotenv").config();
 
 const router = express.Router();
@@ -45,7 +46,7 @@ router.post("/login", (req, res, next) => {
         .header({
           username: user.username,
         })
-        .send({ username, isAuthenticated: true, token: token });
+        .send({ username, isAuthenticated: true, access_token: token });
     })
     .catch((err) => next(err));
 });
@@ -92,7 +93,7 @@ router.get("/authen", (req, res) => {
   if (!token)
     return res
       .status(401)
-      .json({ isAuthenticated: false, token: req.cookies.access_token });
+      .json({ isAuthenticated: false, error: "Không tìm thấy token" });
 
   try {
     const verified = jwt.verify(token, process.env.TOKEN_SECRET);
@@ -109,8 +110,10 @@ router.get("/authen", (req, res) => {
       });
     });
   } catch (err) {
-    return res.status(400).send("Invalid Token");
+    return res.status(401).json("Invalid Token");
   }
 });
+
+router.put("/update-user",verifyToken, updateInfo)
 
 module.exports = router;

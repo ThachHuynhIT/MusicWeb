@@ -20,7 +20,10 @@ const userSchema = new Schema(
     name: {
       type: String,
     },
-    avatar: { type: String },
+    img: { type: String },
+    gender: { type: String },
+    dateOfBirth: { type: String },
+    nation: { type: String },
     status: { type: String },
     lastAlbum: { type: String },
     lastSong:{ type: String },
