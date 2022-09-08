@@ -39,7 +39,7 @@ function AllAlbumLayout() {
       <div className={cx("top-padding")}></div>
       <div className={cx("content")}>
         <section className={cx("list-item")}>
-          <ListItem albums={albumsList} typee={type} />
+          <ListItem albums={albumsList} typee={type} sort="sort-row" />
         </section>
       </div>
     </div>

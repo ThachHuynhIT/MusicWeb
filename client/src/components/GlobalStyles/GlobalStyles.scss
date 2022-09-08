@@ -46,6 +46,9 @@
   --background-active: #3333334d;
   --green: #1ed760;
   --gray-70: #b3b3b3;
+  --column-width: 181px;
+  --column-count: 5;
+  --grid-gap: 24px;
 }
 * {
   box-sizing: border-box;
@@ -83,4 +86,26 @@ a[href]:hover {
 }
 svg {
   margin: 0;
+}
+.scroll {
+  overflow-y: scroll;
+}
+.scroll::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* Track */
+.scroll::-webkit-scrollbar-track {
+  background: rgb(15, 23, 42);
+}
+
+/* Handle */
+.scroll::-webkit-scrollbar-thumb {
+  background: rgb(148, 163, 184);
+  border-radius: 4px;
+}
+
+/* Handle on hover */
+.scroll::-webkit-scrollbar-thumb:hover {
+  background: #ccc;
 }

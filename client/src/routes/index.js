@@ -4,6 +4,7 @@ import AllAlbum from "../pages/AllAlbum";
 
 import SearchAll from "../pages/SearchAll";
 import SearchSong from "../pages/SearchSong";
+import SearchAlbum from "../pages/SearchAlbum";
 
 import DefaultUserLayout from "../components/Layouts/DefaultUserLayout";
 import Login from "../pages/Login";
@@ -16,11 +17,15 @@ import Edit from "../pages/Edit";
 const PublicRoutes = [
   { path: "/", component: Home },
   { path: "/album", component: Album },
+  { path: "/album/:id", component: Album },
   { path: "/album/:type/all", component: AllAlbum },
+  { path: "/playlist/:name", component: AllAlbum },
+
   { path: "/search/:name/all", component: SearchAll },
   { path: "/search/:name/all", component: SearchAll },
   { path: "/search/:name/song", component: SearchSong },
-  { path: "/album/:id", component: Album },
+  { path: "/search/:name/album", component: SearchAlbum },
+
   { path: "/user/login", component: Login, layout: DefaultUserLayout },
   { path: "/user/register", component: Register, layout: DefaultUserLayout },
   { path: "/account/infor", component: Infor, layout: DefaultAccountLayout },

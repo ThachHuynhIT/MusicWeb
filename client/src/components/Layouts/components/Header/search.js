@@ -20,7 +20,8 @@ import { useEffect, useState, useRef } from "react";
 const cx = classNames.bind(styles);
 
 function Search() {
-  const [searchResult, setSearchResult] = useState([]);
+  const [searchResultSong, setSearchResultSong] = useState([]);
+  const [searchResultAlbum, setSearchResultAlbum] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [showResult, setShowResult] = useState(true);
   const debouncedValue = useDebounce(searchValue, 500);
@@ -29,14 +30,16 @@ function Search() {
 
   useEffect(() => {
     if (!debouncedValue.trim()) {
-      setSearchResult([]);
+      setSearchResultSong([]);
+      setSearchResultAlbum([]);
       return;
     }
 
     const fetchApi = async () => {
       const result = await searchApi.search(debouncedValue);
-
-      setSearchResult(result);
+      console.log(result);
+      setSearchResultSong(result.song);
+      setSearchResultAlbum(result.album);
     };
 
     fetchApi();
@@ -45,33 +48,36 @@ function Search() {
   const handlInput = () => {
     setSearchValue("");
     inputRef.current.focus();
-    setSearchResult([]);
+    setSearchResultSong([]);
+    setSearchResultAlbum([]);
   };
   const handleOut = () => {
     setShowResult(false);
   };
-
   return (
     <HeadlessTippy
       interactive
-      visible={showResult && searchResult.length > 0}
+      visible={
+        showResult &&
+        searchResultSong.length > 0 &&
+        searchResultAlbum.length > 0
+      }
       render={(attrs) => (
         <div className={cx("search-result")} {...attrs}>
           <PopperWrapper>
             <h4 className={cx("search-titel")}> Từ khóa liên quan </h4>
 
-            {searchResult.map((result) => (
-              <SearchSong songs={result} />
+            {searchResultSong.map((resultt) => (
+              <SearchSong songs={resultt} />
             ))}
             <h4 className={cx("search-titel")}> Gợi ý kết quả </h4>
 
-            {searchResult.map((result) => (
+            {searchResultAlbum.map((result) => (
               <SearchAlbum albums={result} />
             ))}
           </PopperWrapper>
         </div>
       )}
-      // onClick={handleOut}
       onClickOutside={handleOut}
     >
       <div className={cx("warrper")}>
@@ -90,7 +96,7 @@ function Search() {
           </button>
         )}
 
-        <button className={cx("search-btn")}>
+        <button className={cx("search-btn")} onClick={handleOut}>
           <Link to={`/search/${searchValue}/all`}>
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </Link>

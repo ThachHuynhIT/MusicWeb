@@ -140,7 +140,11 @@ const Player = ({
   return (
     <div id={cx("player")}>
       <div className={cx("player-left")}>
-        <MiniSong selectedSongPlay={selectList[songplay]} />
+        {selectList[songplay] === undefined ? (
+          <></>
+        ) : (
+          <MiniSong selectedSongPlay={selectList[songplay]} />
+        )}
       </div>
       <div className={cx("player-right")}>
         <div className={cx("right-top")}>
@@ -213,7 +217,6 @@ const Player = ({
                 payload: audioRef.current.duration,
               });
               setInterval(() => {
-                console.log(songUrl());
                 dispatch({
                   type: "SET_CURRENT_LOCATION",
                   payload: audioRef.current.currentTime,

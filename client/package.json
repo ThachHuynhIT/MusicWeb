@@ -15,6 +15,7 @@
     "classname": "^0.0.0",
     "eases": "^1.0.8",
     "gsap": "^3.11.0",
+    "js-cookie": "^3.0.1",
     "node-sass": "^7.0.1",
     "query-string": "^7.1.1",
     "react": "^18.2.0",

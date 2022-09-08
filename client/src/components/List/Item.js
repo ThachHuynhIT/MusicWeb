@@ -21,10 +21,12 @@ const Item = ({
   album,
   selectAlbum,
   selectSong,
-  playerState,
   selectSongByAlbum,
   setStatus,
 }) => {
+  const [value, setValue] = useState(true);
+  const id = value === false ? "block" : "";
+
   const [songsList, setSongsList] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -35,10 +37,6 @@ const Item = ({
     };
     fetchApi();
   }, []);
-  const blockClick = () => {
-    if (true) {
-    }
-  };
 
   return (
     <div className={cx("item")}>
@@ -52,7 +50,7 @@ const Item = ({
           <div className={cx("card-top")}>
             <div className={cx("img-card")}>
               <img className={cx("img", "img-type-1")} src={album.img}></img>
-              <form class={cx("hover-player")}>
+              <form class={cx("hover-player")} id={cx(id)}>
                 <div class={cx("hover-player-a")}>
                   <div
                     class={cx("player-btn")}
@@ -78,6 +76,7 @@ const Item = ({
           </div>
           <div className={cx("card-bottom")}>
             <Link
+              id={cx(id)}
               className={cx("card-name")}
               to={`/album/${album.name}`}
               onClick={() => {
