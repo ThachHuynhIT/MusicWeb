@@ -127,3 +127,10 @@ export const setStatus = (val) => {
     payload: val,
   };
 };
+//focus
+export const setFocus = (val) => {
+  return {
+    type: "ON_FOCUS",
+    payload: val,
+  };
+};

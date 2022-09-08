@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { setFocus } from "../../../../actions";
 import ReactDOM from "react-dom";
 import classNames from "classnames/bind";
 import styles from "./Sidebar.module.scss";
@@ -12,12 +12,20 @@ import {
   faMagnifyingGlass,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 const cx = classNames.bind(styles);
-function Sidebar() {
+function Sidebar({ setFocus }) {
   const [nowSelected, setNowSelected] = useState(true);
-  if (nowSelected) {
-  }
+  const ListTag = () => {
+    return (
+      <>
+        <li className={cx("content")}>
+          <h6 className={cx("titel")}>Danh sách phát của tôi hhhhh#1</h6>
+        </li>
+      </>
+    );
+  };
   return (
     <nav className={cx("warrper")}>
       <div className={cx("logo")}>
@@ -50,25 +58,43 @@ function Sidebar() {
         </li> */}
       </div>
 
-      {/* <div className={cx("album")}>
+      <div className={cx("album")}>
         <div className={cx("album-list-content")}>
           <div className={cx("album-content")}>
             <button className={cx("album-btn")}>
-              <FontAwesomeIcon className={cx("icon-albu")} icon={faPlus} />
+              <FontAwesomeIcon
+                className={cx("icon-albu")}
+                icon={faPlus}
+                onClick={() => {
+                  setFocus(true);
+                }}
+              />
               <span className={cx("album-list-titel")}>Tạo playlist</span>
             </button>
-            <button className={cx("album-btn")}>
+            {/* <button className={cx("album-btn")}>
               <FontAwesomeIcon
                 className={cx("icon-albu", "blu")}
                 icon={faHeart}
               />
               <span className={cx("album-list-titel")}>Bài hát yêu thích</span>
-            </button>
+            </button> */}
           </div>
         </div>
-      </div> */}
+      </div>
+
+      <div className={cx("album-list")}>
+        {ListTag()}
+        {ListTag()}
+        {ListTag()}
+        {ListTag()}
+        {ListTag()}
+        <li className={cx("content")}></li>
+      </div>
     </nav>
   );
 }
+const mapStateToProps = (state) => {};
 
-export default Sidebar;
+export default connect(mapStateToProps, {
+  setFocus,
+})(Sidebar);

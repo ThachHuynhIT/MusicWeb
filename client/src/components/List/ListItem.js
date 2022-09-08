@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 
 const cx = classNames.bind(styles);
 
-const ListItem = ({ albums = [], typee, selectType }) => {
+const ListItem = ({ albums = [], typee, selectType, sort }) => {
   const { type } = useParams();
 
   const albumTags = albums.map((album, index) => {
@@ -34,7 +34,6 @@ const ListItem = ({ albums = [], typee, selectType }) => {
                 className={cx("more-list")}
                 onClick={() => {
                   selectType(typee);
-                  console.log(selectType(typee));
                 }}
               >
                 Xem tất cả
@@ -53,7 +52,7 @@ const ListItem = ({ albums = [], typee, selectType }) => {
         </>
       )}
 
-      <div className={cx("list", "sort")}>{albumTags}</div>
+      <div className={cx("list", "sort", sort)}>{albumTags}</div>
     </div>
   );
 };

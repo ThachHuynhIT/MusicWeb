@@ -18,17 +18,17 @@ import classNames from "classnames/bind";
 import styles from "./Header.module.scss";
 
 import * as UserService from "../../../../service/userService";
+import { Link } from "react-router-dom";
 const cx = classNames.bind(styles);
 
 function Header() {
-  const typerHeader = false;
+  const [value, setValue] = useState(true);
   // const [searchResult, setSearchResult] = useState([]);
   const [user, setUser] = useState(null);
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     UserService.isAuthen().then((data) => {
-      console.log(data);
       setUser(data.user);
       setAuthenticated(data.isAuthenticated);
       setIsLoaded(true);
@@ -51,14 +51,20 @@ function Header() {
       </div>
 
       <div className={cx("accout")}>
-        {typerHeader ? (
+        {!value ? (
           <>
-            <button className={cx("top-bar-register-btn", "accout-btn-rg")}>
+            <a
+              href="/user/register"
+              className={cx("top-bar-register-btn", "accout-btn-rg")}
+            >
               Đăng kí
-            </button>
-            <button className={cx("top-bar-login-btn", "accout-btn-lg")}>
+            </a>
+            <a
+              href="/user/login"
+              className={cx("top-bar-login-btn", "accout-btn-lg")}
+            >
               <span className={cx("accout-btn-lg-titel")}>Đăng nhập</span>
-            </button>
+            </a>
           </>
         ) : (
           <>

@@ -22,8 +22,8 @@ const HeaderBar = () => {
           <Link to={`/search/${name}/song`}>
             <div class={cx("tab-item")}>BÀI HÁT</div>
           </Link>
-          <Link to={`/search/${name}/song`}>
-            <div class={cx("tab-item")}>ALDUM</div>
+          <Link to={`/search/${name}/album`}>
+            <div class={cx("tab-item")}>ALBUM</div>
           </Link>
           <Link to={`/search/${name}/song`}>
             <div class={cx("tab-item")}>NGHỆ SĨ</div>

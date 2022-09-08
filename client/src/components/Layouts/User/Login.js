@@ -6,6 +6,7 @@ import { login } from "../../../service/userService";
 import classNames from "classnames/bind";
 import styles from "./User.module.scss";
 import Message from "./Message";
+import Cookies from "js-cookie";
 const cx = classNames.bind(styles);
 
 function LoginLayout({ props }) {
@@ -23,8 +24,11 @@ function LoginLayout({ props }) {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    login(user).then((data) => {
-      if (data.isAuthenticated) {
+
+    login(user).then((dataa) => {
+      if (dataa.isAuthenticated) {
+        console.log(dataa);
+        Cookies.set("access_token", dataa.token, { path: "" });
         navigate("/");
       } else {
         setMessage(message);

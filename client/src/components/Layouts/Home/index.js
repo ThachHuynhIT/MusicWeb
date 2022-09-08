@@ -18,7 +18,7 @@ function HomeLayout() {
       const response = await albumsSrevice.getAllAlbum(0);
 
       var type = [];
-
+      var albums = [];
       for (let i = 0; i < response.length; i++) {
         type[i] = response[i].type;
       }
@@ -28,7 +28,6 @@ function HomeLayout() {
       setAlbumsList(response);
       setTypeAlbum(backToArray);
     };
-
     fetchApi();
   }, []);
 
