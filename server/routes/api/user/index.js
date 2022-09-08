@@ -87,8 +87,10 @@ router.get("/logout", (req, res) => {
 });
 
 // Kiểm tra đáng nhập
-router.get("/authen/:access_token", (req, res) => {
-  const token = req.params.access_token;
+
+router.get("/authen/:token", (req, res) => {
+  const token = req.params.token;
+
 
   if (!token)
     return res
@@ -106,7 +108,7 @@ router.get("/authen/:access_token", (req, res) => {
           _id: userId,
           username: user.username,
           email: user.email,
-          token: token,
+          access_token: token,
         },
       });
     });
@@ -115,6 +117,6 @@ router.get("/authen/:access_token", (req, res) => {
   }
 });
 
-router.put("/update-user",verifyToken, updateInfo)
+router.put("/update-user", verifyToken, updateInfo);
 
 module.exports = router;
