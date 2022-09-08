@@ -4,50 +4,35 @@ import Tippy from "@tippyjs/react/headless";
 import { connect, useDispatch } from "react-redux";
 import { selectSong, selectSongByAlbum } from "../../../actions";
 import Wrapper from "../Wrapper";
-import styles from "./Menu.module.scss";
+import styles from "./List.module.scss";
 import * as userService from "../../../service/userService";
-import Cookies from "js-cookie";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircle, faHeart, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 const cx = classNames.bind(styles);
 
-function Menu({
-  children,
-  selectSong,
-  selectSongByAlbum,
-  hideOnClick = false,
-}) {
-  const [user, setUser] = useState();
-  const [isAuthenticated, setAuthenticated] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
-  useEffect(() => {
-    userService.isAuthen().then((data) => {
-      setUser(data.user);
-
-      setAuthenticated(data.isAuthenticated);
-      setIsLoaded(true);
-    });
-  }, []);
-
+function List({ selectSong, selectSongByAlbum, hideOnClick = false, focus }) {
+  const [playList, setPlayList] = useState();
+  const [showList, setShowList] = useState(false);
   const navigate = useNavigate();
 
   const renderResult = (attrs) => (
-    <div className={cx("menu-list")} tabIndex="-1" {...attrs}>
+    <div className={cx("menu-list", "scroll")} tabIndex="-1" {...attrs}>
       <Wrapper className={cx("menu-popper")}>
         <ul className={cx("menu-body")}>
-          <Link to="/account/infor">
-            <li className={cx("menu-item")}>Hồ sơ</li>
-          </Link>
           <li
             className={cx("menu-item")}
             onClick={() => {
-              selectSongByAlbum(0);
-              Cookies.remove("access_token", { path: "" });
-              navigate("/user/login");
+              setShowList(false);
             }}
           >
-            <span>Đăng xuất</span>
+            Danh sách PlayList
           </li>
+          <li className={cx("menu-item")}>Danh sách PlayList</li>
+          <li className={cx("menu-item")}>Danh sách PlayList</li>
+          <li className={cx("menu-item")}>Danh sách PlayList</li>
+          <li className={cx("menu-item")}>Danh sách PlayList</li>
         </ul>
       </Wrapper>
     </div>
@@ -58,23 +43,30 @@ function Menu({
   return (
     <Tippy
       interactive
+      visible={showList}
       hideOnClick={hideOnClick}
       placement="bottom-end"
       render={renderResult}
     >
-      {children}
+      <div class={cx("hover-like-icon")}>
+        <FontAwesomeIcon
+          className={cx("icon-li")}
+          icon={faPlus}
+          onClick={() => {
+            setShowList(true);
+          }}
+        />
+      </div>
     </Tippy>
   );
 }
 
 const mapStateToProps = (state) => {
   return {
-    selectSongByAlbum: state.selectSongByAlbum,
     selectedSongPlay: state.selectedSongPlay,
     playerState: state.playerState,
+    focus: state.focus,
   };
 };
 
-export default connect(mapStateToProps, { selectSong, selectSongByAlbum })(
-  Menu
-);
+export default connect(mapStateToProps, {})(List);

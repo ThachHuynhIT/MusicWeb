@@ -14,34 +14,46 @@ const cx = classNames.bind(styles);
 
 function SearchAllLayout() {
   const { name } = useParams();
-  const [searchResult, setSearchResult] = useState([]);
+  const [searchResultSong, setSearchResultSong] = useState([]);
+  const [searchResultAlbum, setSearchResultAlbum] = useState([]);
   const debouncedValue = useDebounce(name, 10);
   useEffect(() => {
     if (!debouncedValue.trim()) {
-      setSearchResult([]);
+      setSearchResultSong([]);
+      setSearchResultAlbum([]);
       return;
     }
+
     const fetchApi = async () => {
       const result = await searchApi.search(debouncedValue);
-      setSearchResult(result);
+      console.log(result);
+      setSearchResultSong(result.song);
+      setSearchResultAlbum(result.album);
     };
 
     fetchApi();
   }, [debouncedValue]);
 
   return (
-    <div className={cx("wrapper")}>
+    <div className={cx("wrapper", "scroll")}>
       <HeaderBar />
       <div className={cx("container")}>
         <h3 className={cx("title")}>Bài hát</h3>
         <div className={cx("content")}>
-          <SongsSearch data={searchResult} />
+          <SongsSearch data={searchResultSong} />
         </div>
       </div>
-      <section className={cx("list-item")}>
-        {/* <ListItem albums={albumsList} typee={"Album"} />
-        <ListSinger singers={albumsList} /> */}
-      </section>
+
+      {searchResultAlbum.length <= 0 ? (
+        <></>
+      ) : (
+        <>
+          <section className={cx("list-item")}>
+            <ListItem albums={searchResultAlbum} typee={"Album"} />
+            {/* <ListSinger singers={albumsList} /> */}
+          </section>
+        </>
+      )}
     </div>
   );
 }

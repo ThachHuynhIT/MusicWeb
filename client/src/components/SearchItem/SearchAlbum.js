@@ -10,17 +10,13 @@ function SearchAlbum({ albums }) {
     <>
       <Link to="/search">
         <div className={cx("wrapper")}>
-          <img
-            className={cx("avatar")}
-            src={albums.links.images[1].url}
-            alt="Hoaa"
-          />
+          <img className={cx("avatar")} src={albums.img} alt="Hoaa" />
           <div className={cx("info")}>
             <h4 className={cx("name")}>
               <span>{albums.name}</span>
             </h4>
 
-            <span className={cx("username")}>{albums.singer}</span>
+            <span className={cx("username")}>{albums.type}</span>
           </div>
         </div>
       </Link>

@@ -6,8 +6,8 @@ export const search = async (name) => {
         name,
       },
     });
-
-    return res.song;
+    console.log(res);
+    return res;
   } catch (error) {
     console.log(error);
   }

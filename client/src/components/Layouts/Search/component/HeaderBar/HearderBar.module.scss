@@ -27,7 +27,7 @@
   align-items: flex-end;
 }
 //header-bar
-.tabs .tab-item.active {
+#active {
   color: var(--green);
   border-bottom-color: currentColor;
 }

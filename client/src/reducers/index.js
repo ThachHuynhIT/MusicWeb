@@ -95,6 +95,13 @@ const getStatusReducer = (status = 0, action) => {
   }
   return status;
 };
+//getFocus
+const getFocus = (focus = 0, action) => {
+  if (action.type === "ON_FOCUS") {
+    return action.payload;
+  }
+  return focus;
+};
 
 export default combineReducers({
   selectedSongList: selectedSongListReducer,
@@ -111,6 +118,6 @@ export default combineReducers({
 
   currentLocation: currentLocationReducer,
   val: logOutReducer,
-
+  focus: getFocus,
   status: getStatusReducer,
 });

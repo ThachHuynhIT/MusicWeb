@@ -12,7 +12,7 @@ import HeaderBar from "../component/HeaderBar";
 
 const cx = classNames.bind(styles);
 
-function SearchSongLayout() {
+function SearchAlbumLayout() {
   const { name } = useParams();
 
   const [searchResult, setSearchResult] = useState([]);
@@ -26,7 +26,7 @@ function SearchSongLayout() {
     const fetchApi = async () => {
       const result = await searchApi.search(debouncedValue);
 
-      setSearchResult(result.song);
+      setSearchResult(result.album);
     };
 
     fetchApi();
@@ -35,16 +35,21 @@ function SearchSongLayout() {
   return (
     <div className={cx("wrapper", "scroll")}>
       <HeaderBar />
-      <div className={cx("container")}>
-        <h3 className={cx("title")}>Bài hát</h3>
 
-        <div className={cx("content")}>
-          <SongList songs={searchResult} />
-        </div>
-      </div>
-      <section className={cx("list-item")}></section>
+      {searchResult.length <= 0 ? (
+        <>
+          <h3>Không có kết quả phù hợp</h3>
+        </>
+      ) : (
+        <>
+          <section className={cx("list-item")}>
+            <ListItem albums={searchResult} typee={"Album"} />
+            {/* <ListSinger singers={albumsList} /> */}
+          </section>
+        </>
+      )}
     </div>
   );
 }
 
-export default SearchSongLayout;
+export default SearchAlbumLayout;

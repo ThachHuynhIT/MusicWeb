@@ -13,6 +13,7 @@
   user-select: none;
   width: fit-content;
   position: fixed;
+  width: inherit;
 }
 
 .logo {
@@ -43,6 +44,7 @@
 //list
 .content-list {
   list-style: none;
+  width: inherit;
 }
 .content {
   padding: var(--padding-li);
@@ -69,11 +71,16 @@
 }
 .titel {
   color: var(--white);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 6px 0px;
 }
 //Album
 .album {
-  padding-top: 16px;
   padding-left: 8px;
+  width: inherit;
+  border-bottom: 1px solid;
 }
 .album-list-content {
 }
@@ -85,8 +92,7 @@
 
   padding: 8px 0px;
   padding-left: 20px;
-  /* left: 24px; */
-  /* right: 30px; */
+
   width: 100%;
   color: white;
   background-color: transparent;
@@ -121,4 +127,10 @@
     width: 5px;
     background-color: var(--color-active);
   }
+}
+.album-list {
+  padding-top: 16px;
+  list-style: none;
+  width: inherit;
+  padding-left: 20px;
 }

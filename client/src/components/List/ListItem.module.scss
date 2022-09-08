@@ -15,7 +15,6 @@
   isolation: isolate;
   padding: 16px;
   position: relative;
-
   transition: background-color 0.3s ease;
   width: 100%;
 }
@@ -129,7 +128,7 @@
   bottom: 15px;
   visibility: hidden;
   padding: 5px;
-  -webkit-transition: 0.6s;
+
   transition: 0.6s;
   opacity: 0;
 }
@@ -273,4 +272,10 @@
   right: 10px;
   visibility: visible;
   opacity: 1;
+}
+#block {
+  pointer-events: none;
+}
+.sort-row {
+  grid-auto-rows: auto;
 }

@@ -2,9 +2,6 @@ import { useState } from "react";
 import React from "react";
 import ReactDOM from "react-dom";
 import { connect, useDispatch } from "react-redux";
-// import { connect, useDispatch } from "react-redux";
-
-// import { selectSong } from "D:/WEB/reactjs/MusicWeb/client/src/actions";
 import { selectSong } from "../../../../actions";
 
 import classNames from "classnames/bind";
@@ -42,8 +39,6 @@ const Item = ({ song, index, selectSong, selectedSongPlay, playerState }) => {
     <div
       id={cx(now_selected)}
       className={cx("song-item")}
-      // onMouseOver={() => setHovered(true)}
-      // onMouseLeave={() => setHovered(false)}
       onClick={() => {
         selectSong(song);
         dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });

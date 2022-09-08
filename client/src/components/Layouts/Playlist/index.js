@@ -11,7 +11,7 @@ import classNames from "classnames/bind";
 import styles from "./Album.module.scss";
 const cx = classNames.bind(styles);
 
-function AlbumLayout() {
+function PlayListLayout() {
   const [songsList, setSongsList] = useState([]);
   const { id } = useParams();
   useEffect(() => {
@@ -46,4 +46,4 @@ function AlbumLayout() {
   );
 }
 
-export default AlbumLayout;
+export default PlayListLayout;
