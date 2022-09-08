@@ -19,6 +19,7 @@ export const login = (user) => {
   return httpRequests
     .post("api/user/login", user)
     .then((response) => {
+      
       console.log(response);
       if (response.status !== 401) {
         return response.data;
@@ -40,9 +41,7 @@ export const login = (user) => {
     });
 };
 export const logOut = () => {
-  return httpRequests.get("/logout").then((res) => {
-    return res.data;
-  });
+  return httpRequests.get("/api/user/logout");
 };
 
 export const isAuthen = () => {

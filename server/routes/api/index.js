@@ -9,7 +9,7 @@ const router = express.Router();
 
     router.use("/user", user);
 
-    router.use("/playlits", playlist);
+    router.use("/playlist", playlist);
   
   
   module.exports = router;
