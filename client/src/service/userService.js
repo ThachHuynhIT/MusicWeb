@@ -1,4 +1,6 @@
 import { httpRequests } from "../utils";
+import Cookies from "js-cookie";
+
 export const register = (user) => {
   return httpRequests
     .post("api/user/signup", user)
@@ -19,7 +21,6 @@ export const login = (user) => {
   return httpRequests
     .post("api/user/login", user)
     .then((response) => {
-      
       console.log(response);
       if (response.status !== 401) {
         return response.data;
@@ -45,10 +46,10 @@ export const logOut = () => {
 };
 
 export const isAuthen = () => {
-  return httpRequests.get("api/user/authen").then((res) => {
-    console.log(res);
+  const token = Cookies.get("access_token");
+  return httpRequests.get(`api/user/authen/${token}`).then((res) => {
     if (res.status !== 401) {
-      return res.json().then((data) => data);
+      return res;
     } else {
       return { user: { username: "" } };
     }

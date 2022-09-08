@@ -23,16 +23,19 @@ function LoginLayout({ props }) {
   };
 
   const onSubmit = (e) => {
-    e.preventDefault();
+    var test = document.getElementById("login");
+    test.submit(function (e) {
+      login(user).then((data) => {
+        if (data.isAuthenticated) {
+          console.log(data);
+          Cookies.set("access_token", data.access_token, { path: "" });
+          // navigate("/");
+        } else {
+          setMessage(message);
+        }
 
-    login(user).then((dataa) => {
-      if (dataa.isAuthenticated) {
-        console.log(dataa);
-        Cookies.set("access_token", dataa.token, { path: "" });
-        navigate("/");
-      } else {
-        setMessage(message);
-      }
+        e.preventDefault();
+      });
     });
   };
 
@@ -43,6 +46,7 @@ function LoginLayout({ props }) {
       </div>
       {message ? <Message message={message} /> : null}
       <form
+        id="login"
         className={cx("post-form")}
         noValidate="noValidate"
         onSubmit={onSubmit}

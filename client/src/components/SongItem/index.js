@@ -81,12 +81,7 @@ const SongItem = ({
         <div className={cx("author")}>{song.singer}</div>
 
         <div className={cx("selector")}>
-          <form
-            class={cx("hover-like")}
-            onClick={() => {
-              setFocus(true);
-            }}
-          >
+          <form class={cx("hover-like")} onClick={() => {}}>
             <List />
           </form>
 

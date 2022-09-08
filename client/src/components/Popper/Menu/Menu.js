@@ -17,18 +17,6 @@ function Menu({
   selectSongByAlbum,
   hideOnClick = false,
 }) {
-  const [user, setUser] = useState();
-  const [isAuthenticated, setAuthenticated] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
-  useEffect(() => {
-    userService.isAuthen().then((data) => {
-      setUser(data.user);
-
-      setAuthenticated(data.isAuthenticated);
-      setIsLoaded(true);
-    });
-  }, []);
-
   const navigate = useNavigate();
 
   const renderResult = (attrs) => (
@@ -38,16 +26,17 @@ function Menu({
           <Link to="/account/infor">
             <li className={cx("menu-item")}>Hồ sơ</li>
           </Link>
-          <li
+          <a
+            href="/"
             className={cx("menu-item")}
             onClick={() => {
-              selectSongByAlbum(0);
-              Cookies.remove("access_token", { path: "" });
-              navigate("/user/login");
+              selectSong(undefined);
+              selectSongByAlbum(undefined);
+              userService.logOut();
             }}
           >
             <span>Đăng xuất</span>
-          </li>
+          </a>
         </ul>
       </Wrapper>
     </div>
