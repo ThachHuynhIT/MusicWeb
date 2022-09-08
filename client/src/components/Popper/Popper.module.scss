@@ -1,8 +1,8 @@
 .wrapper {
   max-height: min((100vh - 96px) - 60px, 734px);
-  min-height: 100px;
-  margin-top: 4px;
 
-  background: rgb(255, 255, 255);
+  margin-top: 4px;
+  width: fit-content;
+  background-color: hsl(225deg 6% 5% / 99%) !important;
   box-shadow: rgb(0 0 0 / 12%) 0px 2px 12px;
 }

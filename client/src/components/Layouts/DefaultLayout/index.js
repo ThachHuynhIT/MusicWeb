@@ -9,7 +9,7 @@ import Player from "../../Player/index.js";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import * as songsService from "../../../service/songsService";
-
+import * as UserService from "../../../service/userService";
 import classNames from "classnames/bind";
 const cx = classNames.bind(styles);
 
@@ -21,7 +21,12 @@ const DefaultLayout = ({
   focus,
   setFocus,
 }) => {
-  const [value, setValue] = useState(true);
+  const [value, setValue] = useState(false);
+  useEffect(() => {
+    UserService.isAuthen().then((data) => {
+      setValue(data.isAuthenticated);
+    });
+  }, []);
 
   const id_block = status === true ? "block-actie" : "";
   const id_focus = focus === true ? "block-actie" : "";
