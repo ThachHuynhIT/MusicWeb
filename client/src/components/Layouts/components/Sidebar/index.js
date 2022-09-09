@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { setFocus } from "../../../../actions";
 import ReactDOM from "react-dom";
 import classNames from "classnames/bind";
 import styles from "./Sidebar.module.scss";
 import images from "../../../../assect/images";
+import * as PlayListService from "../../../../service/playListService";
+import * as UserServices from "../../../../service/userService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBook,
@@ -11,21 +13,55 @@ import {
   faHouse,
   faMagnifyingGlass,
   faPlus,
+  faTractor,
+  faTrash,
+  faTruck,
 } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 const cx = classNames.bind(styles);
 function Sidebar({ setFocus }) {
   const [nowSelected, setNowSelected] = useState(true);
-  const ListTag = () => {
-    return (
-      <>
-        <li className={cx("content")}>
-          <h6 className={cx("titel")}>Danh sách phát của tôi hhhhh#1</h6>
-        </li>
-      </>
-    );
+  const [playlist, setPlayList] = useState([]);
+  const [userPlayList, setUserPlayList] = useState([]);
+  const isAuthenticated = UserServices.isLog();
+  useEffect(() => {
+    const fetchApi = async () => {
+      const response = await PlayListService.getPlayList();
+
+      setUserPlayList(response);
+    };
+    fetchApi();
+  }, []);
+  const removePlayList = async (e) => {
+    const response = await PlayListService.removePlayList(e);
   };
+  const ListTag = userPlayList.map((playList) => {
+    if (isAuthenticated === true) {
+      return (
+        <>
+          <div className={cx("list-name")}>
+            <div
+              className={cx("icon-delete")}
+              onClick={() => {
+                removePlayList(playList._id);
+              }}
+            >
+              <FontAwesomeIcon className={cx("icon-li")} icon={faTrash} />
+            </div>
+
+            <Link to={`/playlist/${playList._id}`}>
+              <li className={cx("content")}>
+                <h6 className={cx("titel")}>{playList.name}</h6>
+              </li>
+            </Link>
+          </div>
+        </>
+      );
+    } else {
+      return <></>;
+    }
+  });
   return (
     <nav className={cx("warrper")}>
       <div className={cx("logo")}>
@@ -82,14 +118,7 @@ function Sidebar({ setFocus }) {
         </div>
       </div>
 
-      <div className={cx("album-list")}>
-        {ListTag()}
-        {ListTag()}
-        {ListTag()}
-        {ListTag()}
-        {ListTag()}
-        <li className={cx("content")}></li>
-      </div>
+      <div className={cx("album-list")}>{ListTag}</div>
     </nav>
   );
 }
