@@ -134,3 +134,10 @@ export const setFocus = (val) => {
     payload: val,
   };
 };
+
+export const setToken = (val) => {
+  return {
+    type: "SET_TOKEN",
+    payload: val,
+  };
+};

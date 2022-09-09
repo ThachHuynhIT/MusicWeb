@@ -1,11 +1,6 @@
 import React from "react";
 import { Fragment } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { PublicRoutes, PrivateRoutes, AuthRoutes } from "./routes";
 import DefaultLayout from "./components/Layouts/DefaultLayout";
 import DefaultUserLayout from "./components/Layouts/DefaultUserLayout";
@@ -14,18 +9,12 @@ import config from "./config";
 import * as UserServices from "./service/userService";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
+import { scrollToPosition } from "./utils/setCookie";
 
 function App() {
-  const [isAuthenticated, setAuthenticated] = useState(false);
-  useEffect(() => {
-    UserServices.isAuthen().then((data) => {
-      setAuthenticated(data.isAuthenticated);
-    });
-  }, []);
-
   return (
-    <Router>
-      <div className="App">
+    <div className="App">
+      <>
         <Routes>
           {PublicRoutes.map((route, index) => {
             const Page = route.component;
@@ -51,7 +40,7 @@ function App() {
           {AuthRoutes.map((route, index) => {
             const Page = route.component;
             let Layout = DefaultLayout;
-
+            const isAuthenticated = UserServices.isLog();
             if (route.layout) {
               Layout = route.layout;
             } else if (route.layout === null) {
@@ -76,6 +65,7 @@ function App() {
           {PrivateRoutes.map((route, index) => {
             const Page = route.component;
             let Layout = DefaultLayout;
+            const isAuthenticated = UserServices.isLog();
 
             if (route.layout) {
               Layout = route.layout;
@@ -100,8 +90,8 @@ function App() {
             );
           })}
         </Routes>
-      </div>
-    </Router>
+      </>
+    </div>
   );
 }
 

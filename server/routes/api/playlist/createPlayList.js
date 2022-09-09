@@ -4,7 +4,7 @@ module.exports = (req, res, next) => {
   Playlist.find({}).then((playlist) => {
     if (playlist.length <= 10) {
       const playlist = new Playlist({
-        name: req.params.name,
+        name: req.body.name,
         userId: req.params.userId,
       });
       playlist.save().then((playlist) => res.send(playlist));
