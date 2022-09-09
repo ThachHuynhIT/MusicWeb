@@ -14,7 +14,7 @@ db.connect();
 // const { engine } = require ('express-handlebars');
 const app = express();
 app.use(cookieParser());
-const port = process.env.SERVER_PORT;
+const port = process.env.SERVER_PORT || 3000;
 
 app.use(
   express.static(path.join(__dirname, "../test/public"))

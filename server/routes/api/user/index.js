@@ -87,6 +87,7 @@ router.get("/logout", (req, res) => {
 });
 
 // Kiểm tra đáng nhập
+
 router.get("/authen/:token", (req, res) => {
   const token = req.params.token;
 
@@ -98,7 +99,8 @@ router.get("/authen/:token", (req, res) => {
   try {
     const verified = jwt.verify(token, process.env.TOKEN_SECRET);
     const userId = verified._id;
-    User.findById({ _id: userId }).then((user) => {
+    User.findById({ _id: userId })
+    .then((user) => {
       res.status(200).json({
         isAuthenticated: true,
         user: {
@@ -110,10 +112,10 @@ router.get("/authen/:token", (req, res) => {
       });
     });
   } catch (err) {
-    return res.status(401).json("Invalid Token");
+    return res.status(401).json({isAuthenticated: false});
   }
 });
 
-router.put("/update-user", verifyToken, updateInfo);
+router.put("/update-user/:token", updateInfo);
 
 module.exports = router;
