@@ -42,22 +42,24 @@ function LoginLayout({ props, selectSong, selectSongByAlbum }) {
 
     login(user).then((data) => {
       console.log(data);
-      if (data.isAuthen === true) {
-        Cookies.set("access_token", data.access_token, {
-          expires: 3,
-          secure: true,
-        });
+      const a = Cookies.set("userId", data.userId, {
+        path: "/",
+      });
+      const b = Cookies.set("access_token", data.access_token, {
+        path: "/",
+      });
+      if (data.isAuthen === true || a != undefined || b != undefined) {
         Cookies.set("userId", data.userId, {
-          expires: 3,
-          secure: true,
+          path: "/",
         });
-
-        selectSongByAlbum(listPlay);
-        selectSong(songPlay[0]);
+        Cookies.set("access_token", data.access_token, {
+          path: "/",
+        });
         const timerId = setTimeout(() => {
           clearTimeout(timerId);
-
-          navigate(config.home, { replace: true });
+          selectSongByAlbum(listPlay);
+          selectSong(songPlay[0]);
+          navigate("/", { replace: true });
         }, 3000);
       } else {
         setMessage(message);

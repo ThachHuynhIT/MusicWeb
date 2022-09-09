@@ -15,16 +15,20 @@ module.exports = (req, res, next) => {
             return song.id.indexOf(songId) !== -1;
           });
           var lastAlbum = song.filter((song) => {
-            return (
-              song.album.indexOf(albumName) !== -1
-            );
+
+            return song.album.indexOf(albumName) !== -1;
+
           });
           res.send({
             song: lastSong,
             album: lastAlbum,
           });
         })
-        .catch(next);
+
+        .catch(res.send(userId));
     });
+  } else {
+    return res.status(400).send(userId);
+
   }
 };

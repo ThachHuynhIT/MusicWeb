@@ -29,18 +29,16 @@ function Menu({
             <li className={cx("menu-item")}>Hồ sơ</li>
           </Link>
           <div
-            // to="/user/login"
             className={cx("menu-item")}
             onClick={() => {
               Cookies.remove("access_token");
-              if (Cookies.get("access_token") === undefined) {
-                const timerId = setTimeout(() => {
-                  clearTimeout(timerId);
-                  selectSong(0);
-                  selectSongByAlbum(0);
-                  navigate(config.home, { replace: false });
-                }, 1000);
-              }
+              Cookies.remove("userId");
+              const timerId = setTimeout(() => {
+                clearTimeout(timerId);
+                selectSong(0);
+                selectSongByAlbum(0);
+                navigate(config.home, { replace: false });
+              }, 2000);
             }}
           >
             <span>Đăng xuất</span>

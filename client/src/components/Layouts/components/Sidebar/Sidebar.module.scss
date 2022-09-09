@@ -49,6 +49,7 @@
 .content {
   padding: var(--padding-li);
   opacity: 0.6;
+  width: 190px;
   &:hover {
     opacity: 1;
   }
@@ -133,4 +134,7 @@
   list-style: none;
   width: inherit;
   padding-left: 20px;
+}
+.list-name {
+  display: flex;
 }
