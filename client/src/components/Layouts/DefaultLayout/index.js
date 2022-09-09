@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import * as songsService from "../../../service/songsService";
 import * as UserService from "../../../service/userService";
+import * as PlayListService from "../../../service/playListService";
 import classNames from "classnames/bind";
 const cx = classNames.bind(styles);
 
@@ -21,20 +22,37 @@ const DefaultLayout = ({
   focus,
   setFocus,
 }) => {
-  const [value, setValue] = useState(false);
-  useEffect(() => {
-    UserService.isAuthen().then((data) => {
-      setValue(data.isAuthenticated);
-    });
-  }, []);
-
+  const value = UserService.isLog();
   const id_block = status === true ? "block-actie" : "";
   const id_focus = focus === true ? "block-actie" : "";
-  console.log(focus);
+  const [showResult, setShowResult] = useState(true);
+  const [playList, setPlayList] = useState({
+    name: "",
+    img: "",
+  });
+  const onChange = (e) => {
+    e.preventDefault();
+    const newPlayList = { ...playList };
+    newPlayList[e.target.name] = e.target.value;
+    setPlayList(newPlayList);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const variable = {
+      name: playList.name,
+      img: playList.img,
+    };
+    if (variable != undefined) {
+      PlayListService.createPlayList(variable);
+      setFocus(false);
+    }
+  };
+
   return (
     <React.Fragment>
       <div className={cx("warrper")}>
-        {value === false ? (
+        {!value ? (
           <>
             <div className={cx("block")} id={cx(id_block)}>
               <div className={cx("block-container")}>
@@ -74,8 +92,9 @@ const DefaultLayout = ({
                     <h2>Tạo danh sách phát cho riêng bạn</h2>
                     <form
                       className={cx("post-form")}
-                      name="sentMessage"
+                      name="crete_playlist"
                       noValidate="noValidate"
+                      onSubmit={onSubmit}
                     >
                       <div className={cx("group-main")}>
                         <div className={cx("group-main")}>
@@ -88,10 +107,10 @@ const DefaultLayout = ({
                             className={cx("input-value")}
                             type="text"
                             placeholder="Từ 3 dến 16 ký tự"
-                            name="username"
+                            name="name"
                             autoFocus={true}
-                            // value={user.username}
-                            // onChange={onChange}
+                            value={playList.name}
+                            onChange={onChange}
                           ></input>
                         </div>
                       </div>
@@ -106,7 +125,9 @@ const DefaultLayout = ({
                           className={cx("input-value")}
                           accept="image/*"
                           type="file"
-                          name="image"
+                          name="img"
+                          value={playList.img}
+                          onChange={onChange}
                           required
                         ></input>
                       </div>

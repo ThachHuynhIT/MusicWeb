@@ -8,7 +8,6 @@ const createPlayList = require("./createPlayList");
 
 const router = express.Router();
 
-
 router.get("/get-playlist/:userId", getPlayList);
 router.delete("/get-playlist", deletePlayList);
 router.put("/add-song-playlist/:playlistId/:songId", addSongToPlayList);

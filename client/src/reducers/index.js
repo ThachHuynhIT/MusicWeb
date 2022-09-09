@@ -102,6 +102,12 @@ const getFocus = (focus = 0, action) => {
   }
   return focus;
 };
+const setToken = (token = 0, action) => {
+  if (action.type === "SET_TOKEN") {
+    return action.payload;
+  }
+  return token;
+};
 
 export default combineReducers({
   selectedSongList: selectedSongListReducer,
@@ -115,7 +121,7 @@ export default combineReducers({
 
   type: typeAlbumReducer,
   duration: durationReducer,
-
+  token: setToken,
   currentLocation: currentLocationReducer,
   val: logOutReducer,
   focus: getFocus,

@@ -8,7 +8,7 @@ const cx = classNames.bind(styles);
 function SearchAlbum({ albums }) {
   return (
     <>
-      <Link to="/search">
+      <Link to={`/search/${albums.name}/all`}>
         <div className={cx("wrapper")}>
           <img className={cx("avatar")} src={albums.img} alt="Hoaa" />
           <div className={cx("info")}>

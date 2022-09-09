@@ -9,6 +9,8 @@ import * as userService from "../../../service/userService";
 import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import config from "../../../config";
+import { get } from "mongoose";
 const cx = classNames.bind(styles);
 
 function Menu({
@@ -26,17 +28,23 @@ function Menu({
           <Link to="/account/infor">
             <li className={cx("menu-item")}>Hồ sơ</li>
           </Link>
-          <a
-            href="/"
+          <div
+            // to="/user/login"
             className={cx("menu-item")}
             onClick={() => {
-              selectSong(undefined);
-              selectSongByAlbum(undefined);
-              userService.logOut();
+              Cookies.remove("access_token");
+              if (Cookies.get("access_token") === undefined) {
+                const timerId = setTimeout(() => {
+                  clearTimeout(timerId);
+                  selectSong(0);
+                  selectSongByAlbum(0);
+                  navigate(config.home, { replace: false });
+                }, 1000);
+              }
             }}
           >
             <span>Đăng xuất</span>
-          </a>
+          </div>
         </ul>
       </Wrapper>
     </div>

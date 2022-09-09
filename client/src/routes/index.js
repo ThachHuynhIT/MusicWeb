@@ -24,7 +24,7 @@ const PrivateRoutes = [
   { path: config.searchSong, component: SearchSong },
   { path: config.searchAlbum, component: SearchAlbum },
 
-  { path: config.accountInfor, component: Infor, layout: DefaultAccountLayout },
+  { path: config.accoutInfor, component: Infor, layout: DefaultAccountLayout },
   { path: config.accoutEdit, component: Edit, layout: DefaultAccountLayout },
 ];
 const AuthRoutes = [
