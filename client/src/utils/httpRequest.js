@@ -15,8 +15,8 @@ export const post = async (path, options = {}) => {
   const response = await httpRequest.post(path, options);
   return response;
 };
-export const fetch = async (path, options = {}) => {
-  const response = await httpRequest.fetch(path, options);
+export const remove = async (path, options = {}) => {
+  const response = await httpRequest.delete(path, options);
   return response;
 };
 

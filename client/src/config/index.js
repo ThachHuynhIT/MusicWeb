@@ -13,5 +13,6 @@ const config = {
 
   userLogin: "/user/login",
   userRegister: "/user/register",
+  playList: "/playlist/:playlist_id",
 };
 export default config;

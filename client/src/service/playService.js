@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 export const saveAlbum = async (list) => {
   const userId = Cookies.get("userId");
-  console.log(userId);
+
   try {
     const res = await httpRequests.post(
       `api/media/post-last-album/${userId}`,
@@ -20,7 +20,7 @@ export const saveAlbum = async (list) => {
 };
 export const getLastPlay = async () => {
   const userId = Cookies.get("userId");
-  console.log(userId);
+
   try {
     const res = await httpRequests.get(`api/media/get-last-music/${userId}`);
 

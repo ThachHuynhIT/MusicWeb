@@ -10,30 +10,47 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle, faHeart, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import * as PlayListService from "../../../service/playListService";
+import * as UserServices from "../../../service/userService";
 const cx = classNames.bind(styles);
 
 function List({ selectSong, selectSongByAlbum, hideOnClick = false, focus }) {
   const [playList, setPlayList] = useState();
   const [showList, setShowList] = useState(false);
   const navigate = useNavigate();
-
-  const renderResult = (attrs) => (
-    <div className={cx("menu-list", "scroll")} tabIndex="-1" {...attrs}>
-      <Wrapper className={cx("menu-popper")}>
-        <ul className={cx("menu-body")}>
+  const [userPlayList, setUserPlayList] = useState([]);
+  const isAuthenticated = UserServices.isLog();
+  useEffect(() => {
+    const fetchApi = async () => {
+      const response = await PlayListService.getPlayList();
+      console.log(response);
+      setUserPlayList(response);
+    };
+    fetchApi();
+  }, []);
+  const ListTag = userPlayList.map((playList) => {
+    if (isAuthenticated === true) {
+      return (
+        <>
           <li
             className={cx("menu-item")}
             onClick={() => {
               setShowList(false);
             }}
           >
-            Danh sách PlayList
+            {playList.name}
           </li>
-          <li className={cx("menu-item")}>Danh sách PlayList</li>
-          <li className={cx("menu-item")}>Danh sách PlayList</li>
-          <li className={cx("menu-item")}>Danh sách PlayList</li>
-          <li className={cx("menu-item")}>Danh sách PlayList</li>
-        </ul>
+        </>
+      );
+    } else {
+      return <></>;
+    }
+  });
+
+  const renderResult = (attrs) => (
+    <div className={cx("menu-list", "scroll")} tabIndex="-1" {...attrs}>
+      <Wrapper className={cx("menu-popper")}>
+        <ul className={cx("menu-body")}>{ListTag}</ul>
       </Wrapper>
     </div>
   );
@@ -47,6 +64,9 @@ function List({ selectSong, selectSongByAlbum, hideOnClick = false, focus }) {
       hideOnClick={hideOnClick}
       placement="bottom-end"
       render={renderResult}
+      onClickOutside={() => {
+        setShowList(false);
+      }}
     >
       <div class={cx("hover-like-icon")}>
         <FontAwesomeIcon

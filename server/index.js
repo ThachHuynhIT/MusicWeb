@@ -1,8 +1,9 @@
 const path = require("path");
 const express = require("express");
+const cors = require("cors");
 const methodOverride = require("method-override");
 const morgan = require("morgan");
-const cookieParser = require("cookie-parser")
+const cookieParser = require("cookie-parser");
 const handlebars = require("express-handlebars");
 require("dotenv").config();
 
@@ -13,12 +14,11 @@ db.connect();
 
 // const { engine } = require ('express-handlebars');
 const app = express();
+app.use(cors());
 app.use(cookieParser());
 const port = process.env.SERVER_PORT || 3000;
 
-app.use(
-  express.static(path.join(__dirname, "../test/public"))
-);
+app.use(express.static(path.join(__dirname, "../test/public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
@@ -39,10 +39,7 @@ app.engine(
 
 // app.engine('handlebars', engine());
 app.set("view engine", "hbs");
-app.set(
-  "views",
-  path.join(__dirname, "../test/resource/views")
-);
+app.set("views", path.join(__dirname, "../test/resource/views"));
 
 //route khoi tao
 route(app);

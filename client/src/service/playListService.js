@@ -19,8 +19,19 @@ export const createPlayList = (playlist) => {
 export const getPlayList = async () => {
   const userId = Cookies.get("userId");
   try {
-    const res = await httpRequests.get(`api/media/song-album/${userId}`);
+    const res = await httpRequests.get(`api/playlist/get-playlist/${userId}`);
 
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const removePlayList = async (name) => {
+  try {
+    const res = await httpRequests.remove(
+      `api/playlist/delete-playlist/${name}`
+    );
+    console.log(res);
     return res;
   } catch (error) {
     console.log(error);
