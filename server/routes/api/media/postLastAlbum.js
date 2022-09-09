@@ -9,8 +9,8 @@ module.exports = (req, res, next) => {
   if (id) {
     User.updateOne({ _id: id }, { lastAlbum: lastAlbum, lastSong: lastSong })
       .then(res.send("Thành công"))
-      .catch(res.send("Lỗi"));
+      .catch(next);
   } else {
-    res.json({ lastAlbum, id });
+    return res.json({ lastAlbum, id });
   }
 };

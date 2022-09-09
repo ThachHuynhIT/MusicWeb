@@ -1,7 +1,8 @@
 const Playlist = require("../../../models/PlayList");
 
 module.exports = (req, res, next) => {
-  Playlist.find({}).then((playlist) => {
+  Playlist.find({})
+  .then((playlist) => {
     if (playlist.length <= 10) {
       const playlist = new Playlist({
         name: req.body.name,
@@ -11,5 +12,6 @@ module.exports = (req, res, next) => {
     } else {
       return res.json("Không thể tạo thêm danh sách phát");
     }
-  });
+  })
+  .catch(next);
 };

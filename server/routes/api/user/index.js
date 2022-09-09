@@ -99,16 +99,11 @@ router.get("/authen/:token", (req, res) => {
   try {
     const verified = jwt.verify(token, process.env.TOKEN_SECRET);
     const userId = verified._id;
-    User.findById({ _id: userId })
+    User.findById({ _id: userId },{password:0})
     .then((user) => {
-      res.status(200).json({
+      res.status(200).send({
         isAuthenticated: true,
-        user: {
-          _id: userId,
-          username: user.username,
-          email: user.email,
-          access_token: token,
-        },
+        user: user,
       });
     });
   } catch (err) {
@@ -117,5 +112,6 @@ router.get("/authen/:token", (req, res) => {
 });
 
 router.put("/update-user/:token", updateInfo);
+
 
 module.exports = router;
