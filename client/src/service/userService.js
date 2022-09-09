@@ -42,16 +42,28 @@ export const login = (user) => {
     });
 };
 export const logOut = () => {
-  return httpRequests.get("/api/user/logout");
+  Cookies.remove("access_token");
 };
 
 export const isAuthen = () => {
-  const token = Cookies.get("access_token");
-  return httpRequests.get(`api/user/authen/${token}`).then((res) => {
+  const tokenUser = Cookies.get("access_token");
+  console.log(tokenUser);
+
+  return httpRequests.get(`api/user/authen/${tokenUser}`).then((res) => {
     if (res.status !== 401) {
       return res;
     } else {
       return { user: { username: "" } };
     }
   });
+};
+
+export const isLog = () => {
+  const tokenUser = Cookies.get("access_token");
+
+  if (tokenUser === undefined) {
+    return false;
+  } else {
+    return true;
+  }
 };

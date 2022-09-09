@@ -17,22 +17,19 @@ import "tippy.js/dist/tippy.css"; // optional
 import classNames from "classnames/bind";
 import styles from "./Header.module.scss";
 import Cookies from "js-cookie";
-import * as UserService from "../../../../service/userService";
-import { Link } from "react-router-dom";
+import * as UserServices from "../../../../service/userService";
+import { Link, useNavigate } from "react-router-dom";
+import config from "../../../../config";
 const cx = classNames.bind(styles);
 
 function Header() {
-  const [value, setValue] = useState(false);
-  // const [searchResult, setSearchResult] = useState([]);
-  const [user, setUser] = useState(null);
-  // const [isAuthenticated, setAuthenticated] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
-  useEffect(() => {
-    UserService.isAuthen().then((data) => {
-      setValue(data.isAuthenticated);
-    });
-  }, []);
+  const value = UserServices.isLog();
 
+  const [user, setUser] = useState(null);
+
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const navigate = useNavigate();
   return (
     <header className={cx("menu", "menu-type")}>
       <div className={cx("move")}>
@@ -67,12 +64,12 @@ function Header() {
             >
               Đăng kí
             </a>
-            <a
-              href="/user/login"
+            <Link
+              to="/user/login"
               className={cx("top-bar-login-btn", "accout-btn-lg")}
             >
               <span className={cx("accout-btn-lg-titel")}>Đăng nhập</span>
-            </a>
+            </Link>
           </>
         )}
       </div>

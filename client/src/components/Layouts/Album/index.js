@@ -3,7 +3,7 @@ import React from "react";
 import SongList from "../../SongList";
 import SongListHeader from "../../SongListHeader";
 import SongDetail from "../../SongDetail";
-
+import Cookies from "js-cookie";
 import * as songsService from "../../../service/songsService";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -22,7 +22,8 @@ function AlbumLayout() {
     };
     fetchApi();
   }, []);
-
+  // const tokenUser = Cookies.get("access_token");
+  // console.log(tokenUser);
   return (
     <React.Fragment>
       <div className={cx("main-view-container", "scroll")}>

@@ -7,6 +7,8 @@ import { selectSong, selectSongByAlbum, setFocus } from "../../actions";
 import classNames from "classnames/bind";
 import styles from "./SongItem.module.scss";
 import List from "../Popper/List";
+import * as PlayService from "../../service/playService";
+import * as UserService from "../../service/userService";
 import { faCircle, faHeart, faPlus } from "@fortawesome/free-solid-svg-icons";
 const cx = classNames.bind(styles);
 
@@ -19,7 +21,9 @@ const SongItem = ({
   setFocus,
 }) => {
   const [songsList, setSongsList] = useState([]);
-
+  const [user, setUser] = useState(null);
+  const [songPlay, setSongPlay] = useState([]);
+  const [listPlay, setListPlay] = useState([]);
   useEffect(() => {
     const fetchApi = async () => {
       const response = await songsService.getSongsFromAlbum(song.album);
@@ -28,6 +32,21 @@ const SongItem = ({
     };
     fetchApi();
   }, []);
+
+  const savePlay = async () => {
+    const response = await PlayService.saveAlbum({
+      albumName: song.album,
+      songId: song._id,
+    });
+    console.log(response);
+  };
+  const handleClick = () => {
+    savePlay();
+    selectSong(song);
+    selectSongByAlbum(songsList);
+
+    dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
+  };
   const dispatch = useDispatch();
   const selector = () => {
     return (
@@ -69,12 +88,13 @@ const SongItem = ({
       <div
         id={cx(now_selected)}
         className={cx("song-item")}
-        onClick={() => {
-          selectSong(song);
-          selectSongByAlbum(songsList);
+        // onClick={() => {
+        // selectSong(song);
+        // selectSongByAlbum(songsList);
 
-          dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
-        }}
+        // dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
+        // }}
+        onClick={handleClick}
       >
         {phaser()}
         <div className={cx("name")}>{song.name}</div>

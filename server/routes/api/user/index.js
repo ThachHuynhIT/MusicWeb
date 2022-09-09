@@ -46,7 +46,7 @@ router.post("/login", (req, res, next) => {
         .header({
           username: user.username,
         })
-        .send({ username, isAuthenticated: true, access_token: token });
+        .send({ userId: id, isAuthen: true, access_token: token });
     })
     .catch((err) => next(err));
 });
