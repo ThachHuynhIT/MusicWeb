@@ -1,4 +1,5 @@
 const Album = require("../models/Album");
+const User = require("../models/User")
 const { multipleMongooseToObject } = require("../util/mongoose");
 
 class SitesController {
@@ -13,9 +14,16 @@ class SitesController {
       .catch(next);
   }
 
-  //[GET] route /music:slug (mo rong)
-  admin(req, res) {
-    res.json("new");
+  //[GET] route  (mo rong)
+  admin(req, res, next) {
+    Promise.all([User.find({}), User.countDocumentsDeleted()])
+      .then(([user, deletedCount]) =>
+        res.send( {
+          deletedCount,
+          user: user,
+        })
+      )
+      .catch(next);
   }
 }
 

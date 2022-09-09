@@ -38,8 +38,8 @@ module.exports = (req, res, next) => {
           );
         });
         res.send({
-          song: result.slice(0,5),
-          album: result2.slice(0,5),
+          song: result.slice(0, 5),
+          album: result2.slice(0, 5),
         });
       })
       .catch(next);

@@ -4,7 +4,7 @@ module.exports = (req, res, next) => {
   const songId = req.params.songId;
   const playlistId = req.params.playlistId;
 
-  Playlist.updateOne(
+  Playlist.findOneAndUpdate(
     { _id: playlistId },
     {
       $push: {
@@ -14,12 +14,7 @@ module.exports = (req, res, next) => {
         },
       },
     }
-  ).then(() => {
-    Playlist.find({ _id: playlistId })
-      .then((playlist) => {
-        const ppllength = playlist.length;
-        res.send(playlist);
-      })
-      .catch(next);
-  });
+  )
+    .then(res.status(200).send("Thành công"))
+    .catch(next);
 };
