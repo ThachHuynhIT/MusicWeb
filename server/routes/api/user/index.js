@@ -91,7 +91,6 @@ router.get("/logout", (req, res) => {
 router.get("/authen/:token", (req, res) => {
   const token = req.params.token;
 
-
   if (!token)
     return res
       .status(401)
@@ -113,10 +112,10 @@ router.get("/authen/:token", (req, res) => {
       });
     });
   } catch (err) {
-    return res.status(401).json("Invalid Token");
+    return res.status(401).json({isAuthenticated: false});
   }
 });
 
-router.put("/update-user", verifyToken, updateInfo);
+router.put("/update-user/:token", updateInfo);
 
 module.exports = router;
