@@ -27,11 +27,13 @@ const DefaultLayout = ({
   focus,
   setFocus,
   changePlaylist,
+  userPlaylist,
 }) => {
   const value = UserService.isLog();
   const id_block = status === true ? "block-actie" : "";
   const id_focus = focus === true ? "block-actie" : "";
   const [showResult, setShowResult] = useState(true);
+
   const [playList, setPlayList] = useState({
     name: "",
     img: "",
@@ -42,12 +44,13 @@ const DefaultLayout = ({
       const response = await PlayListService.getPlayList();
 
       changePlaylist(response);
+      console.log(changePlaylist(response));
     };
     fetchApi();
   }, []);
   const fepi = async () => {
     const response = await PlayListService.getPlayList();
-    console.log(response);
+
     changePlaylist(response);
   };
 
@@ -223,6 +226,7 @@ const mapStateToProps = (state) => {
     selectedSongList: state.selectedSongList,
     focus: state.focus,
     status: state.status,
+    userPlaylist: state.userPlaylist,
   };
 };
 

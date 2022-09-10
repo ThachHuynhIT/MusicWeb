@@ -5,31 +5,41 @@ import { connect, useDispatch } from "react-redux";
 import { changePlaylist } from "../../../actions";
 import Wrapper from "../Wrapper";
 import styles from "./List.module.scss";
-import * as userService from "../../../service/userService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle, faHeart, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+
 import * as PlayListService from "../../../service/playListService";
 import * as UserServices from "../../../service/userService";
 const cx = classNames.bind(styles);
 
-function List({ changePlaylist, userPlaylist }) {
+function List({ changePlaylist, userPlaylist, songAdd }) {
   const [playList, setPlayList] = useState();
   const [showList, setShowList] = useState(false);
   const navigate = useNavigate();
 
   const isAuthenticated = UserServices.isLog();
-  console.log(userPlaylist);
+
+  const addSong = async (a, b) => {
+    const response = await PlayListService.addSong(a, b);
+
+    console.log(response);
+  };
+
   const ListTag = userPlaylist.map((playList) => {
+    const addClick = () => {
+      addSong(playList._id, songAdd._id);
+      const timerId = setTimeout(() => {
+        clearTimeout(timerId);
+
+        setShowList(false);
+      }, 100);
+    };
+
     if (isAuthenticated === true) {
       return (
-        <li
-          className={cx("menu-item")}
-          onClick={() => {
-            setShowList(false);
-          }}
-        >
+        <li className={cx("menu-item")} onClick={addClick}>
           {playList.name}
         </li>
       );
@@ -74,7 +84,9 @@ function List({ changePlaylist, userPlaylist }) {
 const mapStateToProps = (state) => {
   return {
     focus: state.focus,
-    userPlaylist: state.userPlayList,
+    userPlaylist: state.userPlaylist,
+    selectedSongPlay: state.selectedSongPlay,
+    songAdd: state.songAdd,
   };
 };
 

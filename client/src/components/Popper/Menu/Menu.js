@@ -20,7 +20,21 @@ function Menu({
   hideOnClick = false,
 }) {
   const navigate = useNavigate();
-
+  const onLogout = () => {
+    Cookies.remove("access_token");
+    Cookies.remove("userId");
+    if (
+      Cookies.remove("access_token") === undefined &&
+      Cookies.remove("userId") === undefined
+    ) {
+      const timerId = setTimeout(() => {
+        clearTimeout(timerId);
+        selectSong(0);
+        selectSongByAlbum(0);
+        navigate("/");
+      }, 5000);
+    }
+  };
   const renderResult = (attrs) => (
     <div className={cx("menu-list")} tabIndex="-1" {...attrs}>
       <Wrapper className={cx("menu-popper")}>
@@ -28,19 +42,7 @@ function Menu({
           <Link to="/account/infor">
             <li className={cx("menu-item")}>Hồ sơ</li>
           </Link>
-          <div
-            className={cx("menu-item")}
-            onClick={() => {
-              Cookies.remove("access_token");
-              Cookies.remove("userId");
-              const timerId = setTimeout(() => {
-                clearTimeout(timerId);
-                selectSong(0);
-                selectSongByAlbum(0);
-                navigate(config.home, { replace: false });
-              }, 2000);
-            }}
-          >
+          <div className={cx("menu-item")} onClick={onLogout}>
             <span>Đăng xuất</span>
           </div>
         </ul>

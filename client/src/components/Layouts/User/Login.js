@@ -28,14 +28,12 @@ function LoginLayout({ props, selectSong, selectSongByAlbum }) {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  useEffect(() => {
-    const fetchApi = async () => {
-      const response = await LastPlay.getLastPlay();
-      setSongPlay(response.song);
-      setListPlay(response.album);
-    };
-    fetchApi();
-  }, []);
+  const fetchApi = async () => {
+    const response = await LastPlay.getLastPlay();
+
+    setSongPlay(response.song);
+    setListPlay(response.album);
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -55,11 +53,14 @@ function LoginLayout({ props, selectSong, selectSongByAlbum }) {
         Cookies.set("access_token", data.access_token, {
           path: "/",
         });
+        selectSongByAlbum(listPlay);
+        selectSong(songPlay[0]);
         const timerId = setTimeout(() => {
+          fetchApi();
+
           clearTimeout(timerId);
-          selectSongByAlbum(listPlay);
-          selectSong(songPlay[0]);
-          navigate("/", { replace: true });
+
+          navigate("/");
         }, 3000);
       } else {
         setMessage(message);

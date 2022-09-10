@@ -15,9 +15,7 @@ module.exports = (req, res, next) => {
             return song.id.indexOf(songId) !== -1;
           });
           var lastAlbum = song.filter((song) => {
-
             return song.album.indexOf(albumName) !== -1;
-
           });
           res.send({
             song: lastSong,
@@ -25,10 +23,9 @@ module.exports = (req, res, next) => {
           });
         })
 
-        .catch(res.send(userId));
+        .catch(next);
     });
   } else {
     return res.status(400).send(userId);
-
   }
 };
