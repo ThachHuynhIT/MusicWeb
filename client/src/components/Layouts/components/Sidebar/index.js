@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { setFocus, changePlaylist } from "../../../../actions";
+import { setFocus, changePlaylist, getPlayListId } from "../../../../actions";
 import ReactDOM from "react-dom";
 import classNames from "classnames/bind";
 import styles from "./Sidebar.module.scss";
@@ -21,34 +21,29 @@ import {
 import { connect } from "react-redux";
 import { Link, useNavigate, Navigate } from "react-router-dom";
 const cx = classNames.bind(styles);
-function Sidebar({ setFocus, changePlaylist, userPlaylist }) {
+function Sidebar({ setFocus, changePlaylist, userPlaylist, getPlayListId }) {
   const navigate = useNavigate();
-  const [nowSelected, setNowSelected] = useState(true);
-  const [playlist, setPlayList] = useState([]);
 
   const isAuthenticated = UserServices.isLog();
+  console.log(userPlaylist);
 
   const fepi = async () => {
     const response = await PlayListService.getPlayList();
-    console.log(response);
+
     changePlaylist(response);
   };
   //remove
   const removePlayList = async (e) => {
     const response = await PlayListService.removePlayList(e);
   };
-  console.log(userPlaylist);
+
   const ListTag = userPlaylist.map((playList) => {
-    console.log(playList);
-    if (isAuthenticated === true) {
+    if (isAuthenticated === true || userPlaylist.leght > 0) {
       const removeClick = () => {
         removePlayList(playList._id);
         fepi();
-        // console.log(userPlayList.length);
-        // if (userPlayList.length <= 0) {
-        //   navigate("/");
-        // }
       };
+
       return (
         <>
           <div className={cx("list-name")}>
@@ -57,7 +52,13 @@ function Sidebar({ setFocus, changePlaylist, userPlaylist }) {
             </div>
 
             <Link to={`/playlist/${playList._id}`}>
-              <li className={cx("content")}>
+              <li
+                className={cx("content")}
+                onclick={() => {
+                  getPlayListId(playList._id);
+                  console.log(getPlayListId(playList._id));
+                }}
+              >
                 <h6 className={cx("titel")}>{playList.name}</h6>
               </li>
             </Link>
@@ -68,6 +69,7 @@ function Sidebar({ setFocus, changePlaylist, userPlaylist }) {
       return <></>;
     }
   });
+
   return (
     <nav className={cx("warrper")}>
       <div className={cx("logo")}>
@@ -130,11 +132,12 @@ function Sidebar({ setFocus, changePlaylist, userPlaylist }) {
 }
 const mapStateToProps = (state) => {
   return {
-    userPlaylist: state.userPlayList,
+    userPlaylist: state.userPlaylist,
   };
 };
 
 export default connect(mapStateToProps, {
   setFocus,
   changePlaylist,
+  getPlayListId,
 })(Sidebar);

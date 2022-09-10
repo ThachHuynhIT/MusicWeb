@@ -3,27 +3,43 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 import * as songsService from "../../service/songsService";
-import { selectSong, selectSongByAlbum, setFocus } from "../../actions";
+import * as PlayListService from "../../service/playListService";
+import {
+  selectSong,
+  selectSongByAlbum,
+  setFocus,
+  addSong,
+  selectedUserPlayList,
+} from "../../actions";
 import classNames from "classnames/bind";
 import styles from "./SongItem.module.scss";
 import List from "../Popper/List";
 import * as PlayService from "../../service/playService";
 import * as UserService from "../../service/userService";
-import { faCircle, faHeart, faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCircle,
+  faHeart,
+  faMinus,
+  faPlus,
+  faSquare,
+  faTractor,
+} from "@fortawesome/free-solid-svg-icons";
 const cx = classNames.bind(styles);
 
 const SongItem = ({
   song,
+  type,
   selectedSongPlay,
   playerState,
   selectSong,
   selectSongByAlbum,
   setFocus,
+  addSong,
+  selectedUserList,
+  playlistId,
 }) => {
   const [songsList, setSongsList] = useState([]);
-  const [user, setUser] = useState(null);
-  const [songPlay, setSongPlay] = useState([]);
-  const [listPlay, setListPlay] = useState([]);
+
   useEffect(() => {
     const fetchApi = async () => {
       const response = await songsService.getSongsFromAlbum(song.album);
@@ -33,20 +49,45 @@ const SongItem = ({
     fetchApi();
   }, []);
 
+  const fepi = async (playlistId) => {
+    const response = await PlayListService.getSongPlayList(playlistId);
+
+    selectedUserPlayList(response);
+  };
+
+  const removeSong = async (a, b) => {
+    const response = await PlayListService.removeSong(a, b);
+  };
+
   const savePlay = async () => {
     const response = await PlayService.saveAlbum({
       albumName: song.album,
       songId: song._id,
     });
-    console.log(response);
   };
-  const handleClick = () => {
-    savePlay();
-    selectSong(song);
-    selectSongByAlbum(songsList);
 
-    dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
+  const removeClick = () => {
+    removeSong(playlistId, song._id);
+
+    fepi();
   };
+
+  const handleClick = () => {
+    if (type === true) {
+      savePlay();
+      selectSong(song);
+      selectSongByAlbum(selectedUserList);
+      console.log(selectedUserList);
+      dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
+    } else {
+      savePlay();
+      selectSong(song);
+      selectSongByAlbum(songsList);
+
+      dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
+    }
+  };
+
   const dispatch = useDispatch();
   const selector = () => {
     return (
@@ -85,25 +126,32 @@ const SongItem = ({
 
   return (
     <>
-      <div
-        id={cx(now_selected)}
-        className={cx("song-item")}
-        // onClick={() => {
-        // selectSong(song);
-        // selectSongByAlbum(songsList);
-
-        // dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
-        // }}
-        onClick={handleClick}
-      >
+      <div id={cx(now_selected)} className={cx("song-item")}>
         {phaser()}
-        <div className={cx("name")}>{song.name}</div>
+        <div className={cx("name")} onClick={handleClick}>
+          {song.name}
+        </div>
         <div className={cx("author")}>{song.singer}</div>
 
         <div className={cx("selector")}>
-          <form class={cx("hover-like")} onClick={() => {}}>
-            <List />
-          </form>
+          {type === true ? (
+            <>
+              <form class={cx("hover-like")} onClick={removeClick}>
+                <FontAwesomeIcon icon={faMinus}></FontAwesomeIcon>
+              </form>
+            </>
+          ) : (
+            <>
+              <form
+                class={cx("hover-like")}
+                onClick={() => {
+                  addSong(song);
+                }}
+              >
+                <List />
+              </form>
+            </>
+          )}
 
           {selector()}
         </div>
@@ -116,6 +164,8 @@ const mapStateToProps = (state) => {
   return {
     selectedSongPlay: state.selectedSongPlay,
     playerState: state.playerState,
+    selectedUserList: state.selectedUserList,
+    playlistId: state.playlistId,
   };
 };
 
@@ -123,4 +173,7 @@ export default connect(mapStateToProps, {
   selectSong,
   selectSongByAlbum,
   setFocus,
+
+  addSong,
+  selectedUserPlayList,
 })(SongItem);

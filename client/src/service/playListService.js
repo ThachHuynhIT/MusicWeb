@@ -42,8 +42,30 @@ export const getSongPlayList = async (playlistId) => {
     const res = await httpRequests.get(
       `api/playlist/get-song-playlist/${playlistId}`
     );
-    console.log(res.playlist);
-    return res.playlist;
+
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const addSong = async (playlistId, songId) => {
+  try {
+    const res = await httpRequests.put(
+      `api/playlist/add-song-playlist/${playlistId}/${songId}`
+    );
+
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const removeSong = async (playlistId, songId) => {
+  try {
+    const res = await httpRequests.put(
+      `api/playlist/delete-song-playlist/${playlistId}/${songId}`
+    );
+
+    return res;
   } catch (error) {
     console.log(error);
   }
