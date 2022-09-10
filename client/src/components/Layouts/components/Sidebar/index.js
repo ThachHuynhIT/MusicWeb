@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { setFocus } from "../../../../actions";
+import { setFocus, changePlaylist } from "../../../../actions";
 import ReactDOM from "react-dom";
 import classNames from "classnames/bind";
 import styles from "./Sidebar.module.scss";
@@ -7,6 +7,7 @@ import images from "../../../../assect/images";
 import * as PlayListService from "../../../../service/playListService";
 import * as UserServices from "../../../../service/userService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import config from "../../../../config";
 import {
   faBook,
   faHeart,
@@ -18,35 +19,40 @@ import {
   faTruck,
 } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 const cx = classNames.bind(styles);
-function Sidebar({ setFocus }) {
+function Sidebar({ setFocus, changePlaylist, userPlaylist }) {
+  const navigate = useNavigate();
   const [nowSelected, setNowSelected] = useState(true);
   const [playlist, setPlayList] = useState([]);
-  const [userPlayList, setUserPlayList] = useState([]);
-  const isAuthenticated = UserServices.isLog();
-  useEffect(() => {
-    const fetchApi = async () => {
-      const response = await PlayListService.getPlayList();
 
-      setUserPlayList(response);
-    };
-    fetchApi();
-  }, []);
+  const isAuthenticated = UserServices.isLog();
+
+  const fepi = async () => {
+    const response = await PlayListService.getPlayList();
+    console.log(response);
+    changePlaylist(response);
+  };
+  //remove
   const removePlayList = async (e) => {
     const response = await PlayListService.removePlayList(e);
   };
-  const ListTag = userPlayList.map((playList) => {
+  console.log(userPlaylist);
+  const ListTag = userPlaylist.map((playList) => {
+    console.log(playList);
     if (isAuthenticated === true) {
+      const removeClick = () => {
+        removePlayList(playList._id);
+        fepi();
+        // console.log(userPlayList.length);
+        // if (userPlayList.length <= 0) {
+        //   navigate("/");
+        // }
+      };
       return (
         <>
           <div className={cx("list-name")}>
-            <div
-              className={cx("icon-delete")}
-              onClick={() => {
-                removePlayList(playList._id);
-              }}
-            >
+            <div className={cx("icon-delete")} onClick={removeClick}>
               <FontAwesomeIcon className={cx("icon-li")} icon={faTrash} />
             </div>
 
@@ -122,8 +128,13 @@ function Sidebar({ setFocus }) {
     </nav>
   );
 }
-const mapStateToProps = (state) => {};
+const mapStateToProps = (state) => {
+  return {
+    userPlaylist: state.userPlayList,
+  };
+};
 
 export default connect(mapStateToProps, {
   setFocus,
+  changePlaylist,
 })(Sidebar);

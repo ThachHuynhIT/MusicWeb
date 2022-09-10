@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import Tippy from "@tippyjs/react/headless";
 import { connect, useDispatch } from "react-redux";
-import { selectSong, selectSongByAlbum } from "../../../actions";
+import { changePlaylist } from "../../../actions";
 import Wrapper from "../Wrapper";
 import styles from "./List.module.scss";
 import * as userService from "../../../service/userService";
@@ -14,33 +14,24 @@ import * as PlayListService from "../../../service/playListService";
 import * as UserServices from "../../../service/userService";
 const cx = classNames.bind(styles);
 
-function List({ selectSong, selectSongByAlbum, hideOnClick = false, focus }) {
+function List({ changePlaylist, userPlaylist }) {
   const [playList, setPlayList] = useState();
   const [showList, setShowList] = useState(false);
   const navigate = useNavigate();
-  const [userPlayList, setUserPlayList] = useState([]);
+
   const isAuthenticated = UserServices.isLog();
-  useEffect(() => {
-    const fetchApi = async () => {
-      const response = await PlayListService.getPlayList();
-      console.log(response);
-      setUserPlayList(response);
-    };
-    fetchApi();
-  }, []);
-  const ListTag = userPlayList.map((playList) => {
+  console.log(userPlaylist);
+  const ListTag = userPlaylist.map((playList) => {
     if (isAuthenticated === true) {
       return (
-        <>
-          <li
-            className={cx("menu-item")}
-            onClick={() => {
-              setShowList(false);
-            }}
-          >
-            {playList.name}
-          </li>
-        </>
+        <li
+          className={cx("menu-item")}
+          onClick={() => {
+            setShowList(false);
+          }}
+        >
+          {playList.name}
+        </li>
       );
     } else {
       return <></>;
@@ -61,7 +52,6 @@ function List({ selectSong, selectSongByAlbum, hideOnClick = false, focus }) {
     <Tippy
       interactive
       visible={showList}
-      hideOnClick={hideOnClick}
       placement="bottom-end"
       render={renderResult}
       onClickOutside={() => {
@@ -83,10 +73,9 @@ function List({ selectSong, selectSongByAlbum, hideOnClick = false, focus }) {
 
 const mapStateToProps = (state) => {
   return {
-    selectedSongPlay: state.selectedSongPlay,
-    playerState: state.playerState,
     focus: state.focus,
+    userPlaylist: state.userPlayList,
   };
 };
 
-export default connect(mapStateToProps, {})(List);
+export default connect(mapStateToProps, { changePlaylist })(List);

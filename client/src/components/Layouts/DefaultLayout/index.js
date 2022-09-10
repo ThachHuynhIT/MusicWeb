@@ -1,5 +1,10 @@
 import React from "react";
-import { selectSongByAlbum, setStatus, setFocus } from "../../../actions";
+import {
+  selectSongByAlbum,
+  setStatus,
+  setFocus,
+  changePlaylist,
+} from "../../../actions";
 import Header from "../components/Header";
 import { connect } from "react-redux";
 import styles from "./DefaultLayout.module.scss";
@@ -21,6 +26,7 @@ const DefaultLayout = ({
   status,
   focus,
   setFocus,
+  changePlaylist,
 }) => {
   const value = UserService.isLog();
   const id_block = status === true ? "block-actie" : "";
@@ -30,6 +36,21 @@ const DefaultLayout = ({
     name: "",
     img: "",
   });
+
+  useEffect(() => {
+    const fetchApi = async () => {
+      const response = await PlayListService.getPlayList();
+
+      changePlaylist(response);
+    };
+    fetchApi();
+  }, []);
+  const fepi = async () => {
+    const response = await PlayListService.getPlayList();
+    console.log(response);
+    changePlaylist(response);
+  };
+
   const onChange = (e) => {
     e.preventDefault();
     const newPlayList = { ...playList };
@@ -45,7 +66,12 @@ const DefaultLayout = ({
     };
     if (variable != undefined) {
       PlayListService.createPlayList(variable);
-      setFocus(false);
+
+      const timerId = setTimeout(() => {
+        fepi();
+        clearTimeout(timerId);
+        setFocus(false);
+      }, 500);
     }
   };
 
@@ -204,4 +230,5 @@ export default connect(mapStateToProps, {
   selectSongByAlbum,
   setStatus,
   setFocus,
+  changePlaylist,
 })(DefaultLayout);
