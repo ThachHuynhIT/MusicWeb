@@ -6,6 +6,7 @@ const Playlist = new Schema(
   {
     userId: { type: String },
     name: { type: String },
+    img: { type: String },
     songList: [],
   },
   { timestamps: true }
