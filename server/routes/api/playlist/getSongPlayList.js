@@ -2,8 +2,6 @@ const Playlist = require("../../../models/PlayList");
 const Song = require("../../../models/Song");
 
 module.exports = (req, res, next) => {
-
-  var data = [];
   Playlist.find(
     {
       _id: req.params.playlistId,
@@ -15,6 +13,6 @@ module.exports = (req, res, next) => {
       const t = { _id: { $in: arr } };
       Song.find(t).then((song) => res.send(song));
     })
+    .catch(res.status(400).send("Err"));
 
-    .catch(next);
 };
