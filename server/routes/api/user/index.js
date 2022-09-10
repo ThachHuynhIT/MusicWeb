@@ -2,14 +2,13 @@ const express = require("express");
 const User = require("../../../models/User");
 const loginValidator = require("../../../validations/login");
 const signupValidator = require("../../../validations/signup");
+const upload = require("../../../middlewares/uploadMiddleware");
 const jwt = require("jsonwebtoken");
 const co = require("co");
 const updateInfo = require("./updateInfo");
-const verifyToken = require("../../../middlewares/verifyToken");
-require("dotenv").config();
 
 const router = express.Router();
-// Đăng nhập
+
 router.post("/login", (req, res, next) => {
   const { username, password } = req.body;
   const { isValid, errors } = loginValidator(req.body);
@@ -39,7 +38,7 @@ router.post("/login", (req, res, next) => {
       const id = user._id;
 
       const token = jwt.sign({ _id: id }, process.env.TOKEN_SECRET, {
-        expiresIn: "1d",
+        expiresIn: 60 * 60 * 24,
       });
       res
         .cookie("access_token", token, { httpOnly: true, sameSite: true })
@@ -51,7 +50,6 @@ router.post("/login", (req, res, next) => {
     .catch((err) => next(err));
 });
 
-// Đăng ký
 router.post("/signup", (req, res, next) => {
   const { username } = req.body;
   const { isValid, errors } = signupValidator(req.body);
@@ -79,14 +77,11 @@ router.post("/signup", (req, res, next) => {
     .catch((err) => next(err));
 });
 
-// Đăng xuất
 router.get("/logout", (req, res) => {
   res
     .clearCookie("access_token")
     .json({ user: { username: "" }, isAuthenticated: false });
 });
-
-// Kiểm tra đáng nhập
 
 router.get("/authen/:token", (req, res) => {
   const token = req.params.token;
@@ -99,19 +94,17 @@ router.get("/authen/:token", (req, res) => {
   try {
     const verified = jwt.verify(token, process.env.TOKEN_SECRET);
     const userId = verified._id;
-    User.findById({ _id: userId },{password:0})
-    .then((user) => {
+    User.findById({ _id: userId }, { password: 0 }).then((user) => {
       res.status(200).send({
         isAuthenticated: true,
         user: user,
       });
     });
   } catch (err) {
-    return res.status(401).json({isAuthenticated: false});
+    return res.status(401).json({ isAuthenticated: false });
   }
 });
 
-router.put("/update-user/:token", updateInfo);
-
+router.put("/update-user/:token", upload.single("image"), updateInfo);
 
 module.exports = router;
