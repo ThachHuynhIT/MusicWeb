@@ -58,6 +58,13 @@ const selectedSongListReducer = (selectedSongList = [], action) => {
   return selectedSongList;
 };
 
+// const chooseAlbumReducer = (chooseAlbum = 0, action) => {
+//   if (action.type === "CHOOSE_ALBUM") {
+//     return action.payload;
+//   }
+
+//   return chooseAlbum;
+// };
 const typeAlbumReducer = (type = [], action) => {
   if (action.type === "TYPE_SELECTED") {
     return action.payload;
@@ -101,12 +108,31 @@ const setToken = (token = 0, action) => {
   }
   return token;
 };
-//userPlaylist
-const getUserPlayList = (userPlayList = [], action) => {
+//userPlayList
+
+const getUserPlaylist = (userPlaylist = [], action) => {
   if (action.type === "ADD_PLAYLIST") {
     return action.payload;
   }
-  return userPlayList;
+  return userPlaylist;
+};
+const addSong = (songAdd = [], action) => {
+  if (action.type === "ADD_SONG") {
+    return action.payload;
+  }
+  return songAdd;
+};
+const getPlaylistId = (playlistId = 0, action) => {
+  if (action.type === "GET_PLAYLIST_ID") {
+    return action.payload;
+  }
+  return playlistId;
+};
+const selectedUserPlayListReduct = (selectedUserList = [], action) => {
+  if (action.type === "SELECTED_USER_PLAY_LIST") {
+    return action.payload;
+  }
+  return selectedUserList;
 };
 
 export default combineReducers({
@@ -127,5 +153,8 @@ export default combineReducers({
   focus: getFocus,
   status: getStatusReducer,
 
-  userPlayList: getUserPlayList,
+  userPlaylist: getUserPlaylist,
+  songAdd: addSong,
+  playlistId: getPlaylistId,
+  selectedUserList: selectedUserPlayListReduct,
 });

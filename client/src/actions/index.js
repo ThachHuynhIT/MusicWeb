@@ -148,3 +148,21 @@ export const changePlaylist = (val) => {
     payload: val,
   };
 };
+export const addSong = (val) => {
+  return {
+    type: "ADD_SONG",
+    payload: val,
+  };
+};
+export const getPlayListId = (val) => {
+  return {
+    type: "GET_PLAYLIST_ID",
+    payload: val,
+  };
+};
+export const selectedUserPlayList = (val) => {
+  return {
+    type: "SELECTED_USER_PLAY_LIST",
+    payload: val,
+  };
+};
