@@ -38,7 +38,7 @@ function SearchAlbumLayout() {
 
       {searchResult.length <= 0 ? (
         <>
-          <h3>Không có kết quả phù hợp</h3>
+          <h3 className={cx("no")}>Không có kết quả phù hợp</h3>
         </>
       ) : (
         <>

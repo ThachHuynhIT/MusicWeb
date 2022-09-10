@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { connect, useDispatch } from "react-redux";
 import { selectSong } from "../../../../actions";
-
+import * as PlayService from "../../../../service/playService";
 import classNames from "classnames/bind";
 import styles from "./Item.module.scss";
 const cx = classNames.bind(styles);
@@ -12,10 +12,27 @@ const Item = ({ song, index, selectSong, selectedSongPlay, playerState }) => {
   const [, setHovered] = useState(false);
   const dispatch = useDispatch();
 
+  const [songsList, setSongsList] = useState([]);
+
+  const savePlay = async () => {
+    const response = await PlayService.saveAlbum({
+      albumName: song.album,
+      songId: song._id,
+    });
+    console.log(response);
+  };
+  const handleClick = () => {
+    savePlay();
+
+    selectSong(song);
+    dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
+  };
+
   // Set song as active
   const now_selected = selectedSongPlay._id === song._id ? "active" : "";
 
   // set the gif
+
   const phaser = () => {
     if (selectedSongPlay._id === song._id && playerState) {
       return (
@@ -39,10 +56,7 @@ const Item = ({ song, index, selectSong, selectedSongPlay, playerState }) => {
     <div
       id={cx(now_selected)}
       className={cx("song-item")}
-      onClick={() => {
-        selectSong(song);
-        dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
-      }}
+      onClick={handleClick}
     >
       {phaser()}
       <div className={cx("name")}>{song.name}</div>

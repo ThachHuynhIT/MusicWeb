@@ -37,3 +37,14 @@ export const removePlayList = async (name) => {
     console.log(error);
   }
 };
+export const getSongPlayList = async (playlistId) => {
+  try {
+    const res = await httpRequests.get(
+      `api/playlist/get-song-playlist/${playlistId}`
+    );
+    console.log(res.playlist);
+    return res.playlist;
+  } catch (error) {
+    console.log(error);
+  }
+};
