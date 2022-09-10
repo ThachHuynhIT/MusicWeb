@@ -141,3 +141,10 @@ export const setToken = (val) => {
     payload: val,
   };
 };
+//userPlaylist
+export const changePlaylist = (val) => {
+  return {
+    type: "ADD_PLAYLIST",
+    payload: val,
+  };
+};

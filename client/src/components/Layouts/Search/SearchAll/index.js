@@ -2,6 +2,7 @@ import ListSinger from "../../../ListSinger";
 import ListItem from "../../../List/ListItem";
 import { useState, useEffect } from "react";
 import SongsSearch from "../component/SongsSearch";
+import SongList from "../../../SongList";
 import * as albumsSrevice from "../../../../service/albumsSevrice";
 import * as searchApi from "../../../../service/searchSrevice";
 import classNames from "classnames/bind";
@@ -40,7 +41,7 @@ function SearchAllLayout() {
       <div className={cx("container")}>
         <h3 className={cx("title")}>Bài hát</h3>
         <div className={cx("content")}>
-          <SongsSearch data={searchResultSong} />
+          <SongList songs={searchResultSong} />
         </div>
       </div>
 

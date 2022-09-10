@@ -23,7 +23,7 @@ function AlbumLayout() {
     fetchApi();
   }, []);
   // const tokenUser = Cookies.get("access_token");
-  // console.log(tokenUser);
+  console.log(songsList);
   return (
     <React.Fragment>
       <div className={cx("main-view-container", "scroll")}>
