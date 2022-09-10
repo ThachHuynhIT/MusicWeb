@@ -52,27 +52,28 @@ class UsersController {
       // res.header("auth-token", token).send(token)
       .then((user) => {
         const id = user._id;
-  
+
         const token = jwt.sign({ _id: id }, process.env.TOKEN_SECRET, {
           expiresIn: "1d",
         });
         res
           .cookie("access_token", token, { httpOnly: true, sameSite: true })
+          .cookie("username", username, { httpOnly: true, sameSite: true })
           .header({
             username: user.username,
           })
           .redirect("/admin")
-          .send(
-          {
-            user: mongooseToObject(user)
-          })
+          .send({
+            user: mongooseToObject(user),
+          });
       })
       .catch((err) => next(err));
   }
 
   //[GET] route /user/logout
   logout(req, res, next) {
-    res.send("logout");
+    res.clearCookie("access_token")
+    .render("home")
   }
 
   //[GET] route /user/signPage
@@ -98,14 +99,15 @@ class UsersController {
       return user.save();
     })
       .then(() =>
-        res.status(200).json({
-          message: {
-            msgBody: "Tao tai khoan thanh cong",
-            msgError: false,
-          },
-        })
+        res.status(200)
+        .redirect("back")
+        // .json({
+        //   message: {
+        //     msgBody: "Tao tai khoan thanh cong",
+        //     msgError: false,
+        //   },
+        // })
       )
-
       .catch((err) => next(err));
   }
 
@@ -119,6 +121,8 @@ class UsersController {
       })
       .catch(next);
   }
+
+
 }
 
 module.exports = new UsersController();

@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
   if (id) {
     User.updateOne({ _id: id }, { lastAlbum: lastAlbum, lastSong: lastSong })
       .then(res.send("Thành công"))
-      .catch(next);
+      .catch(res.status(400).send("Err"));
   } else {
     return res.json({ lastAlbum, id });
   }
