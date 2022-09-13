@@ -15,15 +15,15 @@
 </head>
 
 <body>
-  {{!-- {{#if }} --}}
+
   <div class="app position-relative">
       {{>header}}
     <div class="d-flex">
       {{>sidebar}}
-
+{{!-- {{#if error}}      --}}
       <div class="container">
         {{{body}}}
-
+{{!-- {{/if}} --}}
       </div>
     </div>
     {{>footer}}

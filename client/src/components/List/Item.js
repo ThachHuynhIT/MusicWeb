@@ -86,7 +86,7 @@ const Item = ({
               <div className={cx("name", "name-text")}>{album.name}</div>
             </Link>
             <div className={cx("card-type")}>
-              <span className={cx("type", "type-text")}>Album</span>
+              <span className={cx("type", "type-text")}>{album.description}</span>
             </div>
           </div>
         </div>

@@ -59,7 +59,7 @@ function RegisterLayout(props) {
   return (
     <div className={cx("wrapper")}>
       <div className={cx("title")}>
-        <h1>Đăng ký và trãi nghiệm</h1>
+        <h1>Đăng ký và trải nghiệm</h1>
       </div>
       {message ? <Message message={message} /> : null}
       <form

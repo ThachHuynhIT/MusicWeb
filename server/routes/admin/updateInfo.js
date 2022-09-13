@@ -1,18 +1,14 @@
-const jwt = require("jsonwebtoken");
-const User = require("../../../models/User");
-const Resize = require("../../../middlewares/Resize");
+const User = require("../../models/User");
+const Resize = require("../../middlewares/Resize");
 const path = require("path");
 require("dotenv").config();
 
 module.exports = async function (req, res, next) {
   const imagePath = path.join("test/public/img");
   const fileUpload = new Resize(imagePath);
-  const token = req.params.token;
-  const verified = jwt.verify(token, process.env.TOKEN_SECRET);
-  const userId = verified._id;
+  const userId = req.params.id;
 
-  const { email, name, gender, nation, dateOfBirth } = req.body;
-
+  const { email, name, gender, dateOfBirth, nation } = req.body;
 
   if (req.file) {
     const filename = await fileUpload.save(req.file.buffer);
@@ -21,16 +17,15 @@ module.exports = async function (req, res, next) {
       { _id: userId },
       { email, name, gender, dateOfBirth, nation, img: img }
     )
-
-      .then(res.send("Oke"))
+      .then((user) => res.send(user))
       .catch(next);
   } else {
-    User.updateOne(
+    User.findByIdAndUpdate(
       { _id: userId },
-      { email, name, dateOfBirth, gender, nation }
+      { email, name, gender, dateOfBirth, nation }
     )
-      .then(res.send("Oke"))
-
+      // .then((user) => res.render("users/home"))
+      .then(res.json(req.file))
       .catch(next);
   }
 };

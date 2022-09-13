@@ -13,7 +13,6 @@ const Song = new Schema(
     singer: { type: String },
     album: { type: String },
     legion: { type: String },
-    slug: { type: String, slug: "name", unique: true },
   },
   { timestamps: true }
 );

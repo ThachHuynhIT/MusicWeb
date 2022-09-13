@@ -1,22 +1,26 @@
 const express = require("express");
-const User = require('../../models/User');
+const User = require("../../models/User");
+const verifyToken = require("../.././middlewares/verifyToken");
+const updateInfo = require("./updateInfo")
+const upload = require("../.././middlewares/uploadMiddleware");
 
 
 const router = express.Router();
 
 const userController = require("../../controllers/UserController");
 
-router.get("/",(req, res) => {
-  User.find({}).exec(function (err, users) {
-    res.send(users);
-  });
+router.get("/", (req, res) => {
+    res.send("hahahah");
 });
-router.get("/list", userController.home);
+router.get("/list", verifyToken, userController.home);
+router.get("/signup", verifyToken, userController.signup);
+router.post("/signupStore", verifyToken, userController.signupStore);
+router.get("/bin", verifyToken, userController.bin);
 router.get("/login", userController.login);
 router.post("/author", userController.author);
-router.get("/signup", userController.signup);
-router.post("/signupStore", userController.signupStore);
 router.get("/logout", userController.logout);
-router.get("/bin", userController.bin);
+router.get("/edit/:id", userController.edit);
+router.put("/:id", userController.update);
+router.put("/update-user/:id", upload.single("image"), updateInfo);
 
 module.exports = router;

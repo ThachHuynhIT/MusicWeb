@@ -1,7 +1,7 @@
 <div class="container mt-4">
     <div>
-        <h2 class="text-danger">Danh sách album đã xoá</h2>
-        <a href="/admin/album">Danh sách album</a>
+        <h2 class="text-danger">Danh sách bài hát đã xoá</h2>
+        <a href="/admin/song">Danh sách bài hát</a>
     </div>
     <table class="table table-striped-columns">
         <thead class="table-dark">
@@ -17,20 +17,19 @@
             </tr>
         </thead>
         <tbody>
-            {{#each album}}
+            {{#each song}}
             <tr>
                 <th scope="row">{{sum @index 1}}</th>
                 <td>{{this.name}}</td>
                 <td>{{this.singer}}</td>
                 <td>{{this.type}}</td>
                 <td>{{this.description}}</td>
-                <td><img class="img-thumbnail" src="{{this.img}}" style="
-    max-height: 150px;"></td>
+                <td>{{this.img}}</td>
                 <td>{{this.deletedAt}}</td>
                 <td>
                     <a class="btn btn-link btn-restore" data-id="{{this._id}}" href="">Khôi phục</a>
-                    <a class="btn btn-link" href="/admin/album/delete" data-id="{{this._id}}" data-bs-toggle="modal"
-                        data-bs-target="#delete-album-modal">Xoá vĩnh viễn</a>
+                    <a class="btn btn-link" href="/admin/song/delete" data-id="{{this._id}}" data-bs-toggle="modal"
+                        data-bs-target="#delete-song-modal">Xoá vĩnh viễn</a>
                 </td>
             </tr>
             {{else}}
@@ -45,18 +44,18 @@
 </div>
 
 {{! Delete confirm }}
-<div class="modal fade" id="delete-album-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="delete-song-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Xoá album?</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Xoá song?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Bạn có chắn chắn muốn xoá vĩnh viễn album này?
+                Bạn có chắn chắn muốn xoá vĩnh viễn bài hát này?
             </div>
             <div class="modal-footer">
-                <button id="btn-delete-album" type="button" class="btn btn-danger">Chắc chắn</button>
+                <button id="btn-delete-song" type="button" class="btn btn-danger">Chắc chắn</button>
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Huỷ</button>
             </div>
         </div>
@@ -64,25 +63,25 @@
 </div>
 
 {{!-- hidden form --}}
-<form name="delete-album-form" method="post"></form>
-<form name="restore-album-form" method="post"></form>
+<form name="delete-song-form" method="post"></form>
+<form name="restore-song-form" method="post"></form>
 
 <script>
-    var deleteModal = document.getElementById('delete-album-modal');
-    var btnDeleteAlbum = document.getElementById('btn-delete-album');
-    var deleteForm = document.forms['delete-album-form'];
-    var restoreForm = document.forms['restore-album-form'];
+    var deleteModal = document.getElementById('delete-song-modal');
+    var btnDeleteAlbum = document.getElementById('btn-delete-song');
+    var deleteForm = document.forms['delete-song-form'];
+    var restoreForm = document.forms['restore-song-form'];
     var btnRestore = document.querySelectorAll('.btn-restore');
-    var albumID;
-    var albumID2;
+    var songID;
+    var songID2;
 
     deleteModal.addEventListener('show.bs.modal', event => {
         var button = event.relatedTarget
-        albumID = button.getAttribute('data-id')
+        songID = button.getAttribute('data-id')
     });
 
     btnDeleteAlbum.onclick = function () {
-        deleteForm.action = '/admin/album/force/' + albumID + "?_method=DELETE";
+        deleteForm.action = '/admin/song/force/' + songID + "?_method=DELETE";
         deleteForm.submit();
     };
 
@@ -90,8 +89,8 @@
         restoreBtn.addEventListener('click', (e) => {
             e.preventDefault();
 
-            albumID2 = restoreBtn.getAttribute('data-id');
-            restoreForm.action = '/admin/album/restore/' + albumID2 + '?_method=PATCH';
+            songID2 = restoreBtn.getAttribute('data-id');
+            restoreForm.action = '/admin/song/restore/' + songID2 + '?_method=PATCH';
             restoreForm.submit();
         });
     });
