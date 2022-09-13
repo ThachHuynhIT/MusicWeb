@@ -16,8 +16,8 @@ module.exports = (req, res, next) => {
         .then((playlist) => {
           res.send(playlist);
         })
-        .catch(res.status(400).send("Err"));
+        .catch(res.status(400));
     })
-    .catch(res.status(400).send("Err"));
+    .catch(next);
   }
 };

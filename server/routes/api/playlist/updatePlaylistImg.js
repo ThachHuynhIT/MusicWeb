@@ -3,7 +3,7 @@ const path = require("path");
 
 const Resize = require("../../../middlewares/Resize");
 
-module.exports = async function (req, res) {
+module.exports = async function (req, res, next) {
   const imagePath = path.join("test/public/img");
   const fileUpload = new Resize(imagePath);
   if (!req.file) {
@@ -15,5 +15,5 @@ module.exports = async function (req, res) {
 
   Playlist.updateOne({ _id: req.params.playlistId }, { img: img, name: name })
     .then(res.status(200).json({ url: img, name: name }))
-    .catch(res.status(400).send("Err"));
+    .catch(next);
 };

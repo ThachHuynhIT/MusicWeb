@@ -37,14 +37,12 @@ class UsersController {
     co(function* () {
       const user = yield User.findOne({ username });
       if (!user) {
-        const error = { status: 401, errors: { username: "Invalid username" } };
-        throw error;
+        throw res.render("users/login",{error: "Tên đăng nhập hoặc mật khẩu sai"});
       }
 
       const isMatch = yield user.comparePassword(password);
       if (!isMatch) {
-        const error = { status: 401, errors: { password: "Invalid password" } };
-        throw error;
+        throw res.render("users/login",{error: "Tên đăng nhập hoặc mật khẩu sai"});
       }
 
       return user;
@@ -72,8 +70,10 @@ class UsersController {
 
   //[GET] route /user/logout
   logout(req, res, next) {
-    res.clearCookie("access_token")
-    .render("home")
+    res
+      .clearCookie("access_token")
+      .clearCookie("username")
+      .render("users/login");
   }
 
   //[GET] route /user/signPage
@@ -98,16 +98,7 @@ class UsersController {
       const user = new User(req.body);
       return user.save();
     })
-      .then(() =>
-        res.status(200)
-        .redirect("back")
-        // .json({
-        //   message: {
-        //     msgBody: "Tao tai khoan thanh cong",
-        //     msgError: false,
-        //   },
-        // })
-      )
+      .then(() => res.status(200).redirect("back"))
       .catch((err) => next(err));
   }
 
@@ -122,7 +113,20 @@ class UsersController {
       .catch(next);
   }
 
+  update(req, res, next) {
+    
 
+
+  }
+  
+  edit(req, res, next) {
+    User.findById({_id:req.params.id})
+    .then((user)=>{
+      res.render("users/edit",{
+        user : mongooseToObject(user)
+      });
+    })
+  }
 }
 
 module.exports = new UsersController();
