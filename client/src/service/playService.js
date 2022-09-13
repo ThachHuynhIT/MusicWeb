@@ -23,7 +23,7 @@ export const getLastPlay = async () => {
 
   try {
     const res = await httpRequests.get(`api/media/get-last-music/${userId}`);
-
+    console.log(res);
     return res;
   } catch (error) {
     console.log(error);

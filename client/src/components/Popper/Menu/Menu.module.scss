@@ -22,21 +22,24 @@
   display: flex;
   line-height: 1.4rem;
   font-weight: 600;
-  width: 180px;
+
   font-size: 600;
   margin: 0 !important;
   align-items: center;
   align-content: center;
   color: #fff;
-
+  cursor: pointer;
   &.separate {
     border-top: 1px solid rgba(22, 24, 35, 0.12);
   }
 
   &:hover {
-    background-color: rgba(95, 98, 105, 0.03) !important;
+    background-color: rgba(14, 15, 19, 0.3) !important;
   }
   span {
-    color: white;
+    color: black;
   }
+}
+.black {
+  color: black !important;
 }

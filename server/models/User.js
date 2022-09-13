@@ -22,11 +22,11 @@ const userSchema = new Schema(
     },
     img: { type: String },
     gender: { type: String },
-    dateOfBirth: { type: String },
+    dateOfBirth: { type: Date },
     nation: { type: String },
     status: { type: String },
     lastAlbum: { type: String },
-    lastSong:{ type: String },
+    lastSong: { type: String },
   },
   { timestamps: true }
 );

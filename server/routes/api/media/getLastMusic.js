@@ -1,5 +1,6 @@
 const User = require("../../../models/User");
 const Song = require("../../../models/Song");
+const jwt = require("jsonwebtoken");
 
 module.exports = (req, res, next) => {
   const userId = req.params.userId;
@@ -16,19 +17,14 @@ module.exports = (req, res, next) => {
           var lastAlbum = song.filter((song) => {
             return song.album.indexOf(albumName) !== -1;
           });
-          if (!lastSong || !lastAlbum) {
-            res.status(400).send("Lỗi")
-          }else{
-            res.send({
-              song: lastSong,
-              album: lastAlbum,
-            })
-          }
+          res.send({
+            song: lastSong,
+            album: lastAlbum,
+          });
         })
 
-        .catch(res.status(400).send("Err"));
-    })
-    .catch(res.status(400).send("Err"))
+        .catch(next);
+    });
   } else {
     return res.status(400).send(userId);
   }

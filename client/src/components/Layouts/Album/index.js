@@ -22,7 +22,7 @@ function AlbumLayout() {
     };
     fetchApi();
   }, []);
-  // const tokenUser = Cookies.get("access_token");
+
   console.log(songsList);
   return (
     <React.Fragment>

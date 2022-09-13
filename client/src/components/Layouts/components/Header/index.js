@@ -25,11 +25,25 @@ const cx = classNames.bind(styles);
 function Header() {
   const value = UserServices.isLog();
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({
+    username: "",
+  });
 
   const [isLoaded, setIsLoaded] = useState(false);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchApi = async () => {
+      const res = await UserServices.isAuthen();
+
+      setUser({
+        username: res.user.username,
+      });
+    };
+    fetchApi();
+  }, []);
+  console.log(user.username);
   return (
     <header className={cx("menu", "menu-type")}>
       <div className={cx("move")}>
@@ -45,34 +59,35 @@ function Header() {
         <Search />
       </div>
 
-      <div className={cx("accout")}>
-        {value ? (
-          <>
+      {value ? (
+        <>
+          <div className={cx("accout")}>
+            <img
+              className={cx("user-avatar")}
+              src="https://files.fullstack.edu.vn/f8-prod/user_avatars/1/623d4b2d95cec.png"
+              alt="Nguyen Van A"
+            />
             <Menu>
-              <img
-                className={cx("user-avatar")}
-                src="https://files.fullstack.edu.vn/f8-prod/user_avatars/1/623d4b2d95cec.png"
-                alt="Nguyen Van A"
-              />
+              <span>{user.username}</span>
             </Menu>
-          </>
-        ) : (
-          <>
-            <a
-              href="/user/register"
-              className={cx("top-bar-register-btn", "accout-btn-rg")}
-            >
-              Đăng kí
-            </a>
-            <Link
-              to="/user/login"
-              className={cx("top-bar-login-btn", "accout-btn-lg")}
-            >
-              <span className={cx("accout-btn-lg-titel")}>Đăng nhập</span>
-            </Link>
-          </>
-        )}
-      </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <a
+            href="/user/register"
+            className={cx("top-bar-register-btn", "accout-btn-rg")}
+          >
+            Đăng kí
+          </a>
+          <Link
+            to="/user/login"
+            className={cx("top-bar-login-btn", "accout-btn-lg")}
+          >
+            <span className={cx("accout-btn-lg-titel")}>Đăng nhập</span>
+          </Link>
+        </>
+      )}
     </header>
   );
 }
