@@ -3,8 +3,35 @@ import styles from "./Account.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faKey, faSignOut } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import * as UserService from "../../../service/userService";
 const cx = classNames.bind(styles);
 function InforLayout() {
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    img: "",
+    gender: "",
+    dateOfBirth: "",
+    nation: "",
+  });
+
+  useEffect(() => {
+    const fetchApi = async () => {
+      const res = await UserService.isAuthen();
+      console.log(res.user.gender);
+      setUser({
+        name: res.user.name,
+        email: res.user.email,
+        img: res.user.img,
+        gender: res.user.gender,
+        dateOfBirth: res.user.dateOfBirth,
+        nation: res.user.nation,
+      });
+    };
+    fetchApi();
+  }, []);
+  console.log(user);
   return (
     <div className={cx("wrapper")}>
       <div className={cx("title")}>
@@ -16,25 +43,55 @@ function InforLayout() {
           <tbody>
             <tr>
               <td className={cx("td")}>Tên người dùng</td>
-              <td className={cx("td-1")}>Diệp Thế Vương Huy</td>
+              {user.name === undefined ? (
+                <td className={cx("td-1")}></td>
+              ) : (
+                <>
+                  <td className={cx("td-1")}>{user.name}</td>
+                </>
+              )}
             </tr>
 
             <tr>
               <td className={cx("td")}>Ngày sinh</td>
-              <td className={cx("td-1")}>17 Tháng 7,2001</td>
+              {user.dateOfBirth === undefined ? (
+                <td className={cx("td-1")}></td>
+              ) : (
+                <>
+                  <td className={cx("td-1")}>{user.dateOfBirth}</td>
+                </>
+              )}
             </tr>
             <tr>
               <td className={cx("td")}>Giới tính</td>
-              <td className={cx("td-1")}>Nam</td>
+              {user.gender === undefined ? (
+                <td className={cx("td-1")}> </td>
+              ) : (
+                <>
+                  <td className={cx("td-1")}>{user.gender}</td>
+                </>
+              )}
             </tr>
             <tr>
               <td className={cx("td")}>Email</td>
-              <td className={cx("td-1")}>Huy@gmail.com</td>
+              {user.email === undefined ? (
+                <td className={cx("td-1")}></td>
+              ) : (
+                <>
+                  <td className={cx("td-1")}>{user.email}</td>
+                </>
+              )}
             </tr>
 
             <tr>
               <td className={cx("td")}>Quốc gia</td>
-              <td className={cx("td-1")}>Việt Nam</td>
+              {user.nation === undefined ? (
+                <td className={cx("td-1")}>Bạn chưa cập nhật </td>
+              ) : (
+                <>
+                  <td className={cx("td-1")}>{user.nation}</td>
+                </>
+              )}
             </tr>
           </tbody>
         </table>

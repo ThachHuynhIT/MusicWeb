@@ -37,6 +37,7 @@ const SongItem = ({
   addSong,
   selectedUserList,
   playlistId,
+  selectedUserPlayList,
 }) => {
   const [songsList, setSongsList] = useState([]);
 
@@ -49,8 +50,8 @@ const SongItem = ({
     fetchApi();
   }, []);
 
-  const fepi = async (playlistId) => {
-    const response = await PlayListService.getSongPlayList(playlistId);
+  const fepi = async (e) => {
+    const response = await PlayListService.getSongPlayList(e);
 
     selectedUserPlayList(response);
   };
@@ -68,8 +69,11 @@ const SongItem = ({
 
   const removeClick = () => {
     removeSong(playlistId, song._id);
+    const timerId = setTimeout(() => {
+      clearTimeout(timerId);
 
-    fepi();
+      fepi(playlistId);
+    }, 100);
   };
 
   const handleClick = () => {

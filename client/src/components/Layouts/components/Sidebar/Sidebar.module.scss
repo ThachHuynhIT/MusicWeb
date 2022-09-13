@@ -138,3 +138,12 @@
 .list-name {
   display: flex;
 }
+.icon-delete {
+  visibility: hidden;
+  opacity: 0;
+  cursor: pointer;
+}
+.list-name:hover form.icon-delete {
+  visibility: visible;
+  opacity: 1;
+}

@@ -3,7 +3,17 @@
   height: fit-content;
   background-color: #ffffff;
 }
-
+.loading-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 70vh;
+  span {
+    height: 40px !important;
+    width: 80px !important;
+  }
+}
 .title {
   text-align: center;
   h1 {
@@ -126,6 +136,11 @@
 }
 .pad-rig {
   padding-right: 6px;
+  width: 240px;
+  text-align: center;
+  input {
+    text-align: center;
+  }
 }
 .btn-form {
   display: flex;

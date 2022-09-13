@@ -22,6 +22,8 @@ import {
   faPauseCircle,
   faPlayCircle,
   coffee,
+  faReceipt,
+  faRepeat,
 } from "@fortawesome/free-solid-svg-icons";
 import { render } from "@testing-library/react";
 
@@ -42,6 +44,7 @@ const Player = ({
 }) => {
   const dispatch = useDispatch();
   const [shuffled, setShuffled] = useState(false);
+  const [repeat, setRepeat] = useState(false);
 
   const audioRef = useRef();
   let clicked = false;
@@ -136,7 +139,22 @@ const Player = ({
       }
     }
   };
-
+  const nextSong = () => {
+    if (shuffled === true) {
+      selectSongById(selectList[Math.round(Math.random() * selectList.length)]);
+    } else {
+      if (repeat === true) {
+        const timerId = setTimeout(() => {
+          clearTimeout(timerId);
+          selectSongById(selectList[songplay]);
+        }, 100);
+      } else {
+        selectSongById(selectList[songplay + 1]);
+      }
+    }
+  };
+  console.log(shuffled);
+  console.log(Math.round(Math.random() * selectList.length));
   return (
     <div id={cx("player")}>
       <div className={cx("player-left")}>
@@ -153,6 +171,7 @@ const Player = ({
             id={shuffled ? `active` : null}
             onClick={() => {
               setShuffled(!shuffled);
+              setRepeat(false);
             }}
           >
             <svg
@@ -200,17 +219,32 @@ const Player = ({
               ></path>
             </svg>
           </div>
+
+          <div
+            className={cx("control")}
+            id={shuffled ? `active` : null}
+            onClick={() => {
+              setShuffled(false);
+              setRepeat(!repeat);
+            }}
+          >
+            <svg
+              role="img"
+              height="24"
+              width="24"
+              viewBox="0 0 16 16"
+              className=""
+            >
+              <FontAwesomeIcon icon={faRepeat} />
+            </svg>
+          </div>
           <Progress />
 
           <audio
             id="main-track"
             src={songUrl()}
             // preload="true"
-            onEnded={() => {
-              shuffled
-                ? Math.round(Math.random() * selectList.length)
-                : selectSongById(selectList[songplay + 1]);
-            }}
+            onEnded={nextSong}
             onLoadedMetadata={() => {
               dispatch({
                 type: "SET_DURATION",
@@ -223,12 +257,12 @@ const Player = ({
                 });
               }, 1000);
             }}
-            onTimeUpdate={() => {
-              dispatch({
-                type: "SET_TIME",
-                payload: audioRef.current.currentTime,
-              });
-            }}
+            // onTimeUpdate={() => {
+            //   dispatch({
+            //     type: "SET_TIME",
+            //     payload: audioRef.current.currentTime,
+            //   });
+            // }}
             ref={audioRef}
             hidden
           >

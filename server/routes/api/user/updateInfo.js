@@ -10,8 +10,9 @@ module.exports = async function (req, res, next) {
   const token = req.params.token;
   const verified = jwt.verify(token, process.env.TOKEN_SECRET);
   const userId = verified._id;
-  req.body.dateOfBirth
-  const { email, name, gender, dateOfBirth, nation } = req.body;
+
+  const { email, name, gender, nation, dateOfBirth } = req.body;
+
 
   if (req.file) {
     const filename = await fileUpload.save(req.file.buffer);
@@ -20,14 +21,16 @@ module.exports = async function (req, res, next) {
       { _id: userId },
       { email, name, gender, dateOfBirth, nation, img: img }
     )
-      .then((user) => res.send(user))
+
+      .then(res.send("Oke"))
       .catch(next);
   } else {
-    User.findByIdAndUpdate(
+    User.updateOne(
       { _id: userId },
-      { email, name, gender, dateOfBirth, nation }
+      { email, name, dateOfBirth, gender, nation }
     )
-      .then((user) => res.send(user))
+      .then(res.send("Oke"))
+
       .catch(next);
   }
 };

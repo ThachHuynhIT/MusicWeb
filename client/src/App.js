@@ -51,7 +51,7 @@ function App() {
                 key={index}
                 path={route.path}
                 element={
-                  isAuthenticated ? (
+                  isAuthenticated === true ? (
                     <Navigate to={config.home} replace={true} />
                   ) : (
                     <Layout>
@@ -78,7 +78,7 @@ function App() {
                 key={index}
                 path={route.path}
                 element={
-                  isAuthenticated ? (
+                  isAuthenticated === true ? (
                     <Layout>
                       <Page />
                     </Layout>

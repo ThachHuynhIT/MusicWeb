@@ -34,6 +34,18 @@
 
 .accout {
   padding: 0;
+  display: flex;
+  background-color: #959391;
+  border-radius: 30px;
+  text-align: center;
+  padding-right: 10px;
+  width: auto;
+  align-items: center;
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 .top-bar-register-btn {
   padding-inline-start: 8px;
@@ -197,5 +209,6 @@
   height: 46px;
   width: 46px;
   border-radius: 90px;
-  margin-right: 32px;
+  margin-right: 4px;
+  float: left;
 }

@@ -15,9 +15,10 @@ module.exports = (req, res, next) => {
       Playlist.find({ _id: playlistId })
         .then((playlist) => {
           res.send(playlist);
-        })
-        .catch(res.status(400));
-    })
-    .catch(next);
+
+        .catch(next);
+    });
+    // .catch(next);
+
   }
 };

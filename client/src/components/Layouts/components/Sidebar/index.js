@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import config from "../../../../config";
 import {
   faBook,
+  faDeleteLeft,
   faHeart,
   faHouse,
   faMagnifyingGlass,
@@ -47,21 +48,14 @@ function Sidebar({ setFocus, changePlaylist, userPlaylist, getPlayListId }) {
       return (
         <>
           <div className={cx("list-name")}>
-            <div className={cx("icon-delete")} onClick={removeClick}>
-              <FontAwesomeIcon className={cx("icon-li")} icon={faTrash} />
-            </div>
-
             <Link to={`/playlist/${playList._id}`}>
-              <li
-                className={cx("content")}
-                onclick={() => {
-                  getPlayListId(playList._id);
-                  console.log(getPlayListId(playList._id));
-                }}
-              >
+              <li className={cx("content")}>
                 <h6 className={cx("titel")}>{playList.name}</h6>
               </li>
             </Link>
+            <form className={cx("icon-delete")} onClick={removeClick}>
+              <FontAwesomeIcon className={cx("icon-li")} icon={faDeleteLeft} />
+            </form>
           </div>
         </>
       );
