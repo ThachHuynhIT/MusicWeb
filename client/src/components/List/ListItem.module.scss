@@ -22,6 +22,12 @@
   height: 100%;
   padding: var(--padding-card);
 }
+.card-type{
+  white-space: nowrap;
+  height: 44px;
+  padding-bottom: 16px;
+  overflow-y: clip;
+}
 .card-top {
   margin-bottom: 16px;
   position: relative;

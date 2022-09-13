@@ -13,6 +13,6 @@ module.exports = (req, res, next) => {
       const t = { _id: { $in: arr } };
       Song.find(t).then((song) => res.send(song));
     })
-    .catch(res.status(400).send("Err"));
+    .catch(next);
 
 };

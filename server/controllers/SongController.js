@@ -1,55 +1,56 @@
-const Album = require("../models/Album");
+const Song = require("../models/Song");
 const { multipleMongooseToObject } = require("../util/mongoose");
 const { mongooseToObject } = require("../util/mongoose");
 const slugify = require("slugify");
 
 class AlbumController {
+
   index(req, res, next) {
-    Promise.all([Album.find({}), Album.countDocumentsDeleted()])
-      .then(([album, deletedCount]) =>
-        res.render("./albums/albums", {
+    Promise.all([Song.find({}), Song.countDocumentsDeleted()])
+      .then(([song, deletedCount]) =>
+        res.render("./songs/song", {
           deletedCount,
-          album: multipleMongooseToObject(album),
+          song: multipleMongooseToObject(song),
         })
       )
       .catch(next);
   }
 
-  // album/:slug [GET]
+  // song/:slug [GET]
   show(req, res, next) {
-    Album.findOne({ slug: req.params.slug })
-      .then((album) =>
-        res.render("./albums/show", { album: mongooseToObject(album) })
+    Song.findOne({ slug: req.params.slug })
+      .then((song) =>
+        res.render("./songs/show", { song: mongooseToObject(song) })
       )
       .catch(next);
   }
 
-  // album/create [GET]
+  // song/create [GET]
   create(req, res, next) {
-    res.render("./albums/create");
+    res.render("./songs/create");
   }
 
-  // [POST] album/store
+  // [POST] song/store
   store(req, res, next) {
-    const album = new Album(req.body);
-    album
+    const song = new Song(req.body);
+    song
       .save()
-      .then(() => res.redirect("/admin/album"))
+      .then(() => res.redirect("/admin/song"))
       .catch((error) => {});
   }
 
-  // album/edit/:id [GET]
+  // song/edit/:id [GET]
   edit(req, res, next) {
-    Album.findOne({ _id: req.params.id })
-      .then((album) => {
-        res.render("./albums/edit", {
-          album: mongooseToObject(album),
+    Song.findOne({ _id: req.params.id })
+      .then((song) => {
+        res.render("./songs/edit", {
+          song: mongooseToObject(song),
         });
       })
       .catch(next);
   }
 
-  // [PUT] album/:slug
+  // [PUT] song/:slug
   update(req, res, next) {
     const formData = req.body;
     formData.slug = slugify(formData.name, {
@@ -59,48 +60,48 @@ class AlbumController {
       locale: "vi",
     });
     //update course after adding image, slug
-    Album.updateOne({ _id: req.params.id }, formData)
-      .then(() => res.redirect("/album"))
+    Song.updateOne({ _id: req.params.id }, formData)
+      .then(() => res.redirect("/song"))
       .catch(next);
   }
 
-  // [DELETE] /album/:id
+  // [DELETE] /song/:id
   destroy(req, res, next) {
-    Album.delete({ _id: req.params.id })
+    Song.delete({ _id: req.params.id })
       .then(() => res.redirect("back"))
       .catch(next);
   }
 
-  // [DELETE] /album/force/:id
+  // [DELETE] /song/force/:id
   forceDestroy(req, res, next) {
-    Album.deleteOne({ _id: req.params.id })
+    Song.deleteOne({ _id: req.params.id })
       .then(() => res.redirect("back"))
       .catch(next);
   }
 
-  // [GET] /album/bin
-  albumBin(req, res, next) {
-    Album.findDeleted({})
-      .then((album) => {
-        res.render("./albums/bin", {
-          album: multipleMongooseToObject(album),
+  // [GET] /song/bin
+  songBin(req, res, next) {
+    Song.findDeleted({})
+      .then((song) => {
+        res.render("./songs/bin", {
+          song: multipleMongooseToObject(song),
         });
       })
       .catch(next);
   }
 
-  // [PATCH] album/restore/:id
+  // [PATCH] song/restore/:id
   restore(req, res, next) {
-    Album.restore({ _id: req.params.id })
+    Song.restore({ _id: req.params.id })
       .then(() => res.redirect("back"))
       .catch(next);
   }
 
-  // [POST] album/handle-form-action
+  // [POST] song/handle-form-action
   handleFormAction(req, res, next) {
     switch (req.body.actionName) {
       case "delete":
-        Album.delete({ _id: { $in: req.body.albumIDs } })
+        Song.delete({ _id: { $in: req.body.albumIDs } })
           .then(() => res.redirect("back"))
           .catch(next);
         break;
@@ -109,8 +110,6 @@ class AlbumController {
     }
   }
 
-
-  // res.json(req.body)
 }
 
 module.exports = new AlbumController();

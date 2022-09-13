@@ -16,17 +16,16 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    access_token: String,
     name: {
       type: String,
     },
     img: { type: String },
     gender: { type: String },
-    dateOfBirth: { type: String },
+    dateOfBirth: { type: Date },
     nation: { type: String },
     status: { type: String },
     lastAlbum: { type: String },
-    lastSong:{ type: String },
+    lastSong: { type: String },
   },
   { timestamps: true }
 );
@@ -38,13 +37,10 @@ userSchema.plugin(mongooseDelete, {
 
 userSchema.pre("save", function (next) {
   const user = this;
-
   bcrypt.genSalt(10, (err, salt) => {
     if (err) return next(err);
-
     bcrypt.hash(user.password, salt, (err, hash) => {
       if (err) return next(err);
-
       user.password = hash;
       next();
     });
