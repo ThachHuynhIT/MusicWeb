@@ -167,14 +167,37 @@
             </li>
             <li class="mb-1">
                 <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#singer-collapse" aria-expanded="false">
+                    Ca sĩ
+                </button>
+                <div class="collapse" id="singer-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="/admin/singer" class="link-light d-inline-flex text-decoration-none rounded">Danh
+                                sách
+                              ca sĩ</a>
+                        </li>
+                        <li><a href="/admin/singer/create"
+                                class="link-light d-inline-flex text-decoration-none rounded">Thêm
+                              ca sĩ</a></li>
+                        <li><a href="/admin/singer/bin" class="link-light d-inline-flex text-decoration-none rounded">Xem
+                              ca sĩ
+                                đã xoá</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
                     data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
                     Bài hát
                 </button>
                 <div class="collapse" id="orders-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a href="/admin/song" class="link-light d-inline-flex text-decoration-none rounded">Danh sách bài
+                        <li><a href="/admin/song" class="link-light d-inline-flex text-decoration-none rounded">Danh
+                                sách bài
                                 hát</a></li>
-                        <li><a href="/admin/song/create" class="link-light d-inline-flex text-decoration-none rounded">Thêm bài hát
+                        <li><a href="/admin/song/create"
+                                class="link-light d-inline-flex text-decoration-none rounded">Thêm bài hát
                                 mới</a></li>
                     </ul>
                 </div>
@@ -189,7 +212,8 @@
                         <li><a href="/admin/user/list"
                                 class="link-light d-inline-flex text-decoration-none rounded">Danh sách
                                 người dùng</a></li>
-                        <li><a href="/admin/user/signup" class="link-light d-inline-flex text-decoration-none rounded">Thêm người dùng
+                        <li><a href="/admin/user/signup"
+                                class="link-light d-inline-flex text-decoration-none rounded">Thêm người dùng
                                 mới</a></li>
                         <li><a href="/admin/user/list"
                                 class="link-light d-inline-flex text-decoration-none rounded">Danh sách

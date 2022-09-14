@@ -112,12 +112,6 @@ class UsersController {
       })
       .catch(next);
   }
-
-  update(req, res, next) {
-    
-
-
-  }
   
   edit(req, res, next) {
     User.findById({_id:req.params.id})

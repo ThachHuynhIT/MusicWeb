@@ -1,26 +1,23 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const slug = require("mongoose-slug-generator");
 const mongooseDelete = require("mongoose-delete");
 
-const Song = new Schema(
+const Singer = new Schema(
   {
     name: { type: String, require: true },
-    type: { type: String },
+    age: { type: String },
     img: { type: String },
-    url: { type: String },
-    singer: { type: String },
+    nation: { type: String },
     album: { type: String },
-    legion: { type: String },
+    description: { type: String },
   },
   { timestamps: true }
 );
 
-// add plugin
 mongoose.plugin(slug);
-Song.plugin(mongooseDelete, {
+Singer.plugin(mongooseDelete, {
   deletedAt: true,
   overrideMethods: true,
 });
 
-module.exports = mongoose.model("Song", Song);
+module.exports = mongoose.model("Singer", Singer);

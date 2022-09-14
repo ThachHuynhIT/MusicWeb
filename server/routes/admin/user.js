@@ -1,5 +1,4 @@
 const express = require("express");
-const User = require("../../models/User");
 const verifyToken = require("../.././middlewares/verifyToken");
 const updateInfo = require("./updateInfo")
 const upload = require("../.././middlewares/uploadMiddleware");
@@ -10,7 +9,7 @@ const router = express.Router();
 const userController = require("../../controllers/UserController");
 
 router.get("/", (req, res) => {
-    res.send("hahahah");
+    res.render("partials/search");
 });
 router.get("/list", verifyToken, userController.home);
 router.get("/signup", verifyToken, userController.signup);
@@ -20,7 +19,6 @@ router.get("/login", userController.login);
 router.post("/author", userController.author);
 router.get("/logout", userController.logout);
 router.get("/edit/:id", userController.edit);
-router.put("/:id", userController.update);
 router.put("/update-user/:id", upload.single("image"), updateInfo);
 
 module.exports = router;
