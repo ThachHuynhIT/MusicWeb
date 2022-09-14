@@ -6,6 +6,7 @@ const upload = require("../../../middlewares/uploadMiddleware");
 const jwt = require("jsonwebtoken");
 const co = require("co");
 const updateInfo = require("./updateInfo");
+const changePassword = require("./changePassword");
 
 const router = express.Router();
 
@@ -106,5 +107,7 @@ router.get("/authen/:token", (req, res) => {
 });
 
 router.put("/update-user/:token", upload.single("image"), updateInfo);
+router.put("/change-password/:token", changePassword);
+
 
 module.exports = router;

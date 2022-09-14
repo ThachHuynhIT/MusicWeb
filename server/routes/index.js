@@ -1,7 +1,6 @@
 const admin = require("./admin");
 const api = require("./api");
 
-
 function route(app) {
   app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");

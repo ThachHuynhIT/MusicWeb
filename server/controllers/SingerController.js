@@ -1,7 +1,6 @@
 const Song = require("../models/Song");
 const { multipleMongooseToObject } = require("../util/mongoose");
 const { mongooseToObject } = require("../util/mongoose");
-const slugify = require("slugify");
 
 class AlbumController {
   index(req, res, next) {
