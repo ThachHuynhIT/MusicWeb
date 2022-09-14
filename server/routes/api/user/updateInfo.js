@@ -13,7 +13,6 @@ module.exports = async function (req, res, next) {
 
   const { email, name, gender, nation, dateOfBirth } = req.body;
 
-
   if (req.file) {
     const filename = await fileUpload.save(req.file.buffer);
     const img = path.join(process.env.LOCAL_STATIC_STORE + filename);
@@ -22,7 +21,7 @@ module.exports = async function (req, res, next) {
       { email, name, gender, dateOfBirth, nation, img: img }
     )
 
-      .then(res.send("Oke"))
+      .then(res.send("Oke", img))
       .catch(next);
   } else {
     User.updateOne(
