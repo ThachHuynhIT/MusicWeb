@@ -48,7 +48,7 @@ function EditLayout() {
       gender: user.gender,
       dateOfBirth: user.dateOfBirth,
       nation: user.nation,
-      image: user.image,
+      img: user.image,
     };
 
     UserService.updateInfo(variable);
@@ -177,7 +177,7 @@ function EditLayout() {
               </div>
               <input
                 className={cx("input-value")}
-                // accept="image/*"
+                accept="image/*"
                 type="file"
                 name="image"
                 value={user.image}
