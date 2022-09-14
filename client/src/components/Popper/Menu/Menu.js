@@ -9,8 +9,8 @@ import * as userService from "../../../service/userService";
 import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import config from "../../../config";
-import { get } from "mongoose";
+
+import ScaleLoader from "react-spinners/ScaleLoader";
 const cx = classNames.bind(styles);
 
 function Menu({
@@ -19,30 +19,36 @@ function Menu({
   selectSongByAlbum,
   hideOnClick = false,
 }) {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const onLogout = () => {
+    selectSong(0);
+    selectSongByAlbum(0);
     Cookies.remove("access_token");
     Cookies.remove("userId");
-    if (
-      Cookies.remove("access_token") === undefined &&
-      Cookies.remove("userId") === undefined
-    ) {
-      const timerId = setTimeout(() => {
-        clearTimeout(timerId);
-        selectSong(0);
-        selectSongByAlbum(0);
-        navigate("/");
-      }, 5000);
-    }
+    setLoading(true);
+    const timerId = setTimeout(() => {
+      clearTimeout(timerId);
+      navigate("/");
+    }, 1000);
+    const timerRelod = setTimeout(() => {
+      clearTimeout(timerRelod);
+      window.location.reload();
+    }, 1001);
+    const timerLoading = setTimeout(() => {
+      clearTimeout(timerLoading);
+
+      setLoading(false);
+    }, 3000);
   };
   const renderResult = (attrs) => (
     <div className={cx("menu-list")} tabIndex="-1" {...attrs}>
       <Wrapper className={cx("menu-popper")}>
         <ul className={cx("menu-body")}>
           <Link to="/account/infor">
-            <li className={cx("menu-item")}>Hồ sơ</li>
+            <li className={cx("menu-item", "black")}>Hồ sơ</li>
           </Link>
-          <div className={cx("menu-item")} onClick={onLogout}>
+          <div className={cx("menu-item", "black")} onClick={onLogout}>
             <span>Đăng xuất</span>
           </div>
         </ul>

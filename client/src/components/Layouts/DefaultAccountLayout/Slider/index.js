@@ -7,21 +7,44 @@ import {
   faPen,
   faSignOut,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import * as UserServices from "../../../../service/userService";
+import { Link, useNavigate } from "react-router-dom";
+
 const cx = classNames.bind(styles);
 function UserSlider() {
+  const [user, setUser] = useState({
+    img: "",
+  });
+  useEffect(() => {
+    const fetchApi = async () => {
+      const res = await UserServices.isAuthen();
+
+      setUser({
+        username: res.user.img,
+      });
+    };
+    fetchApi();
+  }, []);
   return (
     <div className={cx("wrapper")}>
       <div className={cx("slider")}>
         <div class={cx("admin-user-item")}>
           <div class={cx("image")}>
             <center>
-              <img
-                class="img-circle autofit2"
-                src="https://i.scdn.co/image/ab6761610000e5ebc02d416c309a68b04dc94576"
-                title="'.$myfname.'"
-                alt="image"
-              />
+              {user.img != undefined ? (
+                <>
+                  <img class="img-circle autofit2" src={user.img} alt="image" />
+                </>
+              ) : (
+                <>
+                  <img
+                    class="img-circle autofit2"
+                    src="https://i.scdn.co/image/ab6761610000e5ebc02d416c309a68b04dc94576"
+                    alt="image"
+                  />
+                </>
+              )}
             </center>
           </div>
 

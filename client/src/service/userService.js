@@ -47,7 +47,6 @@ export const logOut = () => {
 
 export const isAuthen = () => {
   const tokenUser = Cookies.get("access_token");
-  console.log(tokenUser);
 
   return httpRequests.get(`api/user/authen/${tokenUser}`).then((res) => {
     if (res.status !== 401) {
@@ -60,10 +59,24 @@ export const isAuthen = () => {
 
 export const isLog = () => {
   const tokenUser = Cookies.get("access_token");
-
-  if (tokenUser === undefined) {
+  const userId = Cookies.get("userId");
+  if (tokenUser === undefined || userId === undefined) {
     return false;
   } else {
     return true;
+  }
+};
+
+export const updateInfo = async (params) => {
+  const tokenUser = Cookies.get("access_token");
+  try {
+    const res = await httpRequests.put(
+      `api/user/update-user/${tokenUser}`,
+      params
+    );
+
+    return res;
+  } catch (error) {
+    console.log(error);
   }
 };
