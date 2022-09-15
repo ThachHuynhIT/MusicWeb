@@ -24,6 +24,7 @@ const userSchema = new Schema(
     dateOfBirth: { type: Date },
     nation: { type: String },
     status: { type: String },
+    role: { type: String },
     lastAlbum: { type: String },
     lastSong: { type: String },
   },

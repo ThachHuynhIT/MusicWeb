@@ -29,6 +29,7 @@
         <th scope="col">Thể loại</th>
         <th scope="col">Album</th>
         <th scope="col">Quốc gia</th>
+        <th scope="col">Views</th>
         <th scope="col">Hình ảnh</th>
         <th scope="col"></th>
       </tr>
@@ -48,6 +49,7 @@
         <td>{{this.type}}</td>
         <td>{{this.album}}</td>
         <td>{{this.legion}}</td>
+        <td>{{this.views}}</td>
         <td><img class="img-thumbnail" src="{{this.img}}" style="
     max-height: 150px;"></td>
         <td>
@@ -59,7 +61,7 @@
       {{else}}
       <tr>
         <td class="text-center" colspan="8">Không có bài hát nào.
-          <a href="/admin/song/create"> Tạo bài hát mới </a>
+          <a href="/admin/song/create"> Thêm bài hát mới </a>
         </td>
       </tr>
       {{/each}}

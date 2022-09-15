@@ -25,9 +25,9 @@
         <th scope="col"></th>
         <th scope="col">STT</th>
         <th scope="col">Tên</th>
-
         <th scope="col">Album</th>
         <th scope="col">Quốc gia</th>
+        <th scope="col">Lượt nghe</th>
         <th scope="col">Hình ảnh</th>
         <th scope="col"></th>
       </tr>
@@ -43,9 +43,9 @@
         </td>
         <th scope="row">{{sum @index 1}}</th>
         <td>{{this.name}}</td>
-
         <td>{{this.album}}</td>
-        <td>{{this.legion}}</td>
+        <td>{{this.nation}}</td>
+        <td>{{this.views}}</td>
         <td><img class="img-thumbnail" src="{{this.img}}" style="
     max-height: 150px;"></td>
         <td>
@@ -57,7 +57,7 @@
       {{else}}
       <tr>
         <td class="text-center" colspan="8">Không có ca sĩ nào.
-          <a href="/admin/singer/create"> Tạo ca sĩ mới </a>
+          <a href="/admin/singer/create"> Thêm ca sĩ mới </a>
         </td>
       </tr>
       {{/each}}
