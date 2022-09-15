@@ -3,11 +3,11 @@ const Song = require("../../../models/Song");
 module.exports = (req, res, next) => {
   let perPage = 5;
   let page = req.params.page || 1;
-  albumName = req.params.name;
+  const albumName = req.params.name;
 
   if (page < 1) {
     Song.find({ album: albumName }).then((song) => {
-      res.send({song});
+      res.send({ song });
     });
   } else {
     Song.find({ album: albumName })

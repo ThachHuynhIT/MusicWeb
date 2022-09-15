@@ -31,39 +31,49 @@ class UsersController {
     const { isValid, errors } = loginValidator(req.body);
 
     if (!isValid) {
-      return res.status(400).json({ error: true, errors });
+      return res
+        .status(400)
+        .render("users/login", { error: "Thiếu tên đăng nhập hoặc mật khẩu!" });
     }
 
     co(function* () {
       const user = yield User.findOne({ username });
       if (!user) {
-        throw res.render("users/login",{error: "Tên đăng nhập hoặc mật khẩu sai"});
+        throw res.render("users/login", {
+          error: "Tên đăng nhập hoặc mật khẩu sai!",
+        });
       }
 
       const isMatch = yield user.comparePassword(password);
       if (!isMatch) {
-        throw res.render("users/login",{error: "Tên đăng nhập hoặc mật khẩu sai"});
+        throw res.render("users/login", {
+          error: "Tên đăng nhập hoặc mật khẩu sai!",
+        });
       }
 
       return user;
     })
-      // res.header("auth-token", token).send(token)
       .then((user) => {
-        const id = user._id;
+        const role = user.role
+        if (role === "admin") {
+          const id = user._id;
 
-        const token = jwt.sign({ _id: id }, process.env.TOKEN_SECRET, {
-          expiresIn: "1d",
-        });
-        res
-          .cookie("access_token", token, { httpOnly: true, sameSite: true })
-          .cookie("username", username, { httpOnly: true, sameSite: true })
-          .header({
-            username: user.username,
-          })
-          .redirect("/admin")
-          .send({
-            user: mongooseToObject(user),
+          const token = jwt.sign({ _id: id }, process.env.TOKEN_SECRET, {
+            expiresIn: "1d",
           });
+          res
+            .cookie("access_token", token, { httpOnly: true, sameSite: true })
+            .cookie("username", username, { httpOnly: true, sameSite: true })
+            .header({
+              username: user.username,
+            })
+            .redirect("/admin")
+            .send({
+              user: mongooseToObject(user),
+            });
+        } else {
+          res.render("users/login", { error: "Bạn không phải admin" });
+        }
       })
       .catch((err) => next(err));
   }
@@ -112,14 +122,13 @@ class UsersController {
       })
       .catch(next);
   }
-  
+
   edit(req, res, next) {
-    User.findById({_id:req.params.id})
-    .then((user)=>{
-      res.render("users/edit",{
-        user : mongooseToObject(user)
+    User.findById({ _id: req.params.id }).then((user) => {
+      res.render("users/edit", {
+        user: mongooseToObject(user),
       });
-    })
+    });
   }
 }
 

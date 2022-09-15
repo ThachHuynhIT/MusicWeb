@@ -1,9 +1,11 @@
 const Song = require("../models/Song");
+const Singer = require("../models/Singer");
+const Album = require("../models/Album");
 const { multipleMongooseToObject } = require("../util/mongoose");
 const { mongooseToObject } = require("../util/mongoose");
 const slugify = require("slugify");
 
-class AlbumController {
+class SongController {
   index(req, res, next) {
     Promise.all([Song.find({}), Song.countDocumentsDeleted()])
       .then(([song, deletedCount]) =>
@@ -26,16 +28,22 @@ class AlbumController {
 
   // song/create [GET]
   create(req, res, next) {
-    res.render("./songs/create");
+    Promise.all([Singer.find({}), Album.find()])
+      .then(([singer, album]) =>
+        res.render("./songs/create", {
+          album: multipleMongooseToObject(album),
+          singer: multipleMongooseToObject(singer),
+        })
+      )
+      .catch(next);
   }
-
   // [POST] song/store
   store(req, res, next) {
     const song = new Song(req.body);
     song
       .save()
       .then(() => res.redirect("/admin/song"))
-      .catch((error) => {});
+      .catch(next);
   }
 
   // song/edit/:id [GET]
@@ -95,4 +103,4 @@ class AlbumController {
   }
 }
 
-module.exports = new AlbumController();
+module.exports = new SongController();

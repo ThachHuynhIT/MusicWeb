@@ -13,8 +13,7 @@ const Singer = new Schema(
   },
   { timestamps: true }
 );
-
-mongoose.plugin(slug);
+  
 Singer.plugin(mongooseDelete, {
   deletedAt: true,
   overrideMethods: true,
