@@ -1,17 +1,19 @@
 const express = require("express");
 const router = express.Router();
+const upload = require("../../middlewares/uploadMiddleware")
 
-const songsController = require("../../controllers/SongController");
+const singerController = require("../../controllers/SingerController");
 
-router.get("/edit/:id", songsController.edit);
-router.post("/store", songsController.store);
-router.get("/bin", songsController.songBin);
-router.get("/create", songsController.create);
-router.post('/handle-form-action', songsController.handleFormAction)
-router.get("/:slug", songsController.show);
-router.patch("/restore/:id", songsController.restore);
-router.delete("/:id", songsController.destroy);
-router.delete("/force/:id", songsController.forceDestroy);
-router.get("/", songsController.index);
+router.put("/upload-img/:id",upload.single("image") ,singerController.uploadImage)
+router.get("/edit/:id", singerController.edit);
+router.post("/store", singerController.store);
+router.get("/bin", singerController.singerBin);
+router.get("/create", singerController.create);
+router.post('/handle-form-action', singerController.handleFormAction)
+router.get("/:slug", singerController.show);
+router.patch("/restore/:id", singerController.restore);
+router.delete("/:id", singerController.destroy);
+router.delete("/force/:id", singerController.forceDestroy);
+router.get("/", singerController.index);
 
 module.exports = router;

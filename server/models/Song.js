@@ -12,6 +12,7 @@ const Song = new Schema(
     singer: { type: String },
     album: { type: String },
     legion: { type: String },
+    views: { type: Number },
   },
   { timestamps: true }
 );

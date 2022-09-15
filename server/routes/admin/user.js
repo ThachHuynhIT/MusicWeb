@@ -1,6 +1,6 @@
 const express = require("express");
 const verifyToken = require("../.././middlewares/verifyToken");
-const updateInfo = require("./updateInfo")
+const updateInfo = require("./updateInfoUser")
 const upload = require("../.././middlewares/uploadMiddleware");
 
 

@@ -1,90 +1,95 @@
-const Song = require("../models/Song");
+const Singer = require("../models/Singer");
 const { multipleMongooseToObject } = require("../util/mongoose");
 const { mongooseToObject } = require("../util/mongoose");
+const slugify = require("slugify");
+const Resize = require("../middlewares/Resize");
+const path = require("path");
+require("dotenv").config();
 
-class AlbumController {
+class SingerController {
   index(req, res, next) {
-    Promise.all([Song.find({}), Song.countDocumentsDeleted()])
-      .then(([song, deletedCount]) =>
-        res.render("./songs/song", {
+    Promise.all([Singer.find({}), Singer.countDocumentsDeleted()])
+      .then(([singer, deletedCount]) =>
+        res.render("./singers/singer", {
           deletedCount,
-          song: multipleMongooseToObject(song),
+          singer: multipleMongooseToObject(singer),
         })
       )
       .catch(next);
   }
 
-  // song/:slug [GET]
+  // singer/:slug [GET]
   show(req, res, next) {
-    Song.findOne({ slug: req.params.slug })
-      .then((song) =>
-        res.render("./songs/show", { song: mongooseToObject(song) })
+    Singer.findOne({ slug: req.params.slug })
+      .then((singer) =>
+        res.render("./singers/show", { singer: mongooseToObject(singer) })
       )
       .catch(next);
   }
 
-  // song/create [GET]
+  // singer/create [GET]
   create(req, res, next) {
-    res.render("./songs/create");
+    res.render("./singers/create");
   }
 
-  // [POST] song/store
+  // [POST] singer/store
   store(req, res, next) {
-    const song = new Song(req.body);
-    song
+    req.body.views = 0
+    const singer = new Singer(req.body);
+    singer
       .save()
-      .then(() => res.redirect("/admin/song"))
+      .then(() => res.redirect("/admin/singer"))
       .catch((error) => {});
   }
 
-  // song/edit/:id [GET]
+  // singer/edit/:id [GET]
   edit(req, res, next) {
-    Song.findOne({ _id: req.params.id })
-      .then((song) => {
-        res.render("./songs/edit", {
-          song: mongooseToObject(song),
+    Singer.findOne({ _id: req.params.id })
+      .then((singer) => {
+        res.render("./singers/edit", {
+          singer: mongooseToObject(singer),
         });
       })
       .catch(next);
   }
 
-  // [DELETE] /song/:id
+  // [DELETE] /singer/:id
   destroy(req, res, next) {
-    Song.delete({ _id: req.params.id })
+    Singer.delete({ _id: req.params.id })
       .then(() => res.redirect("back"))
       .catch(next);
   }
 
-  // [DELETE] /song/force/:id
+  // [DELETE] /singer/force/:id
   forceDestroy(req, res, next) {
-    Song.deleteOne({ _id: req.params.id })
+    Singer.deleteOne({ _id: req.params.id })
       .then(() => res.redirect("back"))
       .catch(next);
   }
 
-  // [GET] /song/bin
-  songBin(req, res, next) {
-    Song.findDeleted({})
-      .then((song) => {
-        res.render("./songs/bin", {
-          song: multipleMongooseToObject(song),
+  // [GET] /singer/bin
+  singerBin(req, res, next) {
+    Singer.findDeleted({})
+      .then((singer) => {
+        res.render("./singers/bin", {
+          singer: multipleMongooseToObject(singer),
         });
       })
       .catch(next);
   }
 
-  // [PATCH] song/restore/:id
+  // [PATCH] singer/restore/:id
   restore(req, res, next) {
-    Song.restore({ _id: req.params.id })
+    Singer.restore({ _id: req.params.id })
       .then(() => res.redirect("back"))
       .catch(next);
   }
 
-  // [POST] song/handle-form-action
+  // [POST] singer/handle-form-action
   handleFormAction(req, res, next) {
     switch (req.body.actionName) {
       case "delete":
-        Song.delete({ _id: { $in: req.body.albumIDs } })
+        Singer.delete({ _id: { $in: req.body.albumIDs } })
           .then(() => res.redirect("back"))
           .catch(next);
         break;
@@ -92,6 +97,22 @@ class AlbumController {
         res.json({ message: "Sai" });
     }
   }
+
+  uploadImage = async (req,res,next) => {
+    const imagePath = path.join("test/public/img");
+    const fileUpload = new Resize(imagePath);
+    const id = req.params.id;
+
+    if (req.file) {
+      const filename = await fileUpload.save(req.file.buffer);
+      const img = path.join(process.env.LOCAL_STATIC_STORE + filename);
+      Singer.updateOne({ _id: id }, { img: img })
+        .then((singer) => res.send(singer))
+        .catch(next);
+    } else {
+      res.send("lỗi");
+    }
+  };
 }
 
-module.exports = new AlbumController();
+module.exports = new SingerController();

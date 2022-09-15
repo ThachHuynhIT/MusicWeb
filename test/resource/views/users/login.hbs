@@ -15,7 +15,7 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  form {
+  .form-login {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -95,7 +95,6 @@
   form input[type=text],
   form input[type=number],
   form input[type=url],
-  form input[type=search],
   form input[type=password] {
     display: block;
     margin: 0;
@@ -119,7 +118,6 @@
   form input[type=text]:focus,
   form input[type=number]:focus,
   form input[type=url]:focus,
-  form input[type=search]:focus,
   form input[type=password]:focus {
     outline: none;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
@@ -237,10 +235,20 @@
     visibility: hidden;
   }
 
+  .box{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #4eb8dd;
+  }
+
   /*# sourceMappingURL=style.css.map */
 </style>
 
-<form class="mt-4" method="post" action="/admin/user/author">
+<div class="box"></div>
+<form class="mt-4 form-login" method="post" action="/admin/user/author">
   <div class="svgContainer">
     <div>
       <svg class="mySVG" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -411,18 +419,18 @@
     </div>
   </div>
   {{#if message}}
-  <div class="alert alert-danger">
+  <div class="alert alert-danger ">
     <span style="color: red">{{message}}</span>
+  </div>
+  {{/if}}
+  {{#if error}}
+  <div class="alert alert-danger">
+    <span style="color: red">{{error}}</span>
   </div>
   {{/if}}
   <div class="inputGroup inputGroup1">
     <label for="loginUsername" id="loginUsernameLabel">Username</label>
     <input class="" type="text" id="loginUsername" maxlength="254" name="username" />
-    {{#if error}}
-    <div class="alert alert-danger">
-      <span style="color: red">{{error}}</span>
-    </div>
-  {{/if}}
   </div>
   <div class="inputGroup inputGroup2">
     <label for="loginPassword" id="loginPasswordLabel">Password</label>
@@ -431,7 +439,7 @@
       <input id="showPasswordCheck" type="checkbox" />
       <div class="indicator"></div>
     </label>
-  </div> 
+  </div>
   <div class="inputGroup inputGroup3">
     <button id="login">Log in</button>
   </div>

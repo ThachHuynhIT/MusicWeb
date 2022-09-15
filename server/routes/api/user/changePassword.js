@@ -11,9 +11,12 @@ module.exports = function (req, res, next) {
   const newPassword = req.body.newPassword;
   const reNewPassword = req.body.reNewPassword;
 
+
   if (newPassword === reNewPassword) {
+
     User.findById({ _id: userId }).then((user) => {
-      bcrypt.compare(oldPassword, user.password).then((result) => {
+      bcrypt.compare(oldPassword, user.password)
+      .then((result) => {
         if (result) {
           bcrypt.genSalt(10, function (err, salt) {
             bcrypt.hash(newPassword, salt, function (err, hash) {
@@ -24,12 +27,12 @@ module.exports = function (req, res, next) {
             });
           });
         }
-        res.send(result);
+        res.send({result});
       });
     });
   } else {
     res.json({
-      message: { msgBody: "Mật khẩu không đúng", msgError: true },
+      message: { msgBody: "Mật khẩu mới không trùng khớp", msgError: true },
     });
   }
 };
