@@ -3,6 +3,7 @@ import styles from "./Account.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import * as UserService from "../../../service/userService";
+import Message from "../../Message";
 const cx = classNames.bind(styles);
 function EditLayout() {
   const [user, setUser] = useState({
@@ -13,7 +14,7 @@ function EditLayout() {
     dateOfBirth: "",
     nation: "",
   });
-
+  const [message, setMessage] = useState(false);
   useEffect(() => {
     const fetchApi = async () => {
       const res = await UserService.isAuthen();
@@ -52,7 +53,10 @@ function EditLayout() {
     };
 
     UserService.updateInfo(variable);
-
+    setMessage({
+      msgBody: "Cập nhật thành công",
+      msgError: false,
+    });
     // setTimeout(() => {
     //   navigate("/accout/infor");
     // }, 1000);
@@ -64,6 +68,7 @@ function EditLayout() {
         <h1>Chỉnh sửa hồ sơ</h1>
       </div>
       <div className={cx("content")}>
+        {message ? <Message message={message} /> : null}
         <form
           className={cx("post-edit")}
           onSubmit={onSubmit}

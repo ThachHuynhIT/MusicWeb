@@ -27,7 +27,7 @@ function SearchAllLayout() {
 
     const fetchApi = async () => {
       const result = await searchApi.search(debouncedValue);
-      console.log(result);
+
       setSearchResultSong(result.song);
       setSearchResultAlbum(result.album);
     };

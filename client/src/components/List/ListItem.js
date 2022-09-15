@@ -43,7 +43,6 @@ const ListItem = ({ albums = [], typee, selectType, sort }) => {
         </>
       ) : (
         <>
-          {" "}
           <div className={cx("top-list")}>
             <div className={cx("top-list-left")}>
               <h2 className={cx("titel-list", "titel-type")}>{typee}</h2>

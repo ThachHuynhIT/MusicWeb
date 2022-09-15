@@ -10,9 +10,10 @@ const config = {
 
   accoutInfor: "/account/infor",
   accoutEdit: "/account/edit",
+  accoutChange: "/account/change",
 
   userLogin: "/user/login",
   userRegister: "/user/register",
-  playList: "/playlist/:playlist_id",
+  playList: "/playlist/:playlist_id/:playlist_name",
 };
 export default config;

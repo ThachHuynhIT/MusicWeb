@@ -19,7 +19,7 @@ function InforLayout() {
   useEffect(() => {
     const fetchApi = async () => {
       const res = await UserService.isAuthen();
-      console.log(res.user.gender);
+
       setUser({
         name: res.user.name,
         email: res.user.email,
@@ -31,7 +31,7 @@ function InforLayout() {
     };
     fetchApi();
   }, []);
-  console.log(user);
+
   return (
     <div className={cx("wrapper")}>
       <div className={cx("title")}>
