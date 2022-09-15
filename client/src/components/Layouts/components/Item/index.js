@@ -19,7 +19,6 @@ const Item = ({ song, index, selectSong, selectedSongPlay, playerState }) => {
       albumName: song.album,
       songId: song._id,
     });
-    console.log(response);
   };
   const handleClick = () => {
     savePlay();

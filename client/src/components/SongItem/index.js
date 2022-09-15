@@ -81,7 +81,7 @@ const SongItem = ({
       savePlay();
       selectSong(song);
       selectSongByAlbum(selectedUserList);
-      console.log(selectedUserList);
+
       dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
     } else {
       savePlay();

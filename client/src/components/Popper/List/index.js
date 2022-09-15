@@ -64,9 +64,6 @@ function List({ changePlaylist, userPlaylist, songAdd }) {
       visible={showList}
       placement="bottom-end"
       render={renderResult}
-      onClickOutside={() => {
-        setShowList(false);
-      }}
     >
       <div class={cx("hover-like-icon")}>
         <FontAwesomeIcon

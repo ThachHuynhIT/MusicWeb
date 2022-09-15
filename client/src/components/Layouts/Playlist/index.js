@@ -22,8 +22,10 @@ function PlayListLayout({
   const [songsList, setSongsList] = useState([]);
 
   const { playlist_id } = useParams();
+  const { playlist_name } = useParams();
   const debouncedValue = useDebounce(playlist_id, 30);
 
+  console.log(songsList);
   useEffect(() => {
     if (!debouncedValue.trim()) {
       setSongsList([]);
@@ -47,7 +49,7 @@ function PlayListLayout({
           </div>
           <div className={cx("right-top")}>
             <h4>PLAYLIST</h4>
-            <span></span>
+            <span>{playlist_name} </span>
             <span> </span>
           </div>
         </div>

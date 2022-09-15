@@ -8,10 +8,11 @@ import AllAlbum from "../pages/AllAlbum";
 import SearchAll from "../pages/SearchAll";
 import SearchSong from "../pages/SearchSong";
 import SearchAlbum from "../pages/SearchAlbum";
+import PlayList from "../pages/PlayList";
 
 import Infor from "../pages/Infor";
 import Edit from "../pages/Edit";
-import PlayList from "../pages/PlayList";
+import ChangePass from "../pages/Change";
 
 import Login from "../pages/Login";
 import Register from "../pages/Register";
@@ -32,6 +33,11 @@ const PrivateRoutes = [
 
   { path: config.accoutInfor, component: Infor, layout: DefaultAccountLayout },
   { path: config.accoutEdit, component: Edit, layout: DefaultAccountLayout },
+  {
+    path: config.accoutChange,
+    component: ChangePass,
+    layout: DefaultAccountLayout,
+  },
 ];
 const AuthRoutes = [
   { path: config.userLogin, component: Login, layout: DefaultUserLayout },

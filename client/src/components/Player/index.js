@@ -101,7 +101,6 @@ const Player = ({
   const onBackwardClick = () => {
     if (songplay > 0) {
       selectSongById(selectList[songplay - 1]);
-      // console.log(selectSongById( selectList[songplay - 1]));
     }
   };
   const onForwardClick = () => {
@@ -153,8 +152,7 @@ const Player = ({
       }
     }
   };
-  console.log(shuffled);
-  console.log(Math.round(Math.random() * selectList.length));
+
   return (
     <div id={cx("player")}>
       <div className={cx("player-left")}>

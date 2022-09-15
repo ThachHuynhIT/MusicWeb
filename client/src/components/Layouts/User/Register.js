@@ -5,7 +5,7 @@ import { register } from "../../../service/userService";
 
 import classNames from "classnames/bind";
 import styles from "./User.module.scss";
-import Message from "./Message";
+import Message from "../../Message";
 const cx = classNames.bind(styles);
 
 function RegisterLayout(props) {
@@ -18,13 +18,13 @@ function RegisterLayout(props) {
     dayOfBirth: "",
     nation: "",
   });
+  const [message, setMessage] = useState(false);
   const onChange = (e) => {
     e.preventDefault();
     const newUser = { ...user };
     newUser[e.target.name] = e.target.value;
     setUser(newUser);
   };
-  const [message, setMessage] = useState(false);
   const navigate = useNavigate();
   const onSubmit = (e) => {
     e.preventDefault();
@@ -41,10 +41,9 @@ function RegisterLayout(props) {
     if (user.password === user.passwordConfirmation) {
       register(variable).then((data) => {
         const { message } = data;
-        setMessage(message);
 
         if (!message.msgError) {
-          setMessage(message);
+          setMessage({ msgBody: "Đăng ký thành công", msgError: false });
 
           setTimeout(() => {
             navigate("/user/login");

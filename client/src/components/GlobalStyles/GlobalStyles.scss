@@ -109,3 +109,13 @@ svg {
 .scroll::-webkit-scrollbar-thumb:hover {
   background: #ccc;
 }
+.mess {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  top: 0;
+  right: 0;
+  left: 0;
+  position: inherit;
+  bottom: 100px;
+}

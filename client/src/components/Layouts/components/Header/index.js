@@ -43,7 +43,7 @@ function Header() {
     };
     fetchApi();
   }, []);
-  console.log(user.username);
+
   return (
     <header className={cx("menu", "menu-type")}>
       <div className={cx("move")}>

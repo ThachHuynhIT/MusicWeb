@@ -66,15 +66,9 @@ function UserSlider() {
             </Link>
           </li>
           <li class="">
-            <a href="change-password.php" className={cx("herf-slider")}>
+            <a href="/account/change" className={cx("herf-slider")}>
               <FontAwesomeIcon className={cx("icon")} icon={faKey} />
               <span> Thay đổi mật khẩu</span>
-            </a>
-          </li>
-          <li>
-            <a href="../logout.php" className={cx("herf-slider")}>
-              <FontAwesomeIcon className={cx("icon")} icon={faSignOut} />{" "}
-              <span>Đăng xuất</span>
             </a>
           </li>
         </ul>

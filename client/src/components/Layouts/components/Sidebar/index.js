@@ -8,25 +8,22 @@ import * as PlayListService from "../../../../service/playListService";
 import * as UserServices from "../../../../service/userService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import config from "../../../../config";
+import More from "../../../Popper/More";
 import {
-  faBook,
   faDeleteLeft,
-  faHeart,
   faHouse,
   faMagnifyingGlass,
   faPlus,
-  faTractor,
-  faTrash,
-  faTruck,
 } from "@fortawesome/free-solid-svg-icons";
+import Message from "../../../Message";
 import { connect } from "react-redux";
-import { Link, useNavigate, Navigate } from "react-router-dom";
+import { Link, useNavigate, NavLink } from "react-router-dom";
 const cx = classNames.bind(styles);
-function Sidebar({ setFocus, changePlaylist, userPlaylist, getPlayListId }) {
+function Sidebar({ setFocus, changePlaylist, userPlaylist }) {
   const navigate = useNavigate();
-
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState(false);
   const isAuthenticated = UserServices.isLog();
-  console.log(userPlaylist);
 
   const fepi = async () => {
     const response = await PlayListService.getPlayList();
@@ -40,21 +37,19 @@ function Sidebar({ setFocus, changePlaylist, userPlaylist, getPlayListId }) {
 
   const ListTag = userPlaylist.map((playList) => {
     if (isAuthenticated === true || userPlaylist.leght > 0) {
-      const removeClick = () => {
-        removePlayList(playList._id);
-        fepi();
-      };
-
       return (
         <>
           <div className={cx("list-name")}>
-            <Link to={`/playlist/${playList._id}`}>
+            <NavLink
+              to={`/playlist/${playList._id}/${playList.name}`}
+              activeClassName={cx("active")}
+            >
               <li className={cx("content")}>
                 <h6 className={cx("titel")}>{playList.name}</h6>
               </li>
-            </Link>
-            <form className={cx("icon-delete")} onClick={removeClick}>
-              <FontAwesomeIcon className={cx("icon-li")} icon={faDeleteLeft} />
+            </NavLink>
+            <form className={cx("icon-delete")}>
+              <More playList_id={playList._id} />
             </form>
           </div>
         </>
@@ -67,33 +62,35 @@ function Sidebar({ setFocus, changePlaylist, userPlaylist, getPlayListId }) {
   return (
     <nav className={cx("warrper")}>
       <div className={cx("logo")}>
-        <Link to="/" id={cx()}>
+        <NavLink to="/" id={cx()}>
           <img className={cx("muzic-logo")} src={images.logo} alt="miuzzic" />
-        </Link>
+        </NavLink>
       </div>
 
       <div className={cx("content-list")}>
-        <li className={cx("content")} id={cx("active")}>
-          <Link className={cx("content-link", "active")} to={"/"}>
+        <li className={cx("content", "active")}>
+          <NavLink
+            className={cx("content-link", "active")}
+            to={"/"}
+            activeClassName={cx("active")}
+          >
             <FontAwesomeIcon className={cx("icon-li")} icon={faHouse} />
             <span className={cx("titel")}>Trang chủ</span>
-          </Link>
+          </NavLink>
         </li>
-        <li className={cx("content")}>
-          <Link className={cx("content-link")} to={"/"}>
+        <li className={cx("content", "active")}>
+          <NavLink
+            className={cx("content-link", "active")}
+            to={"/"}
+            activeClassName={cx("active")}
+          >
             <FontAwesomeIcon
               className={cx("icon-li")}
               icon={faMagnifyingGlass}
             />
             <span className={cx("titel")}>Tìm kiếm</span>
-          </Link>
+          </NavLink>
         </li>
-        {/* <li className={cx("content")}>
-          <Link className={cx("content-link")} to="/album">
-            <FontAwesomeIcon className={cx("icon-li")} icon={faBook} />
-            <span className={cx("titel")}>Thư viện</span>
-          </Link>
-        </li> */}
       </div>
 
       <div className={cx("album")}>
@@ -104,23 +101,25 @@ function Sidebar({ setFocus, changePlaylist, userPlaylist, getPlayListId }) {
                 className={cx("icon-albu")}
                 icon={faPlus}
                 onClick={() => {
-                  setFocus(true);
+                  setFocus(1);
                 }}
               />
               <span className={cx("album-list-titel")}>Tạo playlist</span>
             </button>
-            {/* <button className={cx("album-btn")}>
-              <FontAwesomeIcon
-                className={cx("icon-albu", "blu")}
-                icon={faHeart}
-              />
-              <span className={cx("album-list-titel")}>Bài hát yêu thích</span>
-            </button> */}
           </div>
         </div>
       </div>
 
       <div className={cx("album-list")}>{ListTag}</div>
+      {loading ? (
+        <>
+          <div className={cx("mess")}>
+            <Message message={message} />
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
     </nav>
   );
 }

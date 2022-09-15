@@ -17,6 +17,7 @@ import * as songsService from "../../../service/songsService";
 import * as UserService from "../../../service/userService";
 import * as PlayListService from "../../../service/playListService";
 import classNames from "classnames/bind";
+import Message from "../../Message";
 const cx = classNames.bind(styles);
 
 const DefaultLayout = ({
@@ -28,12 +29,15 @@ const DefaultLayout = ({
   setFocus,
   changePlaylist,
   userPlaylist,
+  playlistId,
 }) => {
   const value = UserService.isLog();
   const id_block = status === true ? "block-actie" : "";
-  const id_focus = focus === true ? "block-actie" : "";
+  const id_focus = focus === 1 ? "block-actie" : "";
+  const id_focus_change = focus === 2 ? "block-actie" : "";
   const [showResult, setShowResult] = useState(true);
-
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState(false);
   const [playList, setPlayList] = useState({
     name: "",
     img: "",
@@ -44,7 +48,6 @@ const DefaultLayout = ({
       const response = await PlayListService.getPlayList();
 
       changePlaylist(response);
-      console.log(changePlaylist(response));
     };
     fetchApi();
   }, []);
@@ -73,8 +76,43 @@ const DefaultLayout = ({
       const timerId = setTimeout(() => {
         fepi();
         clearTimeout(timerId);
-        setFocus(false);
+        setLoading(true);
+        setMessage({
+          msgBody: "Tạo danh sách phát thành công",
+          msgError: false,
+        });
       }, 500);
+      const timerLoading = setTimeout(() => {
+        clearTimeout(timerLoading);
+        setFocus(false);
+        setLoading(false);
+      }, 2000);
+    }
+  };
+
+  const onChangeSubmit = (e) => {
+    e.preventDefault();
+    const variable = {
+      name: playList.name,
+      img: playList.img,
+    };
+    if (variable !== undefined) {
+      PlayListService.changePlayList(playlistId, variable);
+
+      const timerId = setTimeout(() => {
+        fepi();
+        clearTimeout(timerId);
+        setLoading(true);
+        setMessage({
+          msgBody: "Cập nhật  danh sách phát thành công",
+          msgError: false,
+        });
+      }, 500);
+      const timerLoading = setTimeout(() => {
+        clearTimeout(timerLoading);
+        setFocus(false);
+        setLoading(false);
+      }, 2000);
     }
   };
 
@@ -179,6 +217,92 @@ const DefaultLayout = ({
                   X
                 </div>
               </div>
+              {loading ? (
+                <>
+                  <div className={cx("mess")}>
+                    <Message message={message} />
+                  </div>
+                </>
+              ) : (
+                <></>
+              )}
+            </div>
+
+            <div className={cx("block")} id={cx(id_focus_change)}>
+              <div className={cx("list-container")}>
+                <div className={cx("content")}>
+                  <div className={cx("img-content")}>
+                    <img src="https://media.proprofs.com/images/QM/user_images/2734691/1589295044.gif"></img>
+                  </div>
+                  <div className={cx("text-content")}>
+                    <h2>Sửa thông tin</h2>
+                    <form
+                      className={cx("post-form")}
+                      name="crete_playlist"
+                      noValidate="noValidate"
+                      onSubmit={onChangeSubmit}
+                    >
+                      <div className={cx("group-main")}>
+                        <div className={cx("group-main")}>
+                          <div className={cx("title-group")}>
+                            <label for="" className={cx("label-title-list")}>
+                              <span>Tên danh sách </span>
+                            </label>
+                          </div>
+                          <input
+                            className={cx("input-value")}
+                            type="text"
+                            placeholder="Từ 3 dến 16 ký tự"
+                            name="name"
+                            autoFocus={true}
+                            value={playList.name}
+                            onChange={onChange}
+                          ></input>
+                        </div>
+                      </div>
+
+                      <div className={cx("group-main")}>
+                        <div className={cx("title-group")}>
+                          <label for="" className={cx("label-title-list")}>
+                            <span>Chọn ảnh</span>
+                          </label>
+                        </div>
+                        <input
+                          className={cx("input-value")}
+                          accept="image/*"
+                          type="file"
+                          name="img"
+                          value={playList.img}
+                          onChange={onChange}
+                          required
+                        ></input>
+                      </div>
+                      <div className={cx("btn-form")}>
+                        <button type="submit" class={cx("btn-submit")}>
+                          <div class={cx("btn-submit-title")}>Thay đổi</div>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div
+                  className={cx("btn-remove")}
+                  onClick={() => {
+                    setFocus(false);
+                  }}
+                >
+                  X
+                </div>
+              </div>
+              {loading ? (
+                <>
+                  <div className={cx("mess")}>
+                    <Message message={message} />
+                  </div>
+                </>
+              ) : (
+                <></>
+              )}
             </div>
           </>
         )}
@@ -227,6 +351,7 @@ const mapStateToProps = (state) => {
     focus: state.focus,
     status: state.status,
     userPlaylist: state.userPlaylist,
+    playlistId: state.playlistId,
   };
 };
 
