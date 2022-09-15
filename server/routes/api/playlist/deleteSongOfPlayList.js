@@ -11,13 +11,14 @@ module.exports = (req, res, next) => {
           songList: [songId],
         },
       }
-    ).then(() => {
-      Playlist.find({ _id: playlistId })
-        .then((playlist) => {
+    )
+      .then(() => {
+        Playlist.find({ _id: playlistId }).then((playlist) => {
           res.send(playlist);
-        })
-        .catch(next);
-    });
-    // .catch(next);
+
+        });
+      })
+      .catch(next);
+
   }
 };
