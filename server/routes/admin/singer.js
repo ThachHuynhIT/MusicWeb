@@ -6,6 +6,7 @@ const singerController = require("../../controllers/SingerController");
 
 router.put("/upload-img/:id",upload.single("image") ,singerController.uploadImage)
 router.get("/edit/:id", singerController.edit);
+router.put("/:id", singerController.update);
 router.post("/store", singerController.store);
 router.get("/bin", singerController.singerBin);
 router.get("/create", singerController.create);

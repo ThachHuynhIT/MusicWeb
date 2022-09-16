@@ -1,4 +1,5 @@
 const Album = require("../models/Album");
+const Singer = require("../models/Singer");
 const { multipleMongooseToObject } = require("../util/mongoose");
 const { mongooseToObject } = require("../util/mongoose");
 const slugify = require("slugify");
@@ -26,7 +27,12 @@ class AlbumController {
 
   // album/create [GET]
   create(req, res, next) {
-    res.render("./albums/create");
+    Singer.find({})
+    .then((singer)=>{
+    res.render("./albums/create",
+    {singer : multipleMongooseToObject(singer)}
+    )}
+    )
   }
 
   // [POST] album/store

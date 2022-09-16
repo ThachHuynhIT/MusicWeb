@@ -34,7 +34,7 @@ class SingerController {
 
   // [POST] singer/store
   store(req, res, next) {
-    req.body.views = 0
+    req.body.views = 0;
     const singer = new Singer(req.body);
     singer
       .save()
@@ -50,6 +50,12 @@ class SingerController {
           singer: mongooseToObject(singer),
         });
       })
+      .catch(next);
+  }
+
+  update(req, res, next) {
+    Singer.updateOne({ _id: req.params.id }, req.body)
+      .then(() => res.redirect("/admin/singer"))
       .catch(next);
   }
 
@@ -98,7 +104,7 @@ class SingerController {
     }
   }
 
-  uploadImage = async (req,res,next) => {
+  uploadImage = async (req, res, next) => {
     const imagePath = path.join("test/public/img");
     const fileUpload = new Resize(imagePath);
     const id = req.params.id;

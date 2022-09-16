@@ -25,7 +25,8 @@ const userSchema = new Schema(
     nation: { type: String },
     status: { type: String },
     role: { type: String },
-    lastAlbum: { type: String },
+    lastList: { type: String },
+    typeList : {type :String},
     lastSong: { type: String },
   },
   { timestamps: true }

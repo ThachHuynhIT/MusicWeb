@@ -11,12 +11,13 @@ class UsersController {
   //[GET] route /user/list
   home(req, res, next) {
     Promise.all([User.find({}), User.countDocumentsDeleted()])
-      .then(([user, deletedCount]) =>
+      .then(([user, deletedCount]) => {
+
         res.render("users/home", {
           deletedCount,
           user: multipleMongooseToObject(user),
-        })
-      )
+        });
+      })
       .catch(next);
   }
 
@@ -54,7 +55,7 @@ class UsersController {
       return user;
     })
       .then((user) => {
-        const role = user.role
+        const role = user.role;
         if (role === "admin") {
           const id = user._id;
 
