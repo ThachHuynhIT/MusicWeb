@@ -1,4 +1,5 @@
 const Album = require("../models/Album");
+const Song = require("../models/Song");
 const Singer = require("../models/Singer");
 const { multipleMongooseToObject } = require("../util/mongoose");
 const { mongooseToObject } = require("../util/mongoose");
@@ -18,21 +19,27 @@ class AlbumController {
 
   // album/:slug [GET]
   show(req, res, next) {
-    Album.findOne({ slug: req.params.slug })
-      .then((album) =>
-        res.render("./albums/show", { album: mongooseToObject(album) })
-      )
+    Album.findOne({ _id: req.params.id })
+      .then((album) => {
+        var albumName = album.name
+        Song.find({ album: albumName }).
+        then((song) => {
+          res.render("./albums/show", 
+          { song: multipleMongooseToObject(song),
+            album : mongooseToObject(album)
+           });
+        });
+      })
       .catch(next);
   }
 
   // album/create [GET]
   create(req, res, next) {
-    Singer.find({})
-    .then((singer)=>{
-    res.render("./albums/create",
-    {singer : multipleMongooseToObject(singer)}
-    )}
-    )
+    Singer.find({}).then((singer) => {
+      res.render("./albums/create", {
+        singer: multipleMongooseToObject(singer),
+      });
+    });
   }
 
   // [POST] album/store
@@ -114,7 +121,6 @@ class AlbumController {
         res.json({ message: "Sai" });
     }
   }
-
 
   // res.json(req.body)
 }

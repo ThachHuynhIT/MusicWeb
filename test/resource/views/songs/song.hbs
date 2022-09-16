@@ -1,4 +1,4 @@
-<form class="container mt-4" name="container-action" method="post" action="/admin/song/handle-form-action">
+<form class=" mt-4" name="container-action" method="post" action="/admin/song/handle-form-action">
   <div class="mt-4">
     <h2>Danh sách bài hát</h2>
     {{#if deletedCount}}
@@ -19,8 +19,8 @@
       <button class="btn btn-primary mt-1 disabled" id="btn-checkbox-submit" type="submit">Thực hiện</button>
     </div>
   </div>
-  <table class="table table-striped-columns">
-    <thead class="table-dark">
+  <table class="table table-striped-columns border border-4">
+    <thead class="table-dark ">
       <tr>
         <th scope="col"></th>
         <th scope="col">STT</th>
@@ -30,7 +30,6 @@
         <th scope="col">Album</th>
         <th scope="col">Quốc gia</th>
         <th scope="col">Views</th>
-        <th scope="col">Link</th>
         <th scope="col">Hình ảnh</th>
         <th scope="col"></th>
       </tr>
@@ -51,8 +50,6 @@
         <td>{{this.album}}</td>
         <td>{{this.legion}}</td>
         <td>{{this.views}}</td>
-        <td style="word-wrap: break-word;
-    max-width: 150px;">{{this.url}}</td>
         <td><img class="img-thumbnail" src="{{this.img}}" style="
     max-height: 150px;"></td>
         <td>

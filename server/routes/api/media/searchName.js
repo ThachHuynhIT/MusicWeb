@@ -3,7 +3,7 @@ const Singer = require("../../../models/Singer");
 const Album = require("../../../models/Album");
 
 module.exports = (req, res, next) => {
-  let page = req.params.page || 1;
+  let page = req.query.page || 1;
   var name_search = req.query.name;
 
   if (page < 1) {

@@ -1,5 +1,5 @@
-<div class="container m-4">
-  <h3 class="mb-4">Sửa bài hát</h3>
+<div class="container border border-3 m-4">
+  <h2 class="mb-4 text-center">Sửa bài hát</h2>
   <form method="post" action="/admin/song/{{song._id}}?_method=PUT">
     <div class="mb-3">
       <label for="name" class="form-label">Tên bài hát</label>
@@ -29,6 +29,16 @@
         value="{{song.singer}}"
         id="singer"
         name="singer"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="album" class="form-label">Album</label>
+      <input
+        type="text"
+        class="form-control"
+        value="{{song.album}}"
+        id="album"
+        name="album"
       />
     </div>
     <div class="mb-3">
