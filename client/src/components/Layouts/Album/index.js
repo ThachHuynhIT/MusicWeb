@@ -16,14 +16,18 @@ function AlbumLayout() {
   const { id } = useParams();
   useEffect(() => {
     const fetchApi = async () => {
-      const response = await songsService.getSongsFromAlbum(id);
+      const songsFromAlbum = await songsService.getSongsFromAlbum(id);
+      const songsFromSinger = await songsService.getSongsFromSinger(id);
 
-      setSongsList(response);
+      if (songsFromAlbum.length <= 0) {
+        setSongsList(songsFromSinger);
+      } else {
+        setSongsList(songsFromAlbum);
+      }
     };
     fetchApi();
   }, []);
 
-  console.log(songsList);
   return (
     <React.Fragment>
       <div className={cx("main-view-container", "scroll")}>
@@ -38,9 +42,7 @@ function AlbumLayout() {
           </div>
         </div>
         <div className={cx("main-view-bottom")}>
-          <section className={cx("list-item")}>
-            {/* <ListItem albums={albums} /> */}
-          </section>
+          <section className={cx("list-item")}></section>
         </div>
       </div>
     </React.Fragment>

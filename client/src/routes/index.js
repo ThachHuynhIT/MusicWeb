@@ -4,14 +4,16 @@ import Home from "../pages/Home";
 
 import Album from "../pages/Album";
 import AllAlbum from "../pages/AllAlbum";
+import AllSinger from "../pages/AllSinger";
 
 import SearchAll from "../pages/SearchAll";
 import SearchSong from "../pages/SearchSong";
 import SearchAlbum from "../pages/SearchAlbum";
+import PlayList from "../pages/PlayList";
 
 import Infor from "../pages/Infor";
 import Edit from "../pages/Edit";
-import PlayList from "../pages/PlayList";
+import ChangePass from "../pages/Change";
 
 import Login from "../pages/Login";
 import Register from "../pages/Register";
@@ -24,6 +26,7 @@ const PublicRoutes = [{ path: config.home, component: Home }];
 const PrivateRoutes = [
   { path: config.album, component: Album },
   { path: config.allAlbum, component: AllAlbum },
+  { path: config.allSinger, component: AllSinger },
   { path: config.playList, component: PlayList },
 
   { path: config.searchAll, component: SearchAll },
@@ -32,6 +35,11 @@ const PrivateRoutes = [
 
   { path: config.accoutInfor, component: Infor, layout: DefaultAccountLayout },
   { path: config.accoutEdit, component: Edit, layout: DefaultAccountLayout },
+  {
+    path: config.accoutChange,
+    component: ChangePass,
+    layout: DefaultAccountLayout,
+  },
 ];
 const AuthRoutes = [
   { path: config.userLogin, component: Login, layout: DefaultUserLayout },

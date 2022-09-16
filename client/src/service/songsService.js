@@ -8,3 +8,12 @@ export const getSongsFromAlbum = async (name) => {
     console.log(error);
   }
 };
+export const getSongsFromSinger = async (name) => {
+  try {
+    const res = await httpRequests.get(`api/media/singer-song/${name}/0`);
+
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -74,6 +74,19 @@ export const updateInfo = async (params) => {
       `api/user/update-user/${tokenUser}`,
       params
     );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const changePass = async (params) => {
+  const tokenUser = Cookies.get("access_token");
+  try {
+    const res = await httpRequests
+      .put(`api/user/change-password/${tokenUser}`, params)
+      .then((mess) => {
+        return mess;
+      });
 
     return res;
   } catch (error) {

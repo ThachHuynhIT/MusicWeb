@@ -32,10 +32,11 @@
 
 .admin-user-item {
   img {
-    width: 100px;
+    width: 180px;
+    height: 180px;
     margin: 0 auto 15px;
     border-radius: 50%;
-    border: 6px double #33b6cb;
+    box-shadow: 0 8px 32px rgb(0 0 0);
     padding: 2px;
   }
 }

@@ -12,12 +12,23 @@ const MiniSong = ({ selectedSongPlay }) => {
   return (
     <div className={cx("song-detail")}>
       <div className={cx("player-img")}>
-        <img
-          src={selectedSongPlay.links.images[1].url}
-          alt={selectedSongPlay.name}
-          className={cx("pause-img")}
-        />
-        ;
+        {selectedSongPlay.links === undefined ? (
+          <>
+            <img
+              src={selectedSongPlay.img}
+              alt={selectedSongPlay.name}
+              className={cx("icon-img")}
+            />
+          </>
+        ) : (
+          <>
+            <img
+              src={selectedSongPlay.links.images[1].url}
+              alt={selectedSongPlay.name}
+              className={cx("icon-img")}
+            />
+          </>
+        )}
       </div>
       <div className={cx("artist-img")}>
         <div className={cx("header", "pad")}>{selectedSongPlay.name}</div>

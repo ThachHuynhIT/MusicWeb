@@ -4,6 +4,7 @@ const Song = require("../../../models/Song");
 module.exports = (req, res, next) => {
   const id = req.params.userId;
   const lastSong = req.body.songId;
+
   const lastPlaylist = req.body.playlistId;
   const lastSinger = req.body.singerId;
   const lastAlbum = req.body.albumId;
@@ -50,6 +51,7 @@ module.exports = (req, res, next) => {
       }
       res.status(200).json("Thành công");
     });
+
   } else {
     res.status(400).json("Lỗi");
   }

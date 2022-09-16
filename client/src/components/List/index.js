@@ -10,7 +10,6 @@ const cx = classNames.bind(styles);
 
 const List = ({ albums = [], type = [] }) => {
   const typeTags = type.map((type) => {
-    // console.log(type);
     return <ListItem albums={albums} typee={type} />;
   });
 

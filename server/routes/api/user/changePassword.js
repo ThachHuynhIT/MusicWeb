@@ -11,7 +11,9 @@ module.exports = function (req, res, next) {
   const newPassword = req.body.newPassword;
   const reNewPassword = req.body.reNewPassword;
 
-  if ((newPassword === reNewPassword)) {
+
+  if (newPassword === reNewPassword) {
+
     User.findById({ _id: userId }).then((user) => {
       bcrypt.compare(oldPassword, user.password)
       .then((result) => {

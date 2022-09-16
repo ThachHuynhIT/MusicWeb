@@ -70,3 +70,17 @@ export const removeSong = async (playlistId, songId) => {
     console.log(error);
   }
 };
+export const changePlayList = (playlistId, playlist) => {
+  return httpRequests
+    .put(`api/playlist/update-playlist-img/${playlistId}`, playlist)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      if (error.code === "ERR_NETWORK") {
+        return { message: error.message, isSuccess: false };
+      }
+      console.log(error);
+      return { message: error.response.data, isSuccess: false };
+    });
+};

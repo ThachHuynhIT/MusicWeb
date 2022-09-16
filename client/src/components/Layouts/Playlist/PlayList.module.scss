@@ -12,9 +12,8 @@
   align-items: center;
   flex-wrap: nowrap;
   img {
-    background-color: #282828;
     border: none;
-    color: #fff;
+    box-shadow: 0 8px 32px rgb(0 0 0);
     display: flex;
     justify-content: center;
     margin: 60px 60px 60px 70px;
@@ -57,4 +56,6 @@
   }
 }
 .container {
+  margin-bottom: 120px;
+  border-bottom: 1px solid #333;
 }

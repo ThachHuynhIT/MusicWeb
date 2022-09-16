@@ -15,6 +15,7 @@ module.exports = async function (req, res, next) {
 
   if (req.file) {
     const filename = await fileUpload.save(req.file.buffer);
+
     User.updateOne(
       { _id: userId },
       { email, name, gender, dateOfBirth, nation, img: filename }
@@ -26,7 +27,9 @@ module.exports = async function (req, res, next) {
       { _id: userId },
       { email, name, dateOfBirth, gender, nation }
     )
+
       .then(res.send("Thành công"))
+
       .catch(next);
   }
 };

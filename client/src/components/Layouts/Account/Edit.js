@@ -3,17 +3,24 @@ import styles from "./Account.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import * as UserService from "../../../service/userService";
+import Message from "../../Message";
 const cx = classNames.bind(styles);
 function EditLayout() {
   const [user, setUser] = useState({
     email: "",
     name: "",
-    img: "",
+    image: "",
     gender: "",
     dateOfBirth: "",
     nation: "",
   });
 
+  ////
+
+  ///
+  console.log(user.image);
+
+  const [message, setMessage] = useState(false);
   useEffect(() => {
     const fetchApi = async () => {
       const res = await UserService.isAuthen();
@@ -21,7 +28,7 @@ function EditLayout() {
       setUser({
         name: res.user.name,
         email: res.user.email,
-        img: res.user.img,
+
         gender: res.user.gender,
         dateOfBirth: res.user.dateOfBirth,
         nation: res.user.nation,
@@ -32,6 +39,12 @@ function EditLayout() {
 
   const navigate = useNavigate();
 
+  const handleChangeFile = (e) => {
+    const file = e.target.files[0];
+
+    file.preview = URL.createObjectURL(file);
+    setUser({ image: file });
+  };
   const onChange = (e) => {
     e.preventDefault();
     const newUser = { ...user };
@@ -42,20 +55,28 @@ function EditLayout() {
     e.preventDefault();
     const variable = {
       name: user.name,
-      password: user.password,
-      passwordConfirmation: user.passwordConfirmation,
       email: user.email,
       gender: user.gender,
       dateOfBirth: user.dateOfBirth,
       nation: user.nation,
-      img: user.image,
     };
-
+    const formdata = new FormData();
+    formdata.append("image", user.image);
+    UserService.updateInfo(formdata);
     UserService.updateInfo(variable);
+    setMessage({
+      msgBody: "Cập nhật thành công",
+      msgError: false,
+    });
+    const timerReload = setTimeout(() => {
+      clearTimeout(timerLoading);
 
-    // setTimeout(() => {
-    //   navigate("/accout/infor");
-    // }, 1000);
+      window.location.reload();
+    }, 2000);
+    const timerLoading = setTimeout(() => {
+      clearTimeout(timerLoading);
+      navigate("/accout/infor");
+    }, 2000);
   };
 
   return (
@@ -64,6 +85,7 @@ function EditLayout() {
         <h1>Chỉnh sửa hồ sơ</h1>
       </div>
       <div className={cx("content")}>
+        {message ? <Message message={message} /> : null}
         <form
           className={cx("post-edit")}
           onSubmit={onSubmit}
@@ -177,11 +199,9 @@ function EditLayout() {
               </div>
               <input
                 className={cx("input-value")}
-                accept="image/*"
                 type="file"
                 name="image"
-                value={user.image}
-                onChange={onChange}
+                onChange={handleChangeFile}
                 required
               ></input>
             </div>

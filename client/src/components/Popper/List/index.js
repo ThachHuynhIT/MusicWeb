@@ -23,8 +23,6 @@ function List({ changePlaylist, userPlaylist, songAdd }) {
 
   const addSong = async (a, b) => {
     const response = await PlayListService.addSong(a, b);
-
-    console.log(response);
   };
 
   const ListTag = userPlaylist.map((playList) => {
@@ -36,7 +34,7 @@ function List({ changePlaylist, userPlaylist, songAdd }) {
         setShowList(false);
       }, 100);
     };
-
+    console.log(playList);
     if (isAuthenticated === true) {
       return (
         <li className={cx("menu-item")} onClick={addClick}>
@@ -64,9 +62,6 @@ function List({ changePlaylist, userPlaylist, songAdd }) {
       visible={showList}
       placement="bottom-end"
       render={renderResult}
-      onClickOutside={() => {
-        setShowList(false);
-      }}
     >
       <div class={cx("hover-like-icon")}>
         <FontAwesomeIcon

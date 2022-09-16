@@ -3,6 +3,7 @@ const config = {
   home: "/",
   album: "/album/:id",
   allAlbum: "/album/:type/all",
+  allSinger: "/singer",
 
   searchAll: "/search/:name/all",
   searchAlbum: "/search/:name/album",
@@ -10,9 +11,10 @@ const config = {
 
   accoutInfor: "/account/infor",
   accoutEdit: "/account/edit",
+  accoutChange: "/account/change",
 
   userLogin: "/user/login",
   userRegister: "/user/register",
-  playList: "/playlist/:playlist_id",
+  playList: "/playlist/:playlist_id/:playlist_name",
 };
 export default config;

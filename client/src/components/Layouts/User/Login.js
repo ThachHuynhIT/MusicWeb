@@ -6,8 +6,8 @@ import * as LastPlay from "../../../service/playService";
 import { selectSong, selectSongByAlbum } from "../../../actions";
 import classNames from "classnames/bind";
 import styles from "./User.module.scss";
-import Message from "./Message";
-import config from "../../../config";
+import Message from "../../Message";
+
 import { connect } from "react-redux";
 import Cookies from "js-cookie";
 import ScaleLoader from "react-spinners/ScaleLoader";
@@ -68,14 +68,17 @@ function LoginLayout({ props, selectSong, selectSongByAlbum }) {
           clearTimeout(timerRelod);
           window.location.reload();
         }, 2001);
-
+        setMessage({ msgBody: "Đăng nhập thành công", msgError: false });
         const timerLoading = setTimeout(() => {
           clearTimeout(timerLoading);
 
           setLoading(false);
         }, 3000);
       } else {
-        setMessage(message);
+        setMessage({
+          msgBody: "Mật khẩu hoặc tên tài khoản không đúng",
+          msgError: true,
+        });
       }
     });
   };
