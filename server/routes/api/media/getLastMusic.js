@@ -1,9 +1,10 @@
 const User = require("../../../models/User");
 const Song = require("../../../models/Song");
+const Album = require("../../../models/Album");
 const Playlist = require("../../../models/PlayList");
 const jwt = require("jsonwebtoken");
 
-module.exports = (req, res, next) => {
+module.exports = async function (req, res, next) {
   const userId = req.params.userId;
 
   if (userId) {
@@ -16,31 +17,42 @@ module.exports = (req, res, next) => {
           var lastSong = song.filter((song) => {
             return song.id.indexOf(songId) !== -1;
           });
+
           switch (user.typeList) {
             case "Album":
-              var songList = song.filter((song) => {
-                return song.album.indexOf(lastList) !== -1;
+              Album.findById({ _id: lastList }).then((album) => {
+                var albumName = album.name;
+                let songList = song.filter((song) => {
+                  return song.album.indexOf(albumName) !== -1;
+                });
+                res.send({
+                  song: lastSong,
+                  songList: songList,
+                });
               });
               break;
             case "Singer":
               var songList = song.filter((song) => {
                 return song.singer.indexOf(lastList) !== -1;
               });
+              res.send({
+                song: lastSong,
+                songList: songList,
+              });
               break;
             case "Playlist":
-              Playlist.findById({_id : lastList})
-              .then((playlist)=>{
-                var songList = playlist
-              })
+              Playlist.findById({ _id: lastList }).then((playlist) => {
+                songList = playlist;
+                res.send({
+                  song: lastSong,
+                  songList: songList,
+                });
+              });
               break;
             default:
+              res.send("Lỗi");
           }
-          res.send({
-            song: lastSong,
-            songList: songList,
-          });
         })
-
         .catch(next);
     });
   } else {
