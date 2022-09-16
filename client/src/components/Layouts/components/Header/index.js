@@ -30,7 +30,8 @@ function Header() {
   });
 
   const [isLoaded, setIsLoaded] = useState(false);
-
+  const url = "http://localhost:8989/img/";
+  const [img, setImg] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,10 +41,11 @@ function Header() {
       setUser({
         username: res.user.username,
       });
+      setImg(res.user.img);
     };
     fetchApi();
   }, []);
-
+  console.log(img);
   return (
     <header className={cx("menu", "menu-type")}>
       <div className={cx("move")}>
@@ -62,11 +64,21 @@ function Header() {
       {value ? (
         <>
           <div className={cx("accout")}>
-            <img
-              className={cx("user-avatar")}
-              src="https://files.fullstack.edu.vn/f8-prod/user_avatars/1/623d4b2d95cec.png"
-              alt="Nguyen Van A"
-            />
+            <center>
+              {img !== undefined ? (
+                <>
+                  <img class={cx("user-avatar")} src={url + img} alt="image" />
+                </>
+              ) : (
+                <>
+                  <img
+                    class="img-circle autofit2"
+                    src="https://i.scdn.co/image/ab6761610000e5ebc02d416c309a68b04dc94576"
+                    alt="image"
+                  />
+                </>
+              )}
+            </center>
             <Menu>
               <span>{user.username}</span>
             </Menu>

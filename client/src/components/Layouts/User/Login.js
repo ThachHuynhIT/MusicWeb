@@ -7,7 +7,7 @@ import { selectSong, selectSongByAlbum } from "../../../actions";
 import classNames from "classnames/bind";
 import styles from "./User.module.scss";
 import Message from "../../Message";
-import config from "../../../config";
+
 import { connect } from "react-redux";
 import Cookies from "js-cookie";
 import ScaleLoader from "react-spinners/ScaleLoader";

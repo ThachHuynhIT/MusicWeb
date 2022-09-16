@@ -3,6 +3,7 @@ const config = {
   home: "/",
   album: "/album/:id",
   allAlbum: "/album/:type/all",
+  allSinger: "/singer",
 
   searchAll: "/search/:name/all",
   searchAlbum: "/search/:name/album",

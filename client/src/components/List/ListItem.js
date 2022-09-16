@@ -23,7 +23,7 @@ const ListItem = ({ albums = [], typee, selectType, sort }) => {
   });
   return (
     <div className={cx("content")}>
-      {type === undefined ? (
+      {type === undefined && typee !== "Album" ? (
         <>
           <div className={cx("top-list")}>
             <div className={cx("top-list-left")}>

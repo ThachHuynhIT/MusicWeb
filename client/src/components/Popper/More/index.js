@@ -14,7 +14,7 @@ import * as PlayListService from "../../../service/playListService";
 import * as UserServices from "../../../service/userService";
 const cx = classNames.bind(styles);
 
-function More({ playList_id, changePlaylist, getPlayListId, setFocus }) {
+function More({ playList, changePlaylist, getPlayListId, setFocus }) {
   const [showList, setShowList] = useState(false);
 
   const isAuthenticated = UserServices.isLog();
@@ -31,7 +31,7 @@ function More({ playList_id, changePlaylist, getPlayListId, setFocus }) {
     changePlaylist(response);
   };
   const removeClick = () => {
-    removePlayList(playList_id);
+    removePlayList(playList._id);
 
     const timerLoading = setTimeout(() => {
       clearTimeout(timerLoading);
@@ -53,10 +53,10 @@ function More({ playList_id, changePlaylist, getPlayListId, setFocus }) {
             onClick={() => {
               setShowList(false);
               setFocus(2);
-              getPlayListId(playList_id);
+              getPlayListId(playList);
             }}
           >
-            Đổi tên
+            Sửa đổi
           </li>
         </ul>
       </Wrapper>

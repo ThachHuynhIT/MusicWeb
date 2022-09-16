@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 
 import Album from "../pages/Album";
 import AllAlbum from "../pages/AllAlbum";
+import AllSinger from "../pages/AllSinger";
 
 import SearchAll from "../pages/SearchAll";
 import SearchSong from "../pages/SearchSong";
@@ -25,6 +26,7 @@ const PublicRoutes = [{ path: config.home, component: Home }];
 const PrivateRoutes = [
   { path: config.album, component: Album },
   { path: config.allAlbum, component: AllAlbum },
+  { path: config.allSinger, component: AllSinger },
   { path: config.playList, component: PlayList },
 
   { path: config.searchAll, component: SearchAll },

@@ -74,7 +74,6 @@ export const updateInfo = async (params) => {
       `api/user/update-user/${tokenUser}`,
       params
     );
-
     return res;
   } catch (error) {
     console.log(error);

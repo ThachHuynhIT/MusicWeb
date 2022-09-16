@@ -7,7 +7,7 @@ import ReactDOM from "react-dom";
 import { useState } from "react";
 
 const cx = classNames.bind(styles);
-const ListSinger = ({ singers = [] }) => {
+const ListSinger = ({ singers = [], sort, content }) => {
   const singerTags = singers.map((singer, index) => {
     return <Item singer={singer} key={index} index={index} />;
   });
@@ -15,14 +15,20 @@ const ListSinger = ({ singers = [] }) => {
     <div className={cx("content")}>
       <div className={cx("top-list")}>
         <div className={cx("top-list-left")}>
-          <h2 className={cx("titel-list", "titel-type")}>Nghệ sĩ nổi bật</h2>
+          <h2 className={cx("titel-list", "titel-type")}>{content}</h2>
         </div>
-        <a className={cx("top-list-right")} href={"/"}>
-          <span className={cx("more-list")}>Xem tất cả</span>
-        </a>
+        {sort === undefined ? (
+          <>
+            <Link className={cx("top-list-right")} to="/singer">
+              <span className={cx("more-list")}>Xem tất cả</span>
+            </Link>
+          </>
+        ) : (
+          <></>
+        )}
       </div>
 
-      <div className={cx("list", "sort")}>{singerTags}</div>
+      <div className={cx("list", "sort", sort)}>{singerTags}</div>
     </div>
   );
 };

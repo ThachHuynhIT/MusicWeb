@@ -43,9 +43,16 @@ const SongItem = ({
 
   useEffect(() => {
     const fetchApi = async () => {
-      const response = await songsService.getSongsFromAlbum(song.album);
+      const songsFromAlbum = await songsService.getSongsFromAlbum(song.album);
+      const songsFromSinger = await songsService.getSongsFromSinger(
+        song.singer
+      );
 
-      setSongsList(response);
+      if (songsFromAlbum.length <= 0) {
+        setSongsList(songsFromSinger);
+      } else {
+        setSongsList(songsFromAlbum);
+      }
     };
     fetchApi();
   }, []);
@@ -78,13 +85,14 @@ const SongItem = ({
 
   const handleClick = () => {
     if (type === true) {
-      savePlay();
+      // savePlay();
       selectSong(song);
+
       selectSongByAlbum(selectedUserList);
 
       dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
     } else {
-      savePlay();
+      // savePlay();
       selectSong(song);
       selectSongByAlbum(songsList);
 
@@ -118,11 +126,19 @@ const SongItem = ({
     } else {
       return (
         <div>
-          <img
-            src={song.links.images[1].url}
-            alt={song.name}
-            className={cx("icon-img")}
-          />
+          {song.links === undefined ? (
+            <>
+              <img src={song.img} alt={song.name} className={cx("icon-img")} />
+            </>
+          ) : (
+            <>
+              <img
+                src={song.links.images[1].url}
+                alt={song.name}
+                className={cx("icon-img")}
+              />
+            </>
+          )}
         </div>
       );
     }

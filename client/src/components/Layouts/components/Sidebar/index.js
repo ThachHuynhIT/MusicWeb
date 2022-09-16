@@ -19,7 +19,7 @@ import Message from "../../../Message";
 import { connect } from "react-redux";
 import { Link, useNavigate, NavLink } from "react-router-dom";
 const cx = classNames.bind(styles);
-function Sidebar({ setFocus, changePlaylist, userPlaylist }) {
+function Sidebar({ setFocus, changePlaylist, userPlaylist, getPlayListId }) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(false);
@@ -31,9 +31,9 @@ function Sidebar({ setFocus, changePlaylist, userPlaylist }) {
     changePlaylist(response);
   };
   //remove
-  const removePlayList = async (e) => {
-    const response = await PlayListService.removePlayList(e);
-  };
+  // const removePlayList = async (e) => {
+  //   const response = await PlayListService.removePlayList(e);
+  // };
 
   const ListTag = userPlaylist.map((playList) => {
     if (isAuthenticated === true || userPlaylist.leght > 0) {
@@ -49,7 +49,7 @@ function Sidebar({ setFocus, changePlaylist, userPlaylist }) {
               </li>
             </NavLink>
             <form className={cx("icon-delete")}>
-              <More playList_id={playList._id} />
+              <More playList={playList} />
             </form>
           </div>
         </>

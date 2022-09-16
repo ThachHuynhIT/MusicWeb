@@ -13,28 +13,30 @@ import { Link, useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 function UserSlider() {
-  const [user, setUser] = useState({
-    img: "",
-  });
+  const url = "http://localhost:8989/img/";
+  const [img, setImg] = useState();
   useEffect(() => {
     const fetchApi = async () => {
       const res = await UserServices.isAuthen();
 
-      setUser({
-        username: res.user.img,
-      });
+      setImg(res.user.img);
     };
     fetchApi();
   }, []);
+
   return (
     <div className={cx("wrapper")}>
       <div className={cx("slider")}>
         <div class={cx("admin-user-item")}>
           <div class={cx("image")}>
             <center>
-              {user.img != undefined ? (
+              {img !== undefined ? (
                 <>
-                  <img class="img-circle autofit2" src={user.img} alt="image" />
+                  <img
+                    class="img-circle autofit2"
+                    src={url + img}
+                    alt="image"
+                  />
                 </>
               ) : (
                 <>

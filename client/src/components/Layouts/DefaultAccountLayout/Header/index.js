@@ -5,9 +5,21 @@ import { faHome, faKey, faSignOut } from "@fortawesome/free-solid-svg-icons";
 import images from "../../../../assect/images";
 import Menu from "../../../Popper/Menu";
 import { Link } from "react-router-dom";
+import * as UserServices from "../../../../service/userService";
+import { useEffect, useState } from "react";
 const cx = classNames.bind(styles);
 
 function UserHeader() {
+  const url = "http://localhost:8989/img/";
+  const [img, setImg] = useState();
+  useEffect(() => {
+    const fetchApi = async () => {
+      const res = await UserServices.isAuthen();
+
+      setImg(res.user.img);
+    };
+    fetchApi();
+  }, []);
   return (
     <header className={cx("container", "wrapper")}>
       <div className={cx("logo")}>
@@ -17,11 +29,21 @@ function UserHeader() {
       </div>
       <div className={cx("account")}>
         <Menu>
-          <img
-            className={cx("user-avatar")}
-            src="https://files.fullstack.edu.vn/f8-prod/user_avatars/1/623d4b2d95cec.png"
-            alt="Nguyen Van A"
-          />
+          <center>
+            {img !== undefined ? (
+              <>
+                <img class={cx("user-avatar")} src={url + img} alt="image" />
+              </>
+            ) : (
+              <>
+                <img
+                  class="img-circle autofit2"
+                  src="https://i.scdn.co/image/ab6761610000e5ebc02d416c309a68b04dc94576"
+                  alt="image"
+                />
+              </>
+            )}
+          </center>
         </Menu>
       </div>
     </header>

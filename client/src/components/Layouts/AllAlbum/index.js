@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as albumsSrevice from "../../../service/albumsSevrice";
-import ReactDOM from "react-dom";
 import classNames from "classnames/bind";
 import styles from "./AllAlbum.module.scss";
-import List from "../../List";
-import ListSinger from "../../ListSinger";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams } from "react-router-dom";
 import ListItem from "../../List/ListItem";
 

@@ -9,7 +9,7 @@ module.exports = async function (req, res, next) {
   const name = req.body.name;
   if (req.file) {
     const filename = await fileUpload.save(req.file.buffer);
-    const img = path.join(process.env.LOCAL_STATIC_STORE + filename);
+    const img = path.join(filename);
     Playlist.updateOne({ _id: req.params.playlistId }, { img: img, name: name })
       .then(res.status(200).json({ url: img, name: name }))
       .catch(next);

@@ -42,11 +42,19 @@ const Item = ({ song, index, selectSong, selectedSongPlay, playerState }) => {
     } else {
       return (
         <div>
-          <img
-            src={song.links.images[1].url}
-            alt={song.name}
-            className={cx("icon-img")}
-          />
+          {song.links === undefined ? (
+            <>
+              <img src={song.img} alt={song.name} className={cx("icon-img")} />
+            </>
+          ) : (
+            <>
+              <img
+                src={song.links.images[1].url}
+                alt={song.name}
+                className={cx("icon-img")}
+              />
+            </>
+          )}
         </div>
       );
     }

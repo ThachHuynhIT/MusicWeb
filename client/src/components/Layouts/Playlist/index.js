@@ -19,13 +19,13 @@ function PlayListLayout({
   getPlayListId,
   selectedUserList,
 }) {
+  const url = "http://localhost:8989/img/";
   const [songsList, setSongsList] = useState([]);
-
+  const [playList, setPlayList] = useState([]);
   const { playlist_id } = useParams();
-  const { playlist_name } = useParams();
+  // const { playlist_name } = useParams();
   const debouncedValue = useDebounce(playlist_id, 30);
 
-  console.log(songsList);
   useEffect(() => {
     if (!debouncedValue.trim()) {
       setSongsList([]);
@@ -40,20 +40,45 @@ function PlayListLayout({
     fetchApi();
   }, [debouncedValue]);
 
+  useEffect(() => {
+    if (!debouncedValue.trim()) {
+      setPlayList([]);
+      return;
+    }
+    const fetchApi = async () => {
+      const response = await PlayListService.getPlayList();
+
+      for (let i = 0; i <= response.length; i++) {
+        if (debouncedValue === response[i]._id) {
+          return setPlayList(response[i]);
+        }
+      }
+    };
+    fetchApi();
+  }, [debouncedValue]);
+
   return (
     <React.Fragment>
       <div className={cx("main-view-container", "scroll")}>
         <div className={cx("header-container")}>
           <div className={cx("left-top")}>
-            <img src="https://media.proprofs.com/images/QM/user_images/2734691/1589295044.gif"></img>
+            {playList.img === undefined ? (
+              <>
+                <img src="https://media.proprofs.com/images/QM/user_images/2734691/1589295044.gif"></img>
+              </>
+            ) : (
+              <>
+                <img src={url + playList.img}></img>
+              </>
+            )}
           </div>
           <div className={cx("right-top")}>
             <h4>PLAYLIST</h4>
-            <span>{playlist_name} </span>
+            <span>{playList.name} </span>
             <span> </span>
           </div>
         </div>
-        <div className={cx("container")}>
+        <div className={cx("container", "scroll")}>
           {songsList === undefined ? (
             <>
               <span>Danh sách trống</span>

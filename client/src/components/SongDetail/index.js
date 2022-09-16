@@ -14,7 +14,10 @@ const SongDetail = ({ selectedAlbumId, playerState, selectedSongPlay }) => {
   const dispatch = useDispatch();
 
   const playImg = () => {
-    if (playerState === 1 && selectedAlbumId.name === selectedSongPlay.album) {
+    if (
+      (playerState === 1 && selectedAlbumId.name === selectedSongPlay.album) ||
+      selectedAlbumId.name === selectedSongPlay.singer
+    ) {
       return (
         <div className={cx("album-img")}>
           <img
@@ -39,7 +42,6 @@ const SongDetail = ({ selectedAlbumId, playerState, selectedSongPlay }) => {
 
   return (
     <div className={cx("song-detail")}>
-      {/* {phaser()} */}
       {playImg()}
       <div className={cx("artist-img")}>
         <div className={cx("header", "pad")}>{selectedAlbumId.name}</div>
