@@ -48,7 +48,9 @@ const DefaultLayout = ({
         <nav className={cx("nav-list")}>
           {value === false || selectedSongList === 0 ? (
             <>
-              <img src="https://png.pngtree.com/thumb_back/fw800/back_our/20190620/ourmid/pngtree-music-carnival-poster-picture-promotion-image_165139.jpg"></img>
+              <div className={cx("apict")}>
+                <img src="https://png.pngtree.com/thumb_back/fw800/back_our/20190620/ourmid/pngtree-music-carnival-poster-picture-promotion-image_165139.jpg"></img>
+              </div>
             </>
           ) : (
             <>
