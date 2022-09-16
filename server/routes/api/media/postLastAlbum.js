@@ -3,26 +3,56 @@ const Song = require("../../../models/Song");
 
 module.exports = (req, res, next) => {
   const id = req.params.userId;
-  const lastAlbum = req.body.albumName;
   const lastSong = req.body.songId;
 
+  const lastPlaylist = req.body.playlistId;
+  const lastSinger = req.body.singerId;
+  const lastAlbum = req.body.albumId;
+  var err = false;
+
   if (id) {
-    User.updateOne({ _id: id }, { lastAlbum: lastAlbum, lastSong: lastSong })
-      .then(() => {
-        Song.findById({ _id: lastSong }).then((song) => {
-          if (song.views) {
-            song.views = song.views + 1;
-            song.save();
-            console.log(song);
-          } else {
-            song.views = 1;
-            song.save();
-          }
-        });
-        res.send("Thành công");
-      })
-      .catch(res.status(400));
+    if (lastAlbum) {
+      const typeList = "Album";
+      User.updateOne(
+        { _id: id },
+        { lastList: lastAlbum, typeList: typeList, lastSong: lastSong }
+      )
+        .then(next)
+        .catch(res.status(400));
+    } else if (lastPlaylist) {
+      const typeList = "Playlist";
+      User.updateOne(
+        { _id: id },
+        { lasList: lastPlaylist, typeList: typeList, lastSong: lastSong }
+      )
+        .then(next)
+        .catch(res.status(400));
+    } else if (lastSinger) {
+      const typeList = "Singer";
+      User.updateOne(
+        { _id: id },
+        { lasList: lastSinger, typeList: typeList, lastSong: lastSong }
+      )
+        .then(next)
+        .catch(res.status(400));
+    } else {
+      err = true;
+      // console.log(err);
+    }
+
+    Song.findById({ _id: lastSong }).then((song) => {
+      if (song.views) {
+        song.views = song.views + 1;
+        song.save();
+        console.log(song);
+      } else {
+        song.views = 1;
+        song.save();
+      }
+      res.status(200).json("Thành công");
+    });
+
   } else {
-    return res.json({ lastAlbum, id });
+    res.status(400).json("Lỗi");
   }
 };
