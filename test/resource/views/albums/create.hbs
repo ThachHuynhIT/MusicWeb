@@ -6,8 +6,13 @@
       <input type="text" class="form-control" id="name" name="name" />
     </div>
     <div class="mb-3">
-      <label for="singer" class="form-label">Tên ca sĩ</label>
-      <input type="text" class="form-control" id="singer" name="singer" />
+      <label for="type" class="form-label">Ca sĩ</label>
+      <select class="form-select" aria-label="Default select example" required>
+        <option value="">Chọn ca sĩ</option>
+        {{#each singer}}
+          <option value="{{this.name}}">{{this.name}}</option>
+        {{/each}}
+      </select>
     </div>
     <div class="mb-3">
       <label for="type" class="form-label">Thể loại</label>

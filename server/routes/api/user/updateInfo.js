@@ -15,20 +15,20 @@ module.exports = async function (req, res, next) {
 
   if (req.file) {
     const filename = await fileUpload.save(req.file.buffer);
-    const img = path.join(filename);
+
     User.updateOne(
       { _id: userId },
-      { email, name, gender, dateOfBirth, nation, img: img }
+      { email, name, gender, dateOfBirth, nation, img: filename }
     )
-
-      .then(res.send("Oke"))
+      .then(res.send("Thành công"))
       .catch(next);
   } else {
     User.updateOne(
       { _id: userId },
       { email, name, dateOfBirth, gender, nation }
     )
-      .then(res.send("Okela"))
+
+      .then(res.send("Thành công"))
 
       .catch(next);
   }

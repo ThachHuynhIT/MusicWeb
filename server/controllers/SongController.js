@@ -57,6 +57,13 @@ class SongController {
       .catch(next);
   }
 
+  update(req, res, next) {
+    
+    Song.updateOne({ _id: req.params.id }, req.body)
+      .then(() => res.redirect("/admin/song"))
+      .catch(next);
+  }
+
   // [DELETE] /song/:id
   destroy(req, res, next) {
     Song.delete({ _id: req.params.id })

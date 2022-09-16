@@ -7,15 +7,20 @@ module.exports = async function (req, res, next) {
   const imagePath = path.join("test/public/img");
   const fileUpload = new Resize(imagePath);
   const name = req.body.name;
+
   if (req.file) {
     const filename = await fileUpload.save(req.file.buffer);
-    const img = path.join(filename);
-    Playlist.updateOne({ _id: req.params.playlistId }, { img: img, name: name })
-      .then(res.status(200).json({ url: img, name: name }))
+    Playlist.updateOne(
+      { _id: req.params.playlistId },
+      { img: filename, name: name }
+    )
+      .then(res.status(200).json("Thành công"))
       .catch(next);
   } else {
     Playlist.updateOne({ _id: req.params.playlistId }, { name: name })
-      .then(res.status(200).json({ name: name }))
+      .then(res.status(200).json("Thành công"))
       .catch(next);
   }
+    
+
 };

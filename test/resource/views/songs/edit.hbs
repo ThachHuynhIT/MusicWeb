@@ -11,6 +11,16 @@
         name="name"
       />
     </div>
+     <div class="mb-3">
+      <label for="singer" class="form-label">Link</label>
+      <input
+        type="text"
+        class="form-control"
+        value="{{song.url}}"
+        id="url"
+        name="url"
+      />
+    </div>
     <div class="mb-3">
       <label for="singer" class="form-label">Tên ca sĩ</label>
       <input
@@ -32,7 +42,7 @@
       />
     </div>
     <div class="mb-3">
-      <label for="type" class="form-label">Hình ảnh</label>
+      <label for="img" class="form-label">Hình ảnh</label>
       <input
         type="text"
         class="form-control"
@@ -48,6 +58,16 @@
         id="description"
         name="description"
       >{{song.description}}</textarea>
+    </div>
+   <div class="mb-3">
+      <label for="type" class="form-label">Lượt xem</label>
+      <input
+        type="text"
+        class="form-control"
+        value="{{song.views}}"
+        id="views"
+        name="views"
+      />
     </div>
     <button type="submit" class="btn btn-primary">Lưu</button>
   </form>
