@@ -20,10 +20,7 @@ const Item = ({ singer, index, selectAlbum, selectedAlbumId, playerState }) => {
         <div className={cx("card")}>
           <div className={cx("card-top")}>
             <div className={cx("img-card")}>
-              <img
-                className={cx("img", "img-type-1")}
-                src="https://seed-mix-image.spotifycdn.com/v6/img/artist/57g2v7gJZepcwsuwssIfZs/vi/default"
-              ></img>
+              <img className={cx("img", "img-type-1")} src={singer.img}></img>
               <form class={cx("hover-player")}>
                 <div class={cx("hover-player-a")}>
                   <button class={cx("player-btn")}>
@@ -43,7 +40,7 @@ const Item = ({ singer, index, selectAlbum, selectedAlbumId, playerState }) => {
           <div className={cx("card-bottom")}>
             <Link
               className={cx("card-name")}
-              to={`/album/${singer._id}`}
+              to={`/album/${singer.name}`}
               onClick={() => {
                 selectAlbum(singer);
               }}
@@ -51,7 +48,9 @@ const Item = ({ singer, index, selectAlbum, selectedAlbumId, playerState }) => {
               <div className={cx("name", "name-text")}>{singer.name}</div>
             </Link>
             <div className={cx("card-type")}>
-              <span className={cx("type", "type-text")}>Album</span>
+              <span className={cx("type", "type-text")}>
+                {singer.description}
+              </span>
             </div>
           </div>
         </div>

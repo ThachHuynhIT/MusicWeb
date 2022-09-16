@@ -17,3 +17,12 @@ export const getAlbumType = async (type, page) => {
     console.log(error);
   }
 };
+export const getSingerAlbum = async (page) => {
+  try {
+    const res = await httpRequests.get(`api/media/get-singer/${page}`);
+
+    return res.singer;
+  } catch (error) {
+    console.log(error);
+  }
+};
