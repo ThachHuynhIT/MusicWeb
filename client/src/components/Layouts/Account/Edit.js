@@ -72,10 +72,10 @@ function EditLayout() {
       clearTimeout(timerLoading);
 
       window.location.reload();
-    }, 2000);
+    }, 2001);
     const timerLoading = setTimeout(() => {
       clearTimeout(timerLoading);
-      navigate("/accout/infor");
+      navigate("/account/infor");
     }, 2000);
   };
 

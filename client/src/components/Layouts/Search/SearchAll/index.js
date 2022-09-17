@@ -8,6 +8,7 @@ import * as searchApi from "../../../../service/searchSrevice";
 import classNames from "classnames/bind";
 import styles from "./Style.module.scss";
 import { useParams } from "react-router-dom";
+
 import { useDebounce } from "../../../../hooks";
 import HeaderBar from "../component/HeaderBar";
 
@@ -17,19 +18,22 @@ function SearchAllLayout() {
   const { name } = useParams();
   const [searchResultSong, setSearchResultSong] = useState([]);
   const [searchResultAlbum, setSearchResultAlbum] = useState([]);
+  const [searchResultSinger, setSearchResultSinger] = useState([]);
   const debouncedValue = useDebounce(name, 10);
   useEffect(() => {
     if (!debouncedValue.trim()) {
       setSearchResultSong([]);
       setSearchResultAlbum([]);
+      setSearchResultSinger([]);
       return;
     }
 
     const fetchApi = async () => {
       const result = await searchApi.search(debouncedValue);
-
+      console.log(result);
       setSearchResultSong(result.song);
       setSearchResultAlbum(result.album);
+      setSearchResultSinger(result.singer);
     };
 
     fetchApi();
@@ -51,7 +55,13 @@ function SearchAllLayout() {
         <>
           <section className={cx("list-item")}>
             <ListItem albums={searchResultAlbum} typee={"Album"} />
-            {/* <ListSinger singers={albumsList} /> */}
+          </section>
+          <section className={cx("list-item")}>
+            <ListSinger
+              singers={searchResultSinger}
+              content="Nghệ sĩ"
+              sort="none"
+            />
           </section>
         </>
       )}
