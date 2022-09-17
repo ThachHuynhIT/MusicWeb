@@ -6,9 +6,8 @@ module.exports = (req, res, next) => {
   const lastSong = req.body.songId;
 
   const lastPlaylist = req.body.playlistId;
-  const lastSinger = req.body.singerId;
-  const lastAlbum = req.body.albumId;
-  var err = false;
+  const lastSinger = req.body.singerName;
+  const lastAlbum = req.body.albumName;
 
   if (id) {
     if (lastAlbum) {
@@ -16,37 +15,37 @@ module.exports = (req, res, next) => {
       User.updateOne(
         { _id: id },
         { lastList: lastAlbum, typeList: typeList, lastSong: lastSong }
-      ).then(next);
+      )
+        .then(next)
+        .catch(next);
     } else if (lastPlaylist) {
       const typeList = "Playlist";
       User.updateOne(
         { _id: id },
-        { lasList: lastPlaylist, typeList: typeList, lastSong: lastSong }
+        { lastList: lastPlaylist, typeList: typeList, lastSong: lastSong }
       ).then(next);
     } else if (lastSinger) {
       const typeList = "Singer";
       User.updateOne(
         { _id: id },
-        { lasList: lastSinger, typeList: typeList, lastSong: lastSong }
+        { lastList: lastSinger, typeList: typeList, lastSong: lastSong }
       ).then(next);
     } else {
-      User.updateOne(
-        { _id: id },
-        { lastSong: lastSong }
-      ).then(next);
+      User.updateOne({ _id: id }, { lastSong: lastSong }).then(next);
     }
 
-    
-    Song.findById({ _id: lastSong }).then((song) => {
-      if (song.views) {
-        song.views = song.views + 1;
-        song.save();
-      } else {
-        song.views = 1;
-        song.save();
-      }
-      res.status(200).json("Thành công"); 
-    }).catch(next);
+    Song.findById({ _id: lastSong })
+      .then((song) => {
+        if (song.views) {
+          song.views = song.views + 1;
+          song.save();
+        } else {
+          song.views = 1;
+          song.save();
+        }
+        res.status(200).json("Thành công");
+      })
+      .catch(next);
   } else {
     res.status(400).json("Lỗi");
   }
