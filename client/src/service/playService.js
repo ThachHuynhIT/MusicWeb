@@ -5,11 +5,11 @@ export const saveAlbum = async (list) => {
   const userId = Cookies.get("userId");
 
   try {
-    const res = await httpRequests.post(
+    const res = await httpRequests.put(
       `api/media/post-last-album/${userId}`,
       list
     );
-    return res.data;
+    return res;
   } catch (error) {
     if (error.code === "ERR_NETWORK") {
       return { message: error.message, isSuccess: false };

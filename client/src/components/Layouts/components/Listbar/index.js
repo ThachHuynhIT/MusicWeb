@@ -9,7 +9,8 @@ import { selectSongByAlbum, selectListPlayer } from "../../../../actions";
 
 const cx = classNames.bind(styles);
 
-const Listbar = ({ selectedSongList }) => {
+const Listbar = ({ selectedSongList, selectedType }) => {
+  console.log(selectedType);
   const songTags = selectedSongList.map((song, index) => {
     if (selectedSongList === 0) {
       <></>;
@@ -33,6 +34,7 @@ const mapStateToProps = (state) => {
   return {
     selectedSongList: state.selectedSongList,
     selectedSongPlay: state.selectedSongPlay,
+    selectedType: state.selectedType,
   };
 };
 

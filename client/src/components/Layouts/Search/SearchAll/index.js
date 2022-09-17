@@ -30,7 +30,7 @@ function SearchAllLayout() {
 
     const fetchApi = async () => {
       const result = await searchApi.search(debouncedValue);
-      console.log(result);
+
       setSearchResultSong(result.song);
       setSearchResultAlbum(result.album);
       setSearchResultSinger(result.singer);
@@ -45,7 +45,7 @@ function SearchAllLayout() {
       <div className={cx("container")}>
         <h3 className={cx("title")}>Bài hát</h3>
         <div className={cx("content")}>
-          <SongList songs={searchResultSong} />
+          <SongList songs={searchResultSong} typeSave="album" />
         </div>
       </div>
 
@@ -56,6 +56,13 @@ function SearchAllLayout() {
           <section className={cx("list-item")}>
             <ListItem albums={searchResultAlbum} typee={"Album"} />
           </section>
+        </>
+      )}
+
+      {searchResultSinger.length <= 0 ? (
+        <></>
+      ) : (
+        <>
           <section className={cx("list-item")}>
             <ListSinger
               singers={searchResultSinger}

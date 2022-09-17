@@ -49,7 +49,7 @@ router.post("/login", (req, res, next) => {
         .send({ userId: id, isAuthen: true, access_token: token });
     })
     .catch((err) => next(err));
-}); 
+});
 
 router.post("/signup", (req, res, next) => {
   const { username } = req.body;
@@ -108,6 +108,5 @@ router.get("/authen/:token", (req, res) => {
 
 router.put("/update-user/:token", upload.single("image"), updateInfo);
 router.put("/change-password/:token", changePassword);
-
 
 module.exports = router;

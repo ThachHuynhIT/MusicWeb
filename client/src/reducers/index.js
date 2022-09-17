@@ -1,7 +1,5 @@
 import { combineReducers } from "redux";
 
-import albums from "../data/albums.json";
-
 //songsReducer
 
 const selectedSongPlayReducer = (selectedSongPlay = 0, action) => {
@@ -58,13 +56,6 @@ const selectedSongListReducer = (selectedSongList = [], action) => {
   return selectedSongList;
 };
 
-// const chooseAlbumReducer = (chooseAlbum = 0, action) => {
-//   if (action.type === "CHOOSE_ALBUM") {
-//     return action.payload;
-//   }
-
-//   return chooseAlbum;
-// };
 const typeAlbumReducer = (type = [], action) => {
   if (action.type === "TYPE_SELECTED") {
     return action.payload;
@@ -134,6 +125,13 @@ const selectedUserPlayListReduct = (selectedUserList = [], action) => {
   }
   return selectedUserList;
 };
+//saveSong
+const selectedTypeSaveReducer = (selectedType = 0, action) => {
+  if (action.type === "SELECTED_TYPE_SAVE") {
+    return action.payload;
+  }
+  return selectedType;
+};
 
 export default combineReducers({
   selectedSongList: selectedSongListReducer,
@@ -157,4 +155,6 @@ export default combineReducers({
   songAdd: addSong,
   playlistId: getPlaylistId,
   selectedUserList: selectedUserPlayListReduct,
+
+  selectedType: selectedTypeSaveReducer,
 });

@@ -34,7 +34,7 @@ function List({ changePlaylist, userPlaylist, songAdd }) {
         setShowList(false);
       }, 100);
     };
-    console.log(playList);
+
     if (isAuthenticated === true) {
       return (
         <li className={cx("menu-item")} onClick={addClick}>

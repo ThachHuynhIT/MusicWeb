@@ -166,3 +166,10 @@ export const selectedUserPlayList = (val) => {
     payload: val,
   };
 };
+//saveSong
+export const selectedTypeSave = (type) => {
+  return {
+    type: "SELECTED_TYPE_SAVE",
+    payload: type,
+  };
+};
