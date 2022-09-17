@@ -30,21 +30,23 @@ module.exports = (req, res, next) => {
         { lasList: lastSinger, typeList: typeList, lastSong: lastSong }
       ).then(next);
     } else {
-      err = true;
-      // console.log(err);
+      User.updateOne(
+        { _id: id },
+        { lastSong: lastSong }
+      ).then(next);
     }
 
+    
     Song.findById({ _id: lastSong }).then((song) => {
       if (song.views) {
         song.views = song.views + 1;
         song.save();
-        console.log(song);
       } else {
         song.views = 1;
         song.save();
       }
-      res.status(200).json("Thành công");
-    });
+      res.status(200).json("Thành công"); 
+    }).catch(next);
   } else {
     res.status(400).json("Lỗi");
   }
