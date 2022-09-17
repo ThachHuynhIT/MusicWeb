@@ -14,6 +14,7 @@ function HomeLayout() {
   const [albumsList, setAlbumsList] = useState([]);
   const [singerList, setSingerList] = useState([]);
   const [typeAlbum, setTypeAlbum] = useState([]);
+  console.log(singerList);
   useEffect(() => {
     const fetchApi = async () => {
       const response = await albumsSrevice.getAllAlbum(0);

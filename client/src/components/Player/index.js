@@ -153,6 +153,37 @@ const Player = ({
     }
   };
 
+  function formatTime(sec_num) {
+    let hours = Math.floor(sec_num / 3600);
+    let minutes = Math.floor((sec_num - hours * 3600) / 60);
+    let seconds = Math.floor(sec_num - hours * 3600 - minutes * 60);
+
+    hours = hours < 10 ? (hours > 0 ? "0" + hours : 0) : hours;
+
+    if (minutes < 10) {
+      minutes = "0" + minutes;
+    }
+    if (seconds < 10) {
+      seconds = "0" + seconds;
+    }
+    return (hours !== 0 ? hours + ":" : "") + minutes + ":" + seconds;
+  }
+
+  const showTime = () => {
+    if (duration !== undefined) {
+      return formatTime(duration);
+    } else {
+      return <div>00:00</div>;
+    }
+  };
+  const showCurrentTime = () => {
+    if (currentLocation !== undefined) {
+      return formatTime(currentLocation);
+    } else {
+      return <div>00:00</div>;
+    }
+  };
+
   return (
     <div id={cx("player")}>
       <div className={cx("player-left")}>
@@ -166,7 +197,7 @@ const Player = ({
         <div className={cx("right-top")}>
           <div
             className={cx("control")}
-            id={shuffled ? `active` : null}
+            id={cx(shuffled === true ? `active` : "")}
             onClick={() => {
               setShuffled(!shuffled);
               setRepeat(false);
@@ -218,7 +249,7 @@ const Player = ({
             </svg>
           </div>
 
-          <div
+          {/* <div
             className={cx("control")}
             id={shuffled ? `active` : null}
             onClick={() => {
@@ -235,19 +266,21 @@ const Player = ({
             >
               <FontAwesomeIcon icon={faRepeat} />
             </svg>
-          </div>
+          </div> */}
           <Progress />
 
           <audio
             id="main-track"
             src={songUrl()}
-            // preload="true"
+            preload="true"
+            controls
             onEnded={nextSong}
             onLoadedMetadata={() => {
               dispatch({
                 type: "SET_DURATION",
                 payload: audioRef.current.duration,
               });
+
               setInterval(() => {
                 dispatch({
                   type: "SET_CURRENT_LOCATION",
@@ -255,12 +288,6 @@ const Player = ({
                 });
               }, 1000);
             }}
-            // onTimeUpdate={() => {
-            //   dispatch({
-            //     type: "SET_TIME",
-            //     payload: audioRef.current.currentTime,
-            //   });
-            // }}
             ref={audioRef}
             hidden
           >
@@ -268,7 +295,9 @@ const Player = ({
             <code>audio</code> element.
           </audio>
         </div>
+
         <div className={cx("right-bottom")}>
+          <div className={cx("current-time")}>{showCurrentTime()}</div>
           <TimeSlider
             axis="x"
             className={cx("completed")}
@@ -276,6 +305,7 @@ const Player = ({
             x={currentLocation}
             onChange={handleTimeSliderChange}
           />
+          <div className={cx("current-time")}>{showTime()}</div>
         </div>
       </div>
     </div>
@@ -286,7 +316,7 @@ const mapStateToProps = (state) => {
   return {
     selectedSongPlay: state.selectedSongPlay,
     selectList: state.selectedSongList,
-    // defaultSong: state.selectedSongList[0],
+
     playerState: state.playerState,
     songs: state.songs,
     volume: state.volume,

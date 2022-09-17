@@ -1,12 +1,13 @@
 import { httpRequests } from "../utils";
-export const search = async (name) => {
+export const search = async (name, page) => {
   try {
     const res = await httpRequests.get("api/media/searchSong", {
       params: {
         name,
+        page,
       },
     });
-    console.log(res);
+
     return res;
   } catch (error) {
     console.log(error);

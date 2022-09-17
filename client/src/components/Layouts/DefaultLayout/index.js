@@ -49,7 +49,11 @@ const DefaultLayout = ({
           {value === false || selectedSongList === 0 ? (
             <>
               <div className={cx("apict")}>
-                <img src="https://png.pngtree.com/thumb_back/fw800/back_our/20190620/ourmid/pngtree-music-carnival-poster-picture-promotion-image_165139.jpg"></img>
+                <img
+                  class={cx("img")}
+                  src="https://cdn1.vectorstock.com/i/thumb-large/67/85/music-party-black-poster-template-with-boombox-vector-24236785.jpg"
+                ></img>
+                <span></span>
               </div>
             </>
           ) : (

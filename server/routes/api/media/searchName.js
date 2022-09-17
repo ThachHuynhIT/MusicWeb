@@ -33,28 +33,28 @@ module.exports = (req, res, next) => {
       .catch(next);
   } else {
     Promise.all([Album.find({}), Song.find({}), Singer.find({})])
-    .then(([album, song, singer]) => {
-      var listAlbum = album.filter((album) => {
-        return (
-          album.name.toLowerCase().indexOf(name_search.toLowerCase()) !== -1
-        );
-      });
-      var listSong = song.filter((song) => {
-        return (
-          song.name.toLowerCase().indexOf(name_search.toLowerCase()) !== -1
-        );
-      });
-      var listSinger = singer.filter((singer) => {
-        return (
-          singer.name.toLowerCase().indexOf(name_search.toLowerCase()) !== -1
-        );
-      });
-      res.send({
-        song: listSong.slice(0,5),
-        album: listAlbum.slice(0,5),
-        singer: listSinger.slice(0,5),
-      });
-    })
-    .catch(next);
+      .then(([album, song, singer]) => {
+        var listAlbum = album.filter((album) => {
+          return (
+            album.name.toLowerCase().indexOf(name_search.toLowerCase()) !== -1
+          );
+        });
+        var listSong = song.filter((song) => {
+          return (
+            song.name.toLowerCase().indexOf(name_search.toLowerCase()) !== -1
+          );
+        });
+        var listSinger = singer.filter((singer) => {
+          return (
+            singer.name.toLowerCase().indexOf(name_search.toLowerCase()) !== -1
+          );
+        });
+        res.send({
+          song: listSong.slice(0, 5),
+          album: listAlbum.slice(0, 5),
+          singer: listSinger.slice(0, 5),
+        });
+      })
+      .catch(next);
   }
 };
