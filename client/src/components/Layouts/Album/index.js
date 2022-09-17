@@ -13,6 +13,7 @@ const cx = classNames.bind(styles);
 
 function AlbumLayout() {
   const [songsList, setSongsList] = useState([]);
+  const [typeList, setTypeList] = useState([]);
   const { id } = useParams();
   useEffect(() => {
     const fetchApi = async () => {
@@ -21,8 +22,10 @@ function AlbumLayout() {
 
       if (songsFromAlbum.length <= 0) {
         setSongsList(songsFromSinger);
+        setTypeList("singer");
       } else {
         setSongsList(songsFromAlbum);
+        setTypeList("album");
       }
     };
     fetchApi();
@@ -38,7 +41,7 @@ function AlbumLayout() {
           </div>
           <div className={cx("view-right", "scroll")}>
             <SongListHeader />
-            <SongList songs={songsList} />
+            <SongList songs={songsList} typeSave={typeList} />
           </div>
         </div>
         <div className={cx("main-view-bottom")}>

@@ -10,30 +10,29 @@ import {
   setFocus,
   addSong,
   selectedUserPlayList,
+  selectedTypeSave,
 } from "../../actions";
 import classNames from "classnames/bind";
 import styles from "./SongItem.module.scss";
 import List from "../Popper/List";
 import * as PlayService from "../../service/playService";
-import * as UserService from "../../service/userService";
-import {
-  faCircle,
-  faHeart,
-  faMinus,
-  faPlus,
-  faSquare,
-  faTractor,
-} from "@fortawesome/free-solid-svg-icons";
+
+import { faMinus } from "@fortawesome/free-solid-svg-icons";
 const cx = classNames.bind(styles);
 
 const SongItem = ({
   song,
   type,
+  typeSave,
+
+  selectedTypeSave,
   selectedSongPlay,
+
   playerState,
+
   selectSong,
   selectSongByAlbum,
-  setFocus,
+
   addSong,
   selectedUserList,
   playlistId,
@@ -68,10 +67,22 @@ const SongItem = ({
   };
 
   const savePlay = async () => {
-    const response = await PlayService.saveAlbum({
-      albumName: song.album,
-      songId: song._id,
-    });
+    if (typeSave === "album") {
+      const response = await PlayService.saveAlbum({
+        albumId: song.album,
+        songId: song._id,
+      });
+    } else if (typeSave === "singer") {
+      const response = await PlayService.saveAlbum({
+        singerId: song.singer,
+        songId: song._id,
+      });
+    } else {
+      const response = await PlayService.saveAlbum({
+        songId: song._id,
+        playlistId: playlistId,
+      });
+    }
   };
 
   const removeClick = () => {
@@ -84,19 +95,16 @@ const SongItem = ({
   };
 
   const handleClick = () => {
+    selectedTypeSave(typeSave);
+    dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
+
+    savePlay();
+
+    selectSong(song);
     if (type === true) {
-      // savePlay();
-      selectSong(song);
-
       selectSongByAlbum(selectedUserList);
-
-      dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
     } else {
-      // savePlay();
-      selectSong(song);
       selectSongByAlbum(songsList);
-
-      dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
     }
   };
 
@@ -185,7 +193,6 @@ const mapStateToProps = (state) => {
     selectedSongPlay: state.selectedSongPlay,
     playerState: state.playerState,
     selectedUserList: state.selectedUserList,
-    playlistId: state.playlistId,
   };
 };
 
@@ -193,7 +200,7 @@ export default connect(mapStateToProps, {
   selectSong,
   selectSongByAlbum,
   setFocus,
-
+  selectedTypeSave,
   addSong,
   selectedUserPlayList,
 })(SongItem);

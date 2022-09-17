@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as albumsSrevice from "../../../service/albumsSevrice";
+import * as LastPlay from "../../../service/playService";
 import ReactDOM from "react-dom";
 import classNames from "classnames/bind";
 import styles from "./Home.module.scss";
@@ -14,6 +15,7 @@ function HomeLayout() {
   const [albumsList, setAlbumsList] = useState([]);
   const [singerList, setSingerList] = useState([]);
   const [typeAlbum, setTypeAlbum] = useState([]);
+
   useEffect(() => {
     const fetchApi = async () => {
       const response = await albumsSrevice.getAllAlbum(0);
@@ -32,7 +34,12 @@ function HomeLayout() {
     };
     fetchApi();
   }, []);
-
+  // useEffect(() => {
+  //   const fetchApi = async () => {
+  //     const response = await LastPlay.getLastPlay();
+  //   };
+  //   fetchApi();
+  // }, []);
   return (
     <div className={cx("main-view-container", "scroll")}>
       <div className={cx("top-padding")}></div>

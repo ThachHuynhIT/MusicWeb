@@ -1,4 +1,3 @@
-import ListSinger from "../../../ListSinger";
 import ListItem from "../../../List/ListItem";
 import { useState, useEffect } from "react";
 import SongList from "../../../SongList";
@@ -24,7 +23,7 @@ function SearchAlbumLayout() {
     }
 
     const fetchApi = async () => {
-      const result = await searchApi.search(debouncedValue);
+      const result = await searchApi.search(debouncedValue, 0);
 
       setSearchResult(result.album);
     };
@@ -43,8 +42,7 @@ function SearchAlbumLayout() {
       ) : (
         <>
           <section className={cx("list-item")}>
-            <ListItem albums={searchResult} typee={"Album"} />
-            {/* <ListSinger singers={albumsList} /> */}
+            <ListItem albums={searchResult} typee={"Album"} sort="sort-row" />
           </section>
         </>
       )}
