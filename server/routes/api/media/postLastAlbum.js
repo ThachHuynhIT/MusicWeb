@@ -31,9 +31,9 @@ module.exports = (req, res, next) => {
       ).then(next);
     } else {
       err = true;
-      // console.log(err);
     }
 
+    
     Song.findById({ _id: lastSong }).then((song) => {
       if (song.views) {
         song.views = song.views + 1;
