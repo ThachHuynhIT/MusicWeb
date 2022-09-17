@@ -64,6 +64,7 @@ module.exports = async function (req, res, next) {
           }
         })
         .catch(next);
+        
     });
   } else {
     return res.status(400).send(userId);
