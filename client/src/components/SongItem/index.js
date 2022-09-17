@@ -101,7 +101,7 @@ const SongItem = ({
       selectSongByAlbum(songsList);
     }
     dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
-    selectedTypeSave(typeSave);
+
     savePlay();
     selectSong(song);
   };

@@ -249,9 +249,9 @@ const Player = ({
             </svg>
           </div>
 
-          {/* <div
+          <div
             className={cx("control")}
-            id={shuffled ? `active` : null}
+            id={cx(repeat === true ? `active` : "")}
             onClick={() => {
               setShuffled(false);
               setRepeat(!repeat);
@@ -264,15 +264,16 @@ const Player = ({
               viewBox="0 0 16 16"
               className=""
             >
-              <FontAwesomeIcon icon={faRepeat} />
+              <FontAwesomeIcon icon={faRepeat} className={cx("reicon")} />
             </svg>
-          </div> */}
+          </div>
           <Progress />
 
           <audio
             id="main-track"
             src={songUrl()}
-            preload="true"
+            preload
+            loop={repeat}
             controls
             onEnded={nextSong}
             onLoadedMetadata={() => {
