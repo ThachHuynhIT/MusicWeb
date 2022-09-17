@@ -30,7 +30,10 @@ module.exports = (req, res, next) => {
         { lasList: lastSinger, typeList: typeList, lastSong: lastSong }
       ).then(next);
     } else {
-      err = true;
+      User.updateOne(
+        { _id: id },
+        { lastSong: lastSong }
+      ).then(next);
     }
 
     
@@ -38,13 +41,12 @@ module.exports = (req, res, next) => {
       if (song.views) {
         song.views = song.views + 1;
         song.save();
-        console.log(song);
       } else {
         song.views = 1;
         song.save();
       }
-      res.status(200).json("Thành công");
-    });
+      res.status(200).json("Thành công"); 
+    }).catch(next);
   } else {
     res.status(400).json("Lỗi");
   }

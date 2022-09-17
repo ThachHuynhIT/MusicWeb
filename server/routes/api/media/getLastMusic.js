@@ -53,7 +53,7 @@ module.exports = async function (req, res, next) {
                 console.log(playList);
                 var arr = playlist[0].songList;
                 const t = { _id: { $in: arr } };
-                Song.f  ind(t).then((songL) => {
+                Song.find(t).then((songL) => {
                   res.send({
                     song: lastSong,
                     songLists: songL,
