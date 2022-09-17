@@ -10,7 +10,6 @@ const cx = classNames.bind(styles);
 
 const Item = ({
   song,
-  typeSave,
 
   selectSong,
   selectedSongPlay,
@@ -20,10 +19,9 @@ const Item = ({
   const dispatch = useDispatch();
 
   const savePlay = async () => {
-    // const response = await PlayService.saveAlbum({
-    //   albumName: song.album,
-    //   songId: song._id,
-    // });
+    const response = await PlayService.saveAlbum({
+      songId: song._id,
+    });
   };
   const handleClick = () => {
     savePlay();

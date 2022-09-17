@@ -20,6 +20,11 @@ svg {
 #active > svg {
   color: #38bdf8;
 }
+#active {
+  .reicon {
+    color: #38bdf8;
+  }
+}
 i.fas.fa-play-circle,
 i.fas.fa-pause-circle {
   font-size: 1.9rem;

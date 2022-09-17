@@ -5,7 +5,7 @@ export const saveAlbum = async (list) => {
   const userId = Cookies.get("userId");
 
   try {
-    const res = await httpRequests.put(
+    const res = await httpRequests.post(
       `api/media/post-last-album/${userId}`,
       list
     );

@@ -14,7 +14,9 @@ const cx = classNames.bind(styles);
 function AlbumLayout() {
   const [songsList, setSongsList] = useState([]);
   const [typeList, setTypeList] = useState([]);
+  const [idSave, setIdSave] = useState([]);
   const { id } = useParams();
+  console.log(id);
   useEffect(() => {
     const fetchApi = async () => {
       const songsFromAlbum = await songsService.getSongsFromAlbum(id);
