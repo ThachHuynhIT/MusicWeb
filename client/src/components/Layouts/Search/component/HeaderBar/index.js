@@ -53,7 +53,7 @@ const HeaderBar = () => {
               ALBUM
             </div>
           </Link>
-          <Link to={`/search/${name}/song`}>
+          <Link to={`/search/${name}/singer`}>
             <div class={cx("tab-item")}>NGHỆ SĨ</div>
           </Link>
         </div>

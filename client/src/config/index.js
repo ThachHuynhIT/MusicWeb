@@ -8,6 +8,7 @@ const config = {
   searchAll: "/search/:name/all",
   searchAlbum: "/search/:name/album",
   searchSong: "/search/:name/song",
+  searchSinger: "/search/:name/singer",
 
   accoutInfor: "/account/infor",
   accoutEdit: "/account/edit",

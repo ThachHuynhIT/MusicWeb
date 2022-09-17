@@ -86,7 +86,12 @@ function PlayListLayout({
           ) : (
             <>
               <SongListHeader />
-              <SongList songs={selectedUserList} typee={true} />
+              <SongList
+                songs={selectedUserList}
+                typee={true}
+                typeSave="playlist"
+                playlistId={debouncedValue}
+              />
             </>
           )}
         </div>

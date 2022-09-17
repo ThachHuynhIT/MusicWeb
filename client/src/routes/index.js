@@ -9,6 +9,7 @@ import AllSinger from "../pages/AllSinger";
 import SearchAll from "../pages/SearchAll";
 import SearchSong from "../pages/SearchSong";
 import SearchAlbum from "../pages/SearchAlbum";
+import SearchSinger from "../pages/SearchSinger";
 import PlayList from "../pages/PlayList";
 
 import Infor from "../pages/Infor";
@@ -32,6 +33,7 @@ const PrivateRoutes = [
   { path: config.searchAll, component: SearchAll },
   { path: config.searchSong, component: SearchSong },
   { path: config.searchAlbum, component: SearchAlbum },
+  { path: config.searchSinger, component: SearchSinger },
 
   { path: config.accoutInfor, component: Infor, layout: DefaultAccountLayout },
   { path: config.accoutEdit, component: Edit, layout: DefaultAccountLayout },

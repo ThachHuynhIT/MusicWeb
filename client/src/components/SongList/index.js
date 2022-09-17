@@ -9,11 +9,20 @@ import { selectAlbum } from "../../actions";
 import { connect, useDispatch } from "react-redux";
 const cx = classNames.bind(styles);
 
-const SongList = ({ songs = [], typee }) => {
+const SongList = ({ songs = [], typee, typeSave, playlistId }) => {
   const dispatch = useDispatch();
 
   const songTags = songs.map((song, index) => {
-    return <SongItem song={song} key={index} index={index} type={typee} />;
+    return (
+      <SongItem
+        song={song}
+        key={index}
+        index={index}
+        type={typee}
+        typeSave={typeSave}
+        playlistId={playlistId}
+      />
+    );
   });
   return <div className={cx("warrper")}>{songTags}</div>;
 };

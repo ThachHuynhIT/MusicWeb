@@ -1,5 +1,5 @@
 import ListSinger from "../../../ListSinger";
-import ListItem from "../../../List/ListItem";
+
 import { useState, useEffect } from "react";
 import SongList from "../../../SongList";
 import * as albumsSrevice from "../../../../service/albumsSevrice";
@@ -12,7 +12,7 @@ import HeaderBar from "../component/HeaderBar";
 
 const cx = classNames.bind(styles);
 
-function SearchSongLayout() {
+function SearchSingerLayout() {
   const { name } = useParams();
 
   const [searchResult, setSearchResult] = useState([]);
@@ -26,7 +26,7 @@ function SearchSongLayout() {
     const fetchApi = async () => {
       const result = await searchApi.search(debouncedValue, 0);
 
-      setSearchResult(result.song);
+      setSearchResult(result.singer);
     };
 
     fetchApi();
@@ -35,16 +35,24 @@ function SearchSongLayout() {
   return (
     <div className={cx("wrapper", "scroll")}>
       <HeaderBar />
-      <div className={cx("container")}>
-        <h3 className={cx("title")}>Bài hát</h3>
 
-        <div className={cx("content")}>
-          <SongList songs={searchResult} typeSave="album" />
-        </div>
-      </div>
-      <section className={cx("list-item")}></section>
+      {searchResult.length <= 0 ? (
+        <>
+          <h3 className={cx("no")}>Không có kết quả phù hợp</h3>
+        </>
+      ) : (
+        <>
+          <section className={cx("list-item")}>
+            <ListSinger
+              singers={searchResult}
+              content="Nghệ sĩ"
+              sort="sort-row"
+            />
+          </section>
+        </>
+      )}
     </div>
   );
 }
 
-export default SearchSongLayout;
+export default SearchSingerLayout;

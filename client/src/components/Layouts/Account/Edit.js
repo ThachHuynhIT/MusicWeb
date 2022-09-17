@@ -15,11 +15,6 @@ function EditLayout() {
     nation: "",
   });
 
-  ////
-
-  ///
-  console.log(user.image);
-
   const [message, setMessage] = useState(false);
   useEffect(() => {
     const fetchApi = async () => {

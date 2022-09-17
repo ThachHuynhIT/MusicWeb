@@ -78,7 +78,7 @@ function Sidebar({ setFocus, changePlaylist, userPlaylist, getPlayListId }) {
             <span className={cx("titel")}>Trang chủ</span>
           </NavLink>
         </li>
-        <li className={cx("content", "active")}>
+        {/* <li className={cx("content", "active")}>
           <NavLink
             className={cx("content-link", "active")}
             to={"/"}
@@ -90,7 +90,7 @@ function Sidebar({ setFocus, changePlaylist, userPlaylist, getPlayListId }) {
             />
             <span className={cx("titel")}>Tìm kiếm</span>
           </NavLink>
-        </li>
+        </li> */}
       </div>
 
       <div className={cx("album")}>

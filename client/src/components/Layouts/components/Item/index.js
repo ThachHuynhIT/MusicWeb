@@ -8,17 +8,22 @@ import classNames from "classnames/bind";
 import styles from "./Item.module.scss";
 const cx = classNames.bind(styles);
 
-const Item = ({ song, index, selectSong, selectedSongPlay, playerState }) => {
+const Item = ({
+  song,
+  typeSave,
+
+  selectSong,
+  selectedSongPlay,
+  playerState,
+}) => {
   const [, setHovered] = useState(false);
   const dispatch = useDispatch();
 
-  const [songsList, setSongsList] = useState([]);
-
   const savePlay = async () => {
-    const response = await PlayService.saveAlbum({
-      albumName: song.album,
-      songId: song._id,
-    });
+    // const response = await PlayService.saveAlbum({
+    //   albumName: song.album,
+    //   songId: song._id,
+    // });
   };
   const handleClick = () => {
     savePlay();

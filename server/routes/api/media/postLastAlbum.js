@@ -16,25 +16,19 @@ module.exports = (req, res, next) => {
       User.updateOne(
         { _id: id },
         { lastList: lastAlbum, typeList: typeList, lastSong: lastSong }
-      )
-        .then(next)
-        .catch(res.status(400));
+      ).then(next);
     } else if (lastPlaylist) {
       const typeList = "Playlist";
       User.updateOne(
         { _id: id },
         { lasList: lastPlaylist, typeList: typeList, lastSong: lastSong }
-      )
-        .then(next)
-        .catch(res.status(400));
+      ).then(next);
     } else if (lastSinger) {
       const typeList = "Singer";
       User.updateOne(
         { _id: id },
         { lasList: lastSinger, typeList: typeList, lastSong: lastSong }
-      )
-        .then(next)
-        .catch(res.status(400));
+      ).then(next);
     } else {
       err = true;
       // console.log(err);
@@ -51,7 +45,6 @@ module.exports = (req, res, next) => {
       }
       res.status(200).json("Thành công");
     });
-
   } else {
     res.status(400).json("Lỗi");
   }
