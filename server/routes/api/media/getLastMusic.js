@@ -20,46 +20,44 @@ module.exports = async function (req, res, next) {
 
           switch (user.typeList) {
             case "Album":
-              Album.findById({ _id: lastList }).then((album) => {
-                var albumName = album.name;
-                let songLists = song.filter((song) => {
-                  return song.album.indexOf(albumName) !== -1;
-                });
-                res.send({
+              var songLists = song.filter((song) => {
+                return song.album.indexOf(lastList) !== -1;
+              });
+              res
+                .send({
                   song: lastSong,
                   songLists: songLists,
-                });
-              });
+                })
+                .catch(next);
               break;
             case "Singer":
-              Singer.findOne({ _id: lastList }).then((singer) => {
-                var singerName = singer.name;
-                var songLists = song.filter((song) => {
-                  return song.singer.indexOf(singerName) !== -1;
-                });
-                res.send({
-                  song: lastSong,
-                  songLists: songLists,
-                });
+              var songLists = song.filter((song) => {
+                return song.singer.indexOf(lastList) !== -1;
+              });
+              res.send({
+                song: lastSong,
+                songLists: songLists,
               });
               break;
             case "Playlist":
-              Playlist.find(
+              console.log(lastList);
+              Playlist.findById(
                 {
                   _id: lastList,
                 },
                 { songList: 1, _id: 0 }
-              ).then((playList) => {
-                console.log(playList);
-                var arr = playlist[0].songList;
-                const t = { _id: { $in: arr } };
-                Song.find(t).then((songL) => {
-                  res.send({
-                    song: lastSong,
-                    songLists: songL,
+              )
+                .then((playList) => {
+                  var arr = playList.songList;
+                  const t = { _id: { $in: arr } };
+                  Song.find(t).then((songL) => {
+                    res.send({
+                      song: lastSong,
+                      songLists: songL,
+                    });
                   });
-                });
-              });
+                })
+                .catch(next);
               break;
             default:
               res.send("Danh sách trống");
