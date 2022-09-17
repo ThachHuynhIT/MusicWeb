@@ -69,12 +69,12 @@ const SongItem = ({
   const savePlay = async () => {
     if (typeSave === "album") {
       const response = await PlayService.saveAlbum({
-        albumId: song.album,
+        albumName: song.album,
         songId: song._id,
       });
     } else if (typeSave === "singer") {
       const response = await PlayService.saveAlbum({
-        singerId: song.singer,
+        singerName: song.singer,
         songId: song._id,
       });
     } else {

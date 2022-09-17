@@ -72,7 +72,7 @@ function Header() {
               ) : (
                 <>
                   <img
-                    class="img-circle autofit2"
+                    class={cx("user-avatar")}
                     src="https://i.scdn.co/image/ab6761610000e5ebc02d416c309a68b04dc94576"
                     alt="image"
                   />

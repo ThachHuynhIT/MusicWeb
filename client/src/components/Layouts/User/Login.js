@@ -29,11 +29,12 @@ function LoginLayout({ props, selectSong, selectSongByAlbum }) {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const fetchApi = async () => {
-    // console.log(response);
-    // selectSongByAlbum(response.album);
-    // selectSong(response.song[0]);
-  };
+  // const fetchApi = async () => {
+  //   const response = await LastPlay.getLastPlay();
+  //     console.log(re)
+  //   selectSongByAlbum(response.album);
+  //   selectSong(response.song[0]);
+  // };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -55,12 +56,12 @@ function LoginLayout({ props, selectSong, selectSongByAlbum }) {
         });
         const timerData = setTimeout(() => {
           clearTimeout(timerData);
-        }, 1900);
+        }, 1000);
 
         const timerId = setTimeout(() => {
           clearTimeout(timerId);
 
-          // navigate("/", { replace: true });
+          navigate("/", { replace: true });
         }, 2000);
         const timerRelod = setTimeout(() => {
           clearTimeout(timerRelod);
@@ -69,7 +70,7 @@ function LoginLayout({ props, selectSong, selectSongByAlbum }) {
         setMessage({ msgBody: "Đăng nhập thành công", msgError: false });
         const timerLoading = setTimeout(() => {
           clearTimeout(timerLoading);
-          fetchApi();
+
           setLoading(false);
         }, 3000);
       } else {

@@ -20,7 +20,6 @@ export const saveAlbum = async (list) => {
 };
 export const getLastPlay = async () => {
   const userId = Cookies.get("userId");
-
   try {
     const res = await httpRequests.get(`api/media/get-last-music/${userId}`);
     console.log(res);

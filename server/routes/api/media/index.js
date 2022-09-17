@@ -22,7 +22,7 @@ router.get("/get-album/:type/:page", getAlbumType);
 router.get("/get-album/:page", getAlbum);
 // last music
 router.get("/get-last-music/:userId", getLastMusic);
-router.post("/post-last-album/:userId", postLastAlbum);
+router.put("/post-last-album/:userId", postLastAlbum);
 // search
 router.get("/searchSong", searchName);
 // site
