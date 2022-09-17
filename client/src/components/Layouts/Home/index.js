@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
 import * as albumsSrevice from "../../../service/albumsSevrice";
 import * as LastPlay from "../../../service/playService";
+import * as UserServices from "../../../service/userService";
 import ReactDOM from "react-dom";
 import classNames from "classnames/bind";
 import styles from "./Home.module.scss";
 import List from "../../List";
 import ListSinger from "../../ListSinger";
+import { connect } from "react-redux";
+import { selectSong, selectSongByAlbum } from "../../../actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import albums from "D:/WEB/reactjs/MusicWeb/client/src/data/albums.json";
 
 const cx = classNames.bind(styles);
 
-function HomeLayout() {
+function HomeLayout({ selectSong, selectSongByAlbum }) {
+  const value = UserServices.isLog();
   const [albumsList, setAlbumsList] = useState([]);
   const [singerList, setSingerList] = useState([]);
   const [typeAlbum, setTypeAlbum] = useState([]);
@@ -34,12 +38,14 @@ function HomeLayout() {
     };
     fetchApi();
   }, []);
-  // useEffect(() => {
-  //   const fetchApi = async () => {
-  //     const response = await LastPlay.getLastPlay();
-  //   };
-  //   fetchApi();
-  // }, []);
+  useEffect(() => {
+    if (value === true) {
+      const fetchApi = async () => {
+        const response = await LastPlay.getLastPlay();
+      };
+      fetchApi();
+    }
+  }, []);
   return (
     <div className={cx("main-view-container", "scroll")}>
       <div className={cx("top-padding")}></div>
@@ -55,4 +61,10 @@ function HomeLayout() {
   );
 }
 
-export default HomeLayout;
+const mapStateToProps = (state) => {
+  return;
+};
+
+export default connect(mapStateToProps, { selectSong, selectSongByAlbum })(
+  HomeLayout
+);

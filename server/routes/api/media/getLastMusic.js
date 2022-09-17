@@ -1,8 +1,8 @@
 const User = require("../../../models/User");
 const Song = require("../../../models/Song");
-const Singer = require("../../../models/Singer");
 const Album = require("../../../models/Album");
 const Playlist = require("../../../models/PlayList");
+const jwt = require("jsonwebtoken");
 
 module.exports = async function (req, res, next) {
   const userId = req.params.userId;
@@ -20,47 +20,37 @@ module.exports = async function (req, res, next) {
 
           switch (user.typeList) {
             case "Album":
-              var songLists = song.filter((song) => {
-                return song.album.indexOf(lastList) !== -1;
-              });
-              res
-                .send({
+              Album.findById({ _id: lastList }).then((album) => {
+                var albumName = album.name;
+                let songList = song.filter((song) => {
+                  return song.album.indexOf(albumName) !== -1;
+                });
+                res.send({
                   song: lastSong,
-                  songLists: songLists,
-                })
-                .catch(next);
+                  songList: songList,
+                });
+              });
               break;
             case "Singer":
-              var songLists = song.filter((song) => {
+              var songList = song.filter((song) => {
                 return song.singer.indexOf(lastList) !== -1;
               });
               res.send({
                 song: lastSong,
-                songLists: songLists,
+                songList: songList,
               });
               break;
             case "Playlist":
-              console.log(lastList);
-              Playlist.findById(
-                {
-                  _id: lastList,
-                },
-                { songList: 1, _id: 0 }
-              )
-                .then((playList) => {
-                  var arr = playList.songList;
-                  const t = { _id: { $in: arr } };
-                  Song.find(t).then((songL) => {
-                    res.send({
-                      song: lastSong,
-                      songLists: songL,
-                    });
-                  });
-                })
-                .catch(next);
+              Playlist.findById({ _id: lastList }).then((playlist) => {
+                songList = playlist;
+                res.send({
+                  song: lastSong,
+                  songList: songList,
+                });
+              });
               break;
             default:
-              res.send("Danh sách trống");
+              res.send("Lỗi");
           }
         })
         .catch(next);

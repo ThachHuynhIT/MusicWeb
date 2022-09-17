@@ -40,7 +40,7 @@ const Item = ({ singer, index, selectAlbum, selectedAlbumId, playerState }) => {
           <div className={cx("card-bottom")}>
             <Link
               className={cx("card-name")}
-              to={`/album/${singer.name}/${singer._id}`}
+              to={`/album/${singer.name}`}
               onClick={() => {
                 selectAlbum(singer);
               }}
