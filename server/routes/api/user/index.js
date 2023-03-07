@@ -1,6 +1,7 @@
 const express = require("express");
 const User = require("../../../models/User");
 const loginValidator = require("../../../validations/login");
+const loginGoogle = require("../../../validations/loginGoogle");
 const signupValidator = require("../../../validations/signup");
 const upload = require("../../../middlewares/uploadMiddleware");
 const jwt = require("jsonwebtoken");
@@ -108,5 +109,36 @@ router.get("/authen/:token", (req, res) => {
 
 router.put("/update-user/:token", upload.single("image"), updateInfo);
 router.put("/change-password/:token", changePassword);
+
+
+router.post("/loginGoogle", (req, res, next) => {
+ 
+  const { isValid, errors } = loginGoogle(req.body);
+
+  if (!isValid) {
+    return res.status(400).json({ error: true, errors });
+  }
+
+  co(function* () {
+    
+  })
+    .then(() => {
+      const id = userId;
+
+      const token = jwt.sign({ _id: id }, process.env.TOKEN_SECRET, {
+        expiresIn: 60 * 60 * 24,
+      });
+      res
+        .cookie("access_token", token, { httpOnly: true, sameSite: true })
+        .header({
+          username: user.fullName,
+        })
+        .send({ userId: id, isAuthen: true, access_token: token });
+    })
+    .catch((err) => next(err));
+});
+
+
+
 
 module.exports = router;

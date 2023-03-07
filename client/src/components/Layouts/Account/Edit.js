@@ -57,6 +57,7 @@ function EditLayout() {
     };
     const formdata = new FormData();
     formdata.append("image", user.image);
+
     UserService.updateInfo(formdata);
     UserService.updateInfo(variable);
     setMessage({

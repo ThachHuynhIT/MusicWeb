@@ -55,7 +55,7 @@ function Menu({
       </Wrapper>
     </div>
   );
-
+  console.log(renderResult);
   // Reset to first page
 
   return (

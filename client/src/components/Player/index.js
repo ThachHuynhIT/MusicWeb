@@ -1,21 +1,21 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { useEffect, useRef, useState } from "react";
-import { connect, useDispatch } from "react-redux";
-import TimeSlider from "react-input-slider";
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { useEffect, useRef, useState } from 'react'
+import { connect, useDispatch } from 'react-redux'
+import TimeSlider from 'react-input-slider'
 
 import {
   setPlayerState,
   selectSongById,
   setTime,
   selectSongByAlbum,
-} from "../../actions";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import MiniSong from "./MiniSong";
-import Progress from "../Progress";
+} from '../../actions'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import MiniSong from './MiniSong'
+import Progress from '../Progress'
 ///
-import * as songsService from "../../service/songsService";
-import { useParams } from "react-router-dom";
+import * as songsService from '../../service/songsService'
+import { useParams } from 'react-router-dom'
 ////
 import {
   faPause,
@@ -24,13 +24,12 @@ import {
   coffee,
   faReceipt,
   faRepeat,
-} from "@fortawesome/free-solid-svg-icons";
-import { render } from "@testing-library/react";
+} from '@fortawesome/free-solid-svg-icons'
 
-import styles from "./Player.module.scss";
-import classNames from "classnames/bind";
-import slugGenerator from "mongoose-slug-generator/lib/slug-generator";
-const cx = classNames.bind(styles);
+import styles from './Player.module.scss'
+import classNames from 'classnames/bind'
+// import slugGenerator from "mongoose-slug-generator/lib/slug-generator";
+const cx = classNames.bind(styles)
 
 const Player = ({
   selectedSongPlay,
@@ -42,165 +41,165 @@ const Player = ({
   currentLocation,
   selectList = [],
 }) => {
-  const dispatch = useDispatch();
-  const [shuffled, setShuffled] = useState(false);
-  const [repeat, setRepeat] = useState(false);
-
-  const audioRef = useRef();
-  let clicked = false;
-  const songplay = selectList.findIndex((e) => e._id === selectedSongPlay._id);
+  const dispatch = useDispatch()
+  const [shuffled, setShuffled] = useState(false)
+  const [repeat, setRepeat] = useState(false)
+  console.log(selectedSongPlay)
+  const audioRef = useRef()
+  let clicked = false
+  const songplay = selectList.findIndex((e) => e._id === selectedSongPlay._id)
 
   const spaceDownFunc = (event) => {
     if (event.keyCode === 32 && !clicked) {
-      clicked = true;
-      document.getElementsByClassName("main-control")[0].click();
+      clicked = true
+      document.getElementsByClassName('main-control')[0].click()
     }
-  };
+  }
   const spaceUpFunc = (event) => {
     if (event.keyCode === 32 && clicked) {
-      clicked = false;
+      clicked = false
     }
-  };
+  }
 
   useEffect(() => {
-    document.addEventListener("keydown", spaceDownFunc);
-    document.addEventListener("keyup", spaceUpFunc);
-  }, []);
+    document.addEventListener('keydown', spaceDownFunc)
+    document.addEventListener('keyup', spaceUpFunc)
+  }, [])
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = volume / 500;
+      audioRef.current.volume = volume / 500
     }
-  }, [volume]);
+  }, [volume])
 
   const onMusicPlay = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (!playerState) {
-      audioRef.current.play();
+      audioRef.current.play()
 
-      dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
+      dispatch({ type: 'PLAYER_STATE_SELECTED', payload: 1 })
     } else {
-      audioRef.current.pause();
-      dispatch({ type: "PLAYER_STATE_SELECTED", payload: 0 });
+      audioRef.current.pause()
+      dispatch({ type: 'PLAYER_STATE_SELECTED', payload: 0 })
     }
-  };
+  }
   //
 
   const handleTimeSliderChange = ({ x }) => {
-    audioRef.current.currentTime = x;
-    setTime(x);
+    audioRef.current.currentTime = x
+    setTime(x)
 
     if (!playerState) {
-      dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
-      audioRef.current.play();
+      dispatch({ type: 'PLAYER_STATE_SELECTED', payload: 1 })
+      audioRef.current.play()
     }
-  };
+  }
 
   //
   const onBackwardClick = () => {
     if (songplay > 0) {
-      selectSongById(selectList[songplay - 1]);
+      selectSongById(selectList[songplay - 1])
     }
-  };
+  }
   const onForwardClick = () => {
     if (songplay < selectList.length - 1) {
-      selectSongById(selectList[songplay + 1]);
+      selectSongById(selectList[songplay + 1])
     }
-  };
+  }
   const icon = () => {
     if (!playerState) {
-      return <FontAwesomeIcon icon={faPlayCircle} size="3x" />;
+      return <FontAwesomeIcon icon={faPlayCircle} size="3x" />
     } else {
-      return <FontAwesomeIcon icon={faPauseCircle} size="3x" />;
+      return <FontAwesomeIcon icon={faPauseCircle} size="3x" />
     }
-  };
+  }
   useEffect(() => {
-    dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
-    audioRef.current.play();
+    dispatch({ type: 'PLAYER_STATE_SELECTED', payload: 1 })
+    audioRef.current.play()
 
-    document.getElementById("focus-link").click();
-    window.history.pushState({}, "", "");
-  }, [songplay, dispatch]);
+    document.getElementById('focus-link').click()
+    window.history.pushState({}, '', '')
+  }, [songplay, dispatch])
   useEffect(() => {
-    dispatch({ type: "PLAYER_STATE_SELECTED", payload: 0 });
-    audioRef.current.pause();
-  }, [dispatch]);
+    dispatch({ type: 'PLAYER_STATE_SELECTED', payload: 0 })
+    audioRef.current.pause()
+  }, [dispatch])
 
   const songUrl = () => {
     if (selectList.length <= 0) {
-      return null;
+      return null
     } else {
       if (songplay < 0) {
-        return selectList[0].url;
+        return selectList[0].url
       } else {
-        return selectList[songplay].url;
+        return selectList[songplay].url
       }
     }
-  };
+  }
   const nextSong = () => {
     if (shuffled === true) {
-      selectSongById(selectList[Math.round(Math.random() * selectList.length)]);
+      selectSongById(selectList[Math.round(Math.random() * selectList.length)])
     } else {
       if (repeat === true) {
         const timerId = setTimeout(() => {
-          clearTimeout(timerId);
-          selectSongById(selectList[songplay]);
-        }, 100);
+          clearTimeout(timerId)
+          selectSongById(selectList[songplay])
+        }, 100)
       } else {
-        selectSongById(selectList[songplay + 1]);
+        selectSongById(selectList[songplay + 1])
       }
     }
-  };
+  }
 
   function formatTime(sec_num) {
-    let hours = Math.floor(sec_num / 3600);
-    let minutes = Math.floor((sec_num - hours * 3600) / 60);
-    let seconds = Math.floor(sec_num - hours * 3600 - minutes * 60);
+    let hours = Math.floor(sec_num / 3600)
+    let minutes = Math.floor((sec_num - hours * 3600) / 60)
+    let seconds = Math.floor(sec_num - hours * 3600 - minutes * 60)
 
-    hours = hours < 10 ? (hours > 0 ? "0" + hours : 0) : hours;
+    hours = hours < 10 ? (hours > 0 ? '0' + hours : 0) : hours
 
     if (minutes < 10) {
-      minutes = "0" + minutes;
+      minutes = '0' + minutes
     }
     if (seconds < 10) {
-      seconds = "0" + seconds;
+      seconds = '0' + seconds
     }
-    return (hours !== 0 ? hours + ":" : "") + minutes + ":" + seconds;
+    return (hours !== 0 ? hours + ':' : '') + minutes + ':' + seconds
   }
 
   const showTime = () => {
     if (duration !== undefined) {
-      return formatTime(duration);
+      return formatTime(duration)
     } else {
-      return <div>00:00</div>;
+      return <div>00:00</div>
     }
-  };
+  }
   const showCurrentTime = () => {
     if (currentLocation !== undefined) {
-      return formatTime(currentLocation);
+      return formatTime(currentLocation)
     } else {
-      return <div>00:00</div>;
+      return <div>00:00</div>
     }
-  };
+  }
 
   return (
-    <div id={cx("player")}>
-      <div className={cx("player-left")}>
+    <div id={cx('player')}>
+      <div className={cx('player-left')}>
         {selectList[songplay] === undefined ? (
           <></>
         ) : (
           <MiniSong selectedSongPlay={selectList[songplay]} />
         )}
       </div>
-      <div className={cx("player-right")}>
-        <div className={cx("right-top")}>
+      <div className={cx('player-right')}>
+        <div className={cx('right-top')}>
           <div
-            className={cx("control")}
-            id={cx(shuffled === true ? `active` : "")}
+            className={cx('control')}
+            id={cx(shuffled === true ? `active` : '')}
             onClick={() => {
-              setShuffled(!shuffled);
-              setRepeat(false);
+              setShuffled(!shuffled)
+              setRepeat(false)
             }}
           >
             <svg
@@ -217,7 +216,7 @@ const Player = ({
             </svg>
           </div>
 
-          <div className={cx("control")} onClick={onBackwardClick}>
+          <div className={cx('control')} onClick={onBackwardClick}>
             <svg
               role="img"
               height="24"
@@ -231,10 +230,10 @@ const Player = ({
               ></path>
             </svg>
           </div>
-          <div className={cx("main-control", "control")} onClick={onMusicPlay}>
+          <div className={cx('main-control', 'control')} onClick={onMusicPlay}>
             {icon()}
           </div>
-          <div className={cx("control")} onClick={onForwardClick}>
+          <div className={cx('control')} onClick={onForwardClick}>
             <svg
               role="img"
               height="24"
@@ -250,11 +249,11 @@ const Player = ({
           </div>
 
           <div
-            className={cx("control")}
-            id={cx(repeat === true ? `active` : "")}
+            className={cx('control')}
+            id={cx(repeat === true ? `active` : '')}
             onClick={() => {
-              setShuffled(false);
-              setRepeat(!repeat);
+              setShuffled(false)
+              setRepeat(!repeat)
             }}
           >
             <svg
@@ -264,7 +263,7 @@ const Player = ({
               viewBox="0 0 16 16"
               className=""
             >
-              <FontAwesomeIcon icon={faRepeat} className={cx("reicon")} />
+              <FontAwesomeIcon icon={faRepeat} className={cx('reicon')} />
             </svg>
           </div>
           <Progress />
@@ -276,42 +275,39 @@ const Player = ({
             loop={repeat}
             controls
             onEnded={nextSong}
-            onLoadedMetadata={() => {
-              dispatch({
-                type: "SET_DURATION",
-                payload: audioRef.current.duration,
-              });
+            // onLoadedMetadata={() => {
+            //   dispatch({
+            //     type: 'SET_DURATION',
+            //     payload: audioRef.current.duration,
+            //   })
 
-              setInterval(() => {
-                dispatch({
-                  type: "SET_CURRENT_LOCATION",
-                  payload: audioRef.current.currentTime,
-                });
-              }, 1000);
-            }}
+            //   setInterval(() => {
+            //     dispatch({
+            //       type: 'SET_CURRENT_LOCATION',
+            //       payload: audioRef.current.currentTime,
+            //     })
+            //   }, 1000)
+            // }}
             ref={audioRef}
             hidden
-          >
-            Your browser does not support the
-            <code>audio</code> element.
-          </audio>
+          ></audio>
         </div>
 
-        <div className={cx("right-bottom")}>
-          <div className={cx("current-time")}>{showCurrentTime()}</div>
+        <div className={cx('right-bottom')}>
+          <div className={cx('current-time')}>{showCurrentTime()}</div>
           <TimeSlider
             axis="x"
-            className={cx("completed")}
+            className={cx('completed')}
             xmax={duration}
             x={currentLocation}
             onChange={handleTimeSliderChange}
           />
-          <div className={cx("current-time")}>{showTime()}</div>
+          <div className={cx('current-time')}>{showTime()}</div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state) => {
   return {
@@ -323,9 +319,9 @@ const mapStateToProps = (state) => {
     volume: state.volume,
     duration: state.duration,
     currentLocation: state.currentLocation,
-  };
-};
+  }
+}
 
 export default connect(mapStateToProps, { setPlayerState, selectSongById })(
-  Player
-);
+  Player,
+)
