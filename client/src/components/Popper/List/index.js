@@ -70,6 +70,9 @@ function List({ changePlaylist, userPlaylist, songAdd }) {
           onClick={() => {
             setShowList(true);
           }}
+          onDoubleClick={() => {
+            setShowList(false);
+          }}
         />
       </div>
     </Tippy>

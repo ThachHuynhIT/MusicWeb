@@ -62,6 +62,7 @@ function App() {
               />
             );
           })}
+          
           {PrivateRoutes.map((route, index) => {
             const Page = route.component;
             let Layout = DefaultLayout;

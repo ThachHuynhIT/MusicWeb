@@ -16,7 +16,7 @@ function AlbumLayout() {
   const [typeList, setTypeList] = useState([]);
   const [idSave, setIdSave] = useState([]);
   const { id } = useParams();
-  console.log(id);
+
   useEffect(() => {
     const fetchApi = async () => {
       const songsFromAlbum = await songsService.getSongsFromAlbum(id);

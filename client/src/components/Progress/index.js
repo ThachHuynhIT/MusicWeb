@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import { setVolume } from "../../actions";
 
-import ReactDOM from "react-dom";
+
 import styles from "./ProgressBar.module.scss";
 import classNames from "classnames/bind";
 const cx = classNames.bind(styles);

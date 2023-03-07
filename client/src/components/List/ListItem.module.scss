@@ -130,9 +130,9 @@
 .hover-player {
   margin-bottom: 0;
   position: absolute;
+  visibility: hidden;
   right: 0;
   bottom: 15px;
-  visibility: hidden;
   padding: 5px;
 
   transition: 0.6s;
@@ -274,7 +274,7 @@
   display: grid;
   grid-template-columns: repeat(var(--column-count), minmax(0, 1fr));
 }
-.card-top:hover .img-card form.hover-player {
+.img:hover .img-card form.hover-player {
   right: 10px;
   visibility: visible;
   opacity: 1;

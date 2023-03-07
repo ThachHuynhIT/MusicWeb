@@ -34,6 +34,8 @@
 
 .accout {
   padding: 0;
+  padding-left: 2px;
+  height: 38px;
   display: flex;
   background-color: #959391;
   border-radius: 30px;
@@ -45,6 +47,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-weight: bold;
+    margin-left: 4px;
   }
 }
 .top-bar-register-btn {
@@ -206,8 +210,8 @@
 }
 //accout
 .user-avatar {
-  height: 46px;
-  width: 46px;
+  height: 34px;
+  width: 34px;
   border-radius: 90px;
   margin-right: 4px;
   float: left;

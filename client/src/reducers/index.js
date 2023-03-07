@@ -5,12 +5,16 @@ import { combineReducers } from "redux";
 const selectedSongPlayReducer = (selectedSongPlay = 0, action) => {
   if (action.type === "SONG_SELECTED") {
     return action.payload;
+
   }
   if (action.type === "SONG_SELECTED_BY_ID") {
     return action.payload;
+
   }
   return selectedSongPlay;
+
 };
+
 
 const playerStateReducer = (playerState = 0, action) => {
   if (action.type === "PLAYER_STATE_SELECTED" && !action.payload) {
@@ -72,6 +76,7 @@ const selectedAlbumIdReducer = (selectedAlbumId = [], action) => {
   }
   return selectedAlbumId;
 };
+
 //logOutReducer
 const logOutReducer = (val = 0, action) => {
   if (action.type === "ALBUM_SELECTED") {
@@ -79,6 +84,7 @@ const logOutReducer = (val = 0, action) => {
   }
   return val;
 };
+
 //getStatus
 const getStatusReducer = (status = 0, action) => {
   if (action.type === "SET_STATUS") {
@@ -86,6 +92,7 @@ const getStatusReducer = (status = 0, action) => {
   }
   return status;
 };
+
 //getFocus
 const getFocus = (focus = 0, action) => {
   if (action.type === "ON_FOCUS") {
@@ -99,6 +106,7 @@ const setToken = (token = 0, action) => {
   }
   return token;
 };
+
 //userPlayList
 
 const getUserPlaylist = (userPlaylist = [], action) => {
@@ -125,6 +133,8 @@ const selectedUserPlayListReduct = (selectedUserList = [], action) => {
   }
   return selectedUserList;
 };
+
+
 //saveSong
 const selectedTypeSaveReducer = (selectedType = 0, action) => {
   if (action.type === "SELECTED_TYPE_SAVE") {
@@ -133,16 +143,15 @@ const selectedTypeSaveReducer = (selectedType = 0, action) => {
   return selectedType;
 };
 
+
+
 export default combineReducers({
   selectedSongList: selectedSongListReducer,
   selectedAlbumId: selectedAlbumIdReducer,
-
   selectedSongPlay: selectedSongPlayReducer,
   playerState: playerStateReducer,
-
   volume: volumeReducer,
   time: timeReducer,
-
   type: typeAlbumReducer,
   duration: durationReducer,
   token: setToken,
@@ -150,11 +159,9 @@ export default combineReducers({
   val: logOutReducer,
   focus: getFocus,
   status: getStatusReducer,
-
   userPlaylist: getUserPlaylist,
   songAdd: addSong,
   playlistId: getPlaylistId,
   selectedUserList: selectedUserPlayListReduct,
-
   selectedType: selectedTypeSaveReducer,
 });

@@ -118,7 +118,6 @@ const FlexComponet = ({
 
   return (
     <>
-      {" "}
       {!value ? (
         <>
           <div className={cx("block")} id={cx(id_block)}>

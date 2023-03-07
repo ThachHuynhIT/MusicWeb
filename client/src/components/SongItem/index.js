@@ -95,12 +95,14 @@ const SongItem = ({
   };
 
   const handleClick = () => {
+    dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
     if (type === true) {
       selectSongByAlbum(selectedUserList);
+      console.log(selectSongByAlbum(selectedUserList));
     } else {
       selectSongByAlbum(songsList);
+      console.log(selectSongByAlbum(songsList));
     }
-    dispatch({ type: "PLAYER_STATE_SELECTED", payload: 1 });
 
     savePlay();
     selectSong(song);
