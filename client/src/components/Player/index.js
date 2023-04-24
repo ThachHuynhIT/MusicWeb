@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+
 import { useEffect, useRef, useState } from 'react'
 import { connect, useDispatch } from 'react-redux'
 import TimeSlider from 'react-input-slider'
@@ -8,34 +8,24 @@ import {
   setPlayerState,
   selectSongById,
   setTime,
-  selectSongByAlbum,
+  setVolume,
 } from '../../actions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MiniSong from './MiniSong'
 import Progress from '../Progress'
-///
-import * as songsService from '../../service/songsService'
-import { useParams } from 'react-router-dom'
-////
 import {
-  faPause,
-  faPauseCircle,
   faPlayCircle,
-  coffee,
-  faReceipt,
   faRepeat,
+  faPauseCircle,
 } from '@fortawesome/free-solid-svg-icons'
-
 import styles from './Player.module.scss'
 import classNames from 'classnames/bind'
-// import slugGenerator from "mongoose-slug-generator/lib/slug-generator";
 const cx = classNames.bind(styles)
 
 const Player = ({
   selectedSongPlay,
   playerState,
   selectSongById,
-
   volume,
   duration,
   currentLocation,
@@ -44,7 +34,18 @@ const Player = ({
   const dispatch = useDispatch()
   const [shuffled, setShuffled] = useState(false)
   const [repeat, setRepeat] = useState(false)
-  console.log(selectedSongPlay)
+  const [x, setX] = useState(0)
+  const getBackgroundSize = () => {
+    return {
+      backgroundSize: `${(currentLocation * 100) / duration}% 100%`,
+    }
+  }
+  const getBackgroundVolum = () => {
+    return {
+      backgroundSize: `${(x * 100) / 100}% 100%`,
+    }
+  }
+
   const audioRef = useRef()
   let clicked = false
   const songplay = selectList.findIndex((e) => e._id === selectedSongPlay._id)
@@ -68,7 +69,7 @@ const Player = ({
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = volume / 500
+      audioRef.current.volume = volume / 100
     }
   }, [volume])
 
@@ -86,17 +87,17 @@ const Player = ({
   }
   //
 
-  const handleTimeSliderChange = ({ x }) => {
-    audioRef.current.currentTime = x
-    setTime(x)
+  const handleTimeSliderChange = ({ e }) => {
+    const input = document.getElementById('play-position')
+    audioRef.current.currentTime = Number(input?.value)
 
+    // setTime(Number(input?.value))
     if (!playerState) {
       dispatch({ type: 'PLAYER_STATE_SELECTED', payload: 1 })
       audioRef.current.play()
     }
   }
 
-  //
   const onBackwardClick = () => {
     if (songplay > 0) {
       selectSongById(selectList[songplay - 1])
@@ -109,9 +110,9 @@ const Player = ({
   }
   const icon = () => {
     if (!playerState) {
-      return <FontAwesomeIcon icon={faPlayCircle} size="3x" />
+      return <FontAwesomeIcon icon={faPlayCircle} size={16} />
     } else {
-      return <FontAwesomeIcon icon={faPauseCircle} size="3x" />
+      return <FontAwesomeIcon icon={faPauseCircle} size={16} />
     }
   }
   useEffect(() => {
@@ -204,8 +205,8 @@ const Player = ({
           >
             <svg
               role="img"
-              height="24"
-              width="24"
+              height="22"
+              width="22"
               viewBox="0 0 16 16"
               className=""
             >
@@ -219,8 +220,8 @@ const Player = ({
           <div className={cx('control')} onClick={onBackwardClick}>
             <svg
               role="img"
-              height="24"
-              width="24"
+              height="22"
+              width="22"
               viewBox="0 0 16 16"
               className=""
             >
@@ -236,8 +237,8 @@ const Player = ({
           <div className={cx('control')} onClick={onForwardClick}>
             <svg
               role="img"
-              height="24"
-              width="24"
+              height="22"
+              width="22"
               viewBox="0 0 16 16"
               className=""
             >
@@ -267,7 +268,15 @@ const Player = ({
             </svg>
           </div>
           <Progress />
-
+          {/* <input
+            className={cx('')}
+            min="0"
+            max="100"
+            value={volume}
+            onChange={(e) => setVolume(e.target.value)}
+            type="range"
+            style={getBackgroundVolum()}
+          /> */}
           <audio
             id="main-track"
             src={songUrl()}
@@ -275,19 +284,19 @@ const Player = ({
             loop={repeat}
             controls
             onEnded={nextSong}
-            // onLoadedMetadata={() => {
-            //   dispatch({
-            //     type: 'SET_DURATION',
-            //     payload: audioRef.current.duration,
-            //   })
+            onLoadedMetadata={() => {
+              dispatch({
+                type: 'SET_DURATION',
+                payload: audioRef.current.duration,
+              })
 
-            //   setInterval(() => {
-            //     dispatch({
-            //       type: 'SET_CURRENT_LOCATION',
-            //       payload: audioRef.current.currentTime,
-            //     })
-            //   }, 1000)
-            // }}
+              setInterval(() => {
+                dispatch({
+                  type: 'SET_CURRENT_LOCATION',
+                  payload: audioRef.current.currentTime,
+                })
+              }, 1000)
+            }}
             ref={audioRef}
             hidden
           ></audio>
@@ -295,12 +304,16 @@ const Player = ({
 
         <div className={cx('right-bottom')}>
           <div className={cx('current-time')}>{showCurrentTime()}</div>
-          <TimeSlider
-            axis="x"
+
+          <input
             className={cx('completed')}
-            xmax={duration}
-            x={currentLocation}
-            onChange={handleTimeSliderChange}
+            value={currentLocation}
+            max={duration}
+            onChange={(e) => handleTimeSliderChange(e)}
+            type="range"
+            name="playback-bar"
+            id="play-position"
+            style={getBackgroundSize()}
           />
           <div className={cx('current-time')}>{showTime()}</div>
         </div>
@@ -313,7 +326,6 @@ const mapStateToProps = (state) => {
   return {
     selectedSongPlay: state.selectedSongPlay,
     selectList: state.selectedSongList,
-
     playerState: state.playerState,
     songs: state.songs,
     volume: state.volume,
@@ -322,6 +334,8 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { setPlayerState, selectSongById })(
-  Player,
-)
+export default connect(mapStateToProps, {
+  setPlayerState,
+  selectSongById,
+  setVolume,
+})(Player)

@@ -1,7 +1,7 @@
-import { EditLayout } from "../../components/Layouts/Account";
+import { EditLayout } from '../../Layouts/Account'
 
 function Edit() {
-  return <EditLayout />;
+  return <EditLayout />
 }
 
-export default Edit;
+export default Edit

@@ -1,17 +1,12 @@
-import SongItem from "../SongItem";
-import classNames from "classnames/bind";
-import React from "react";
-import ReactDOM from "react-dom";
-import styles from "./SongList.module.scss";
+import SongItem from '../SongItem'
+import classNames from 'classnames/bind'
+import React from 'react'
 
-import { selectAlbum } from "../../actions";
+import styles from './SongList.module.scss'
 
-import { connect, useDispatch } from "react-redux";
-const cx = classNames.bind(styles);
+const cx = classNames.bind(styles)
 
 const SongList = ({ songs = [], typee, typeSave, playlistId }) => {
-  const dispatch = useDispatch();
-
   const songTags = songs.map((song, index) => {
     return (
       <SongItem
@@ -22,16 +17,9 @@ const SongList = ({ songs = [], typee, typeSave, playlistId }) => {
         typeSave={typeSave}
         playlistId={playlistId}
       />
-    );
-  });
-  return <div className={cx("warrper")}>{songTags}</div>;
-};
+    )
+  })
+  return <div className={cx('warrper')}>{songTags}</div>
+}
 
-export default SongList;
-
-// const mapStateToProps = (state) => {
-//   return {
-//     getAlbumSongs: state.getAlbumSongs,
-//   };
-// };
-// export default connect(mapStateToProps)(SongList);
+export default SongList

@@ -1,6 +1,6 @@
-import SearchSingerLayout from "../../components/Layouts/Search/SearchSinger";
+import SearchSingerLayout from '../../Layouts/Search/SearchSinger'
 function SearchSinger() {
-  return <SearchSingerLayout />;
+  return <SearchSingerLayout />
 }
 
-export default SearchSinger;
+export default SearchSinger

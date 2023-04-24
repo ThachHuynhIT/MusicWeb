@@ -1,6 +1,6 @@
-import { SearchAlbumLayout } from "../../components/Layouts/Search";
+import { SearchAlbumLayout } from '../../Layouts/Search'
 function SearchAlbum() {
-  return <SearchAlbumLayout />;
+  return <SearchAlbumLayout />
 }
 
-export default SearchAlbum;
+export default SearchAlbum

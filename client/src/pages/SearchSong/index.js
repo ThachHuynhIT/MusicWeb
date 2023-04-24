@@ -1,7 +1,7 @@
-import { SearchSongLayout } from "../../components/Layouts/Search";
+import { SearchSongLayout } from '../../Layouts/Search'
 
 function SearchSong() {
-  return <SearchSongLayout />;
+  return <SearchSongLayout />
 }
 
-export default SearchSong;
+export default SearchSong

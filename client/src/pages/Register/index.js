@@ -1,7 +1,7 @@
-import { RegisterLayout } from "../../components/Layouts/User";
+import { RegisterLayout } from '../../Layouts/User'
 
 function Register() {
-  return <RegisterLayout />;
+  return <RegisterLayout />
 }
 
-export default Register;
+export default Register
