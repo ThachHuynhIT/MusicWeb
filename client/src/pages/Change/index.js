@@ -1,7 +1,7 @@
-import { ChangePassLayout } from "../../components/Layouts/Account";
+import { ChangePassLayout } from '../../Layouts/Account'
 
 function ChangePass() {
-  return <ChangePassLayout />;
+  return <ChangePassLayout />
 }
 
-export default ChangePass;
+export default ChangePass

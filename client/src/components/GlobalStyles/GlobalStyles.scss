@@ -2,11 +2,38 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200;300;400;500;600;700&display=swap");
 
 :root {
+// color:
+ --color-1:#F2F2F2;
+ --color-2:#FFFFFF;
+ --color-3:#8D22C3;
+ --color-4:#E5E5E5;
+ --color-hover-1:#E6E6E6;
+ --color-text:#32323d;
+ --color-text-2:#FCFAFE; 
+ --color-text-3:#00000099;
+ --color-text-4:#FFFFFF99;
+ --color-text-5:#000000;
+ --color-line-1:rgba(0,0,0,0.05);
+ --color-line-2:rgba(0,0,0,0.1);
+ --color-header:#FFFFFF;
+ --color-7:#231B2E;
+ --weight-text:700;
+ --weight-text-2:500;
+ --weight-text-3:400;
+ --size-text-1:13px;
+ --size-text-2:14px;
+ --size-text-3:14px;
+ --header-box-shadow:rgba(0,0,0,0.08);
+ --padding-list:0px 27px ;
+ --card-image-border-radius: clamp( 4px, (var(--column-width, 0px) - 32px) * 0.025, 8px );
+
+
   --default-layout-header-height: 60px;
   --default-layout-width: 1150px;
   --black: black;
   --background-color: #333;
   --primary: #fe2c55;
+
   --white: white;
   --default-layout-horizontal-spacer: 24px;
   --nav-bar-width: 232px;

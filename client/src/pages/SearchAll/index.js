@@ -1,6 +1,6 @@
-import { SearchAllLayout } from "../../components/Layouts/Search";
+import { SearchAllLayout } from '../../Layouts/Search'
 function SearchAll() {
-  return <SearchAllLayout />;
+  return <SearchAllLayout />
 }
 
-export default SearchAll;
+export default SearchAll

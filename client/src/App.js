@@ -1,15 +1,10 @@
-import React from "react";
-import { Fragment } from "react";
-import { Routes, Route, useLocation, Navigate } from "react-router-dom";
-import { PublicRoutes, PrivateRoutes, AuthRoutes } from "./routes";
-import DefaultLayout from "./components/Layouts/DefaultLayout";
-import DefaultUserLayout from "./components/Layouts/DefaultUserLayout";
-import DefaultAccountLayout from "./components/Layouts/DefaultAccountLayout";
-import config from "./config";
-import * as UserServices from "./service/userService";
-import { useState, useEffect } from "react";
-import Cookies from "js-cookie";
-import { scrollToPosition } from "./utils/setCookie";
+import React from 'react'
+import { Fragment } from 'react'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { PublicRoutes, PrivateRoutes, AuthRoutes } from './routes'
+import DefaultLayout from './Layouts/DefaultLayout'
+import config from './config'
+import * as UserServices from './service/userService'
 
 function App() {
   return (
@@ -17,13 +12,13 @@ function App() {
       <>
         <Routes>
           {PublicRoutes.map((route, index) => {
-            const Page = route.component;
-            let Layout = DefaultLayout;
+            const Page = route.component
+            let Layout = DefaultLayout
 
             if (route.layout) {
-              Layout = route.layout;
+              Layout = route.layout
             } else if (route.layout === null) {
-              Layout = Fragment;
+              Layout = Fragment
             }
             return (
               <Route
@@ -35,16 +30,16 @@ function App() {
                   </Layout>
                 }
               />
-            );
+            )
           })}
           {AuthRoutes.map((route, index) => {
-            const Page = route.component;
-            let Layout = DefaultLayout;
-            const isAuthenticated = UserServices.isLog();
+            const Page = route.component
+            let Layout = DefaultLayout
+            const isAuthenticated = UserServices.isLog()
             if (route.layout) {
-              Layout = route.layout;
+              Layout = route.layout
             } else if (route.layout === null) {
-              Layout = Fragment;
+              Layout = Fragment
             }
             return (
               <Route
@@ -60,18 +55,18 @@ function App() {
                   )
                 }
               />
-            );
+            )
           })}
-          
+
           {PrivateRoutes.map((route, index) => {
-            const Page = route.component;
-            let Layout = DefaultLayout;
-            const isAuthenticated = UserServices.isLog();
+            const Page = route.component
+            let Layout = DefaultLayout
+            const isAuthenticated = UserServices.isLog()
 
             if (route.layout) {
-              Layout = route.layout;
+              Layout = route.layout
             } else if (route.layout === null) {
-              Layout = Fragment;
+              Layout = Fragment
             }
 
             return (
@@ -88,12 +83,12 @@ function App() {
                   )
                 }
               />
-            );
+            )
           })}
         </Routes>
       </>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

@@ -1,6 +1,6 @@
-import { InforLayout } from "../../components/Layouts/Account";
+import { InforLayout } from '../../Layouts/Account'
 function Infor() {
-  return <InforLayout />;
+  return <InforLayout />
 }
 
-export default Infor;
+export default Infor
