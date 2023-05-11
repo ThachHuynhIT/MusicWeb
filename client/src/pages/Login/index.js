@@ -1,7 +1,7 @@
-import { LoginLayout } from '../../Layouts/User'
+import { LoginLayout } from "../../Layouts/User";
 
 function Login() {
-  return <LoginLayout />
+  return <LoginLayout />;
 }
 
-export default Login
+export default Login;
